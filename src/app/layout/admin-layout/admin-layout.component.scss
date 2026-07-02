@@ -1,237 +1,349 @@
+// ════════════════════════════════════════════════════════════════
+//  ADMIN LAYOUT — Overlay Sidebar (Right Side Styles for RTL/LTR)
+// ════════════════════════════════════════════════════════════════
+
 :host {
   display: block;
-  height: 100%;
+  min-height: 100vh;
 }
 
-// ── Brand — Green Override ──
+.hms-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+// ══════════════════════════════════════════════
+//  SIDEBAR — Fixed overlay
+// ══════════════════════════════════════════════
+.hms-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 250px; 
+  background-color: #fff;
+  z-index: 1050;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-left: 1px solid #f0fdf4;
+
+  &.mobile-open {
+    transform: translateX(0);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.08);
+  }
+}
+
+// ── Brand (الشريط الأخضر العلوي - موسط وبخط أكبر) ──
 .sidebar-brand {
-  min-height: 62px;
-  background: linear-gradient(135deg, rgba(22, 163, 74, 0.1) 0%, rgba(34, 197, 94, 0.06) 100%);
-  border-bottom: 1px solid #dcfce7;
+  min-height: 52px; 
+  background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  justify-content: center; // توسيط العناصر أفقيًا
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: -30%;
+    width: 140px;
+    height: 180%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+  }
 
   .fa-hospital {
-    color: #15803d !important;
+    color: #fff !important;
+    font-size: 1.35rem; // زيادة حجم الأيقونة لتلائم خط النص الجديد
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     transition: transform 0.3s ease;
   }
 
   &:hover .fa-hospital {
-    transform: scale(1.08);
+    transform: scale(1.1) rotate(-8deg);
   }
 
-  .text-primary {
-    color: #15803d !important;
+  .brand-title {
+    color: #fff;
+    font-size: 1.02rem; // تم تكبير الخط هنا ليصبح أكثر وضوحًا وقوة
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    white-space: nowrap;
+    text-align: center;
   }
 }
 
-// ── Footer ──
-.sidebar-footer {
-  background: transparent;
-  border-top: 1px solid #dcfce7;
+// ── Stagger animations when opening ──
+.hms-sidebar.mobile-open .sidebar-brand {
+  animation: brandSlide 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  .avatar-sm {
-    background: linear-gradient(135deg, #15803d, #22c55e) !important;
-    box-shadow: 0 4px 8px rgba(22, 163, 74, 0.2);
+.hms-sidebar.mobile-open .sidebar-nav li {
+  animation: linkSlide 0.35s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+@for $i from 1 through 18 {
+  .hms-sidebar.mobile-open .sidebar-nav li:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.02}s;
   }
+}
 
-  .btn-outline-danger {
-    border-radius: 8px;
-    border-color: #fecaca;
-    color: #dc2626;
-    font-size: 0.82rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
+@keyframes brandSlide {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
 
-    &:hover {
-      background-color: #fef2f2;
-      border-color: #f87171;
-      color: #b91c1c;
+@keyframes linkSlide {
+  from { opacity: 0; transform: translateX(15px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+// ── Navigation Menu ──
+.sidebar-nav {
+  flex: 1 1 0%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .sidebar-menu {
+    padding: 0 12px; 
+    list-style: none !important;
+    margin: 0;
+
+    li {
+      list-style: none !important;
+      margin-bottom: 16px; // تم زيادة المسافة الرأسية هنا بناءً على طلبك لشكل أكثر اتساعًا وأناقة
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .menu-section-separator {
+      margin-top: 12px;
+      margin-bottom: 12px;
+      list-style: none !important;
     }
   }
 }
 
-// ── Nav Links ──
 .sidebar-nav .nav-link {
   color: #4b5563;
-  border-radius: 10px;
-  margin: 0.2rem 0.5rem;
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
-  font-size: 0.88rem;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.85rem; 
   font-weight: 500;
-  letter-spacing: 0.01em;
+  position: relative;
+  padding: 10px 14px; 
 
   i {
-    font-size: 1rem;
-    width: 20px;
+    font-size: 1.05rem;
+    width: 24px;
     text-align: center;
-    transition: color 0.25s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
   }
 
-  // ── Medical icon colors ──
-  .fa-triangle-exclamation {
-    color: #dc2626;
-  }
-
-  .fa-file-medical {
-    color: #15803d;
-  }
-
-  .fa-thermometer {
-    color: #d97706;
-  }
-
-  .fa-capsules {
-    color: #22c55e;
-  }
-
-  .fa-user-doctor {
-    color: #15803d;
-  }
+  .fa-triangle-exclamation { color: #dc2626; }
+  .fa-file-medical { color: #15803d; }
+  .fa-thermometer { color: #d97706; }
+  .fa-capsules { color: #22c55e; }
+  .fa-user-doctor { color: #15803d; }
 }
 
 .sidebar-nav .nav-link:hover {
   background-color: #f0fdf4;
   color: #15803d;
-  transform: translateX(-2px);
 
   i {
-    color: #16a34a;
+    color: #16a34a !important;
+    transform: scale(1.05);
   }
 }
 
 .sidebar-nav .nav-link.active {
   background: linear-gradient(135deg, #15803d 0%, #22c55e 100%);
   color: #fff;
-  box-shadow: 0 10px 18px rgba(22, 163, 74, 0.25);
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
+  font-weight: 600;
 
   i {
     color: #fff !important;
   }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: -12px; 
+    top: 20%;
+    height: 60%;
+    width: 4px;
+    background: #15803d;
+    border-radius: 0 4px 4px 0;
+  }
 }
 
-// ── Section Label ──
-.sidebar-nav .text-muted.text-uppercase {
+// Section label
+.section-label {
   color: #9ca3af !important;
-  letter-spacing: 0.1em;
-  font-size: 0.65rem;
-  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding-right: 4px;
 }
 
-// ── Topbar ──
-.hms-topbar {
-  background-color: #fff;
-  border-bottom-color: #f0fdf4;
-  min-height: 56px;
+// ── Footer ──
+.sidebar-footer {
+  background: #fafbfc;
+  border-top: 1px solid #f0fdf4;
+  padding: 14px;
+  flex-shrink: 0;
 
-  .h6 {
+  .footer-user-name {
     color: #1f2937;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding: 0 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  .btn-outline-secondary {
-    border-radius: 8px;
-    border-color: #dcfce7;
-    color: #15803d;
-    transition: all 0.3s ease;
+  .btn-outline-danger {
+    border-radius: 10px;
+    border: 1.5px solid #fecaca;
+    color: #dc2626;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 9px 12px;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fff;
+
+    i {
+      font-size: 0.85rem;
+      transition: transform 0.2s ease;
+    }
 
     &:hover {
-      background-color: #f0fdf4;
-      border-color: #22c55e;
-      color: #166534;
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      border-color: transparent;
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+
+      i {
+        transform: translateX(-3px);
+      }
     }
   }
 }
 
-// ── Loading Bar ──
+// ══════════════════════════════════════════════
+//  OVERLAY — Blur behind sidebar
+// ══════════════════════════════════════════════
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.3);
+  z-index: 1040;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: overlayFade 0.3s ease;
+}
+
+@keyframes overlayFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ══════════════════════════════════════════════
+//  MAIN CONTENT
+// ══════════════════════════════════════════════
+.hms-main {
+  flex: 1 1 100%;
+  min-width: 0;
+  background-color: #f8fafc;
+}
+
+// ══════════════════════════════════════════════
+//  TOPBAR
+// ══════════════════════════════════════════════
+.hms-topbar {
+  background-color: #fff;
+  border-bottom: 1px solid #f0fdf4 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  min-height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+
+  .hamburger-btn, .topbar-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1.5px solid #f0fdf4;
+    background-color: #fff;
+    color: #4b5563;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    i {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    &:hover {
+      background-color: #f0fdf4;
+      border-color: #22c55e;
+      color: #15803d;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(34, 197, 94, 0.12);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// ══════════════════════════════════════════════
+//  LOADING BAR & SCROLLBARS
+// ══════════════════════════════════════════════
 .progress {
   .progress-bar {
     background: linear-gradient(90deg, #16a34a, #22c55e, #4ade80);
   }
 }
 
-// ── Mobile Overlay ──
-.sidebar-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1040;
-  backdrop-filter: blur(2px);
-  transition: opacity 0.3s ease;
-}
-
-// ── Sidebar Base ──
-.hms-sidebar {
-  width: 260px;
-  background-color: #fff;
-  border-left: 1px solid #f0fdf4;
-  transition: width 0.3s ease, transform 0.3s ease;
-  z-index: 1050;
-
-  &.collapsed {
-    width: 72px;
-
-    .sidebar-brand .text-dark,
-    .sidebar-brand .text-primary,
-    .sidebar-footer .small,
-    .sidebar-footer .ms-1,
-    .sidebar-nav .nav-link span {
-      display: none;
-    }
-
-    .nav-link {
-      justify-content: center;
-      padding-left: 0;
-      padding-right: 0;
-      margin: 0.2rem 0.35rem;
-    }
-
-    .nav-link i {
-      margin: 0;
-      font-size: 1.1rem;
-    }
-
-    .sidebar-footer .btn-outline-danger {
-      padding: 6px;
-    }
-  }
-
-  @media (max-width: 767.98px) {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    transform: translateX(100%);
-    box-shadow: -8px 0 30px rgba(0, 0, 0, 0.15);
-
-    &.mobile-open {
-      transform: translateX(0);
-    }
-  }
-}
-
-// ── Main Content ──
-.hms-main {
-  background-color: #f8fafc;
-  min-height: 100vh;
-}
-
 .page-shell {
-  max-width: 1400px;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
-// ── Scrollbar ──
 .sidebar-nav::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
-
 .sidebar-nav::-webkit-scrollbar-track {
   background: transparent;
 }
-
 .sidebar-nav::-webkit-scrollbar-thumb {
-  background: #dcfce7;
-  border-radius: 4px;
+  background: #e2e8f0;
+  border-radius: 10px;
 }
-
-.sidebar-nav::-webkit-scrollbar-thumb:hover {
-  background: #bbf7d0;
+.sidebar-nav {
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
 }

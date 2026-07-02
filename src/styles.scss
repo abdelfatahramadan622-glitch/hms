@@ -1,45 +1,109 @@
 /* =============================================
    HMS — Global Styles
+   نظام الألوان: سماوي طبي (فاتح جدًا → لون الكمامة → كحلي مزرق عميق)
    ============================================= */
 
-/* RTL Support */
+/* ── RTL Support ─────────────────────────────── */
+/* هذا المشروع يستخدم حزمة Bootstrap القياسية (LTR)، فالكلاسات
+   "المنطقية" زي ms-*, me-*, border-start, start-0... بتتصرف
+   فعليًا كـ left/right ثابتة ومش بتنقلب لوحدها مع dir="rtl".
+   الكتلة دي بتصلّح السلوك ده لكل التطبيق دفعة واحدة. */
 [dir='rtl'] {
+  $spacers: (0: 0, 1: .25rem, 2: .5rem, 3: 1rem, 4: 1.5rem, 5: 3rem);
+
+  @each $key, $val in $spacers {
+    .ms-#{$key} { margin-right: $val !important; margin-left: unset !important; }
+    .me-#{$key} { margin-left: $val !important; margin-right: unset !important; }
+    .ps-#{$key} { padding-right: $val !important; padding-left: unset !important; }
+    .pe-#{$key} { padding-left: $val !important; padding-right: unset !important; }
+  }
   .ms-auto { margin-right: auto !important; margin-left: unset !important; }
   .me-auto { margin-left: auto !important; margin-right: unset !important; }
+
+  .border-start   { border-right: var(--bs-border-width, 1px) solid var(--bs-border-color, #dee2e6) !important; border-left: 0 !important; }
+  .border-end     { border-left: var(--bs-border-width, 1px) solid var(--bs-border-color, #dee2e6) !important; border-right: 0 !important; }
+  .border-start-0 { border-right: 0 !important; }
+  .border-end-0   { border-left: 0 !important; }
+
+  .rounded-start { border-radius: 0 var(--app-radius-sm) var(--app-radius-sm) 0 !important; }
+  .rounded-end   { border-radius: var(--app-radius-sm) 0 0 var(--app-radius-sm) !important; }
+
+  .start-0  { right: 0 !important; left: auto !important; }
+  .start-50 { right: 50% !important; left: auto !important; }
+  .end-0    { left: 0 !important; right: auto !important; }
+  .end-50   { left: 50% !important; right: auto !important; }
+
+  .text-start { text-align: right !important; }
+  .text-end   { text-align: left !important; }
+
+  .float-start { float: right !important; }
+  .float-end   { float: left !important; }
+
+  /* أمان عام لأي input-group بسيط (بدون كلاسات مخصصة) بيستخدم
+     ترتيب Bootstrap الافتراضي — يصحح الزوايا الدائرية عند الانعكاس */
+  .input-group {
+    > :not(:first-child) {
+      border-top-left-radius: var(--bs-border-radius, .375rem);
+      border-bottom-left-radius: var(--bs-border-radius, .375rem);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    > :not(:last-child) {
+      border-top-right-radius: var(--bs-border-radius, .375rem);
+      border-bottom-right-radius: var(--bs-border-radius, .375rem);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
 }
 
+/* ── الألوان — سماوي طبي ──────────────────────── */
 :root {
   color-scheme: light;
-  --app-bg: #f4f7fb;
+
+  /* مقياس السماوي الكامل — من الفاتح جدًا لعمق الكحلي المزرق */
+  --cyan-50:  #f0fafd;
+  --cyan-100: #dcf3fa;
+  --cyan-200: #b8e7f4;
+  --cyan-300: #7ed3ea;
+  --cyan-400: #45b8d9;
+  --cyan-500: #1f9cbf;
+  --cyan-600: #147fa1;
+  --cyan-700: #126685;
+  --cyan-800: #14536a;
+  --cyan-900: #15455a;
+  --cyan-950: #0a2733;
+
+  --app-bg: #f2f8fb;
   --app-surface: #ffffff;
-  --app-surface-alt: #f8fbff;
-  --app-surface-muted: #eef4ff;
-  --app-text: #14213d;
-  --app-muted: #6b7a90;
-  --app-border: #dde6f1;
-  --app-primary: #2563eb;
-  --app-primary-soft: rgba(37, 99, 235, 0.14);
-  --app-accent: #0ea5e9;
-  --app-shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
-  --app-shadow-sm: 0 10px 24px rgba(15, 23, 42, 0.06);
+  --app-surface-alt: #f6fbfd;
+  --app-surface-muted: #e9f5f9;
+  --app-text: #0c2933;
+  --app-muted: #5f8894;
+  --app-border: #d3ecf3;
+  --app-primary: var(--cyan-600);
+  --app-primary-soft: rgba(20, 127, 161, 0.12);
+  --app-accent: var(--cyan-500);
+  --app-shadow: 0 18px 45px rgba(10, 39, 51, 0.10);
+  --app-shadow-sm: 0 10px 24px rgba(10, 39, 51, 0.06);
   --app-radius: 18px;
   --app-radius-sm: 12px;
 }
 
 [data-bs-theme='dark'] {
   color-scheme: dark;
-  --app-bg: #07111f;
-  --app-surface: #0f172a;
-  --app-surface-alt: #172135;
-  --app-surface-muted: #1d2b3f;
-  --app-text: #e5eefc;
-  --app-muted: #90a3bf;
-  --app-border: #26354e;
-  --app-primary: #5b8cff;
-  --app-primary-soft: rgba(91, 140, 255, 0.18);
-  --app-accent: #38bdf8;
-  --app-shadow: 0 18px 50px rgba(2, 8, 23, 0.45);
-  --app-shadow-sm: 0 10px 24px rgba(2, 8, 23, 0.30);
+  --app-bg: #061820;
+  --app-surface: #0c232c;
+  --app-surface-alt: #0f2b36;
+  --app-surface-muted: #123542;
+  --app-text: #e3f4fa;
+  --app-muted: #8fb8c4;
+  --app-border: #1c3e49;
+  --app-primary: #45b8d9;
+  --app-primary-soft: rgba(69, 184, 217, 0.18);
+  --app-accent: #7ed3ea;
+  --app-shadow: 0 18px 50px rgba(2, 15, 20, 0.45);
+  --app-shadow-sm: 0 10px 24px rgba(2, 15, 20, 0.30);
 }
 
 * { box-sizing: border-box; }
@@ -57,7 +121,7 @@ body {
   font-size: 0.95rem;
   background: var(--app-bg);
   color: var(--app-text);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Tajawal', 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .hms-layout {
@@ -98,7 +162,7 @@ body {
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(2, 8, 23, 0.45);
+  background: rgba(6, 24, 32, 0.45);
   z-index: 999;
 }
 
@@ -113,11 +177,11 @@ body {
   min-height: 64px;
   background: rgba(255,255,255,0.75);
   backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 rgba(148, 163, 184, 0.16);
+  box-shadow: 0 1px 0 rgba(20, 127, 161, 0.12);
 }
 
 [data-bs-theme='dark'] .hms-topbar {
-  background: rgba(15, 23, 42, 0.72);
+  background: rgba(12, 35, 44, 0.72);
 }
 
 /* ── Sidebar Nav ─────────────────────────────── */
@@ -132,13 +196,13 @@ body {
     i { width: 20px; text-align: center; font-size: 1rem; }
 
     &:hover {
-      background: #f0f4ff;
-      color: #0d6efd;
+      background: var(--cyan-50);
+      color: var(--cyan-700);
     }
 
     &.active {
-      background: #e7efff;
-      color: #0d6efd;
+      background: var(--cyan-100);
+      color: var(--cyan-700);
       font-weight: 600;
     }
   }
@@ -209,7 +273,7 @@ body {
 /* ── Widget Rows ─────────────────────────────── */
 .widget-row {
   transition: background 0.15s ease;
-  &:hover { background: #f8f9fa; }
+  &:hover { background: var(--cyan-50); }
 }
 
 /* ── Triage Board ────────────────────────────── */
@@ -217,7 +281,7 @@ body {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(10, 39, 51, 0.08);
   }
 }
 
@@ -257,7 +321,7 @@ body {
 .btn-primary {
   background: linear-gradient(135deg, var(--app-primary) 0%, var(--app-accent) 100%);
   border-color: transparent;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+  box-shadow: 0 10px 20px rgba(20, 127, 161, 0.18);
 }
 
 .btn-outline-secondary {
@@ -272,27 +336,56 @@ body {
 .page-link { border-radius: 8px !important; font-size: 0.875rem; }
 
 /* ── Calendar ────────────────────────────────── */
-.calendar-day { transition: background 0.15s ease; &:hover { background: #f8f9fa; } }
+.calendar-day { transition: background 0.15s ease; &:hover { background: var(--cyan-50); } }
 
-/* ── Transitions ─────────────────────────────── */
+/* ── Transitions & Motion ─────────────────────── */
 .transition-all { transition: all 0.3s ease; }
 .spin { animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+@keyframes hms-fade-in-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hms-scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes hms-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+@keyframes hms-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes hms-glow-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+.animate-in       { animation: hms-fade-in-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-in-scale { animation: hms-scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
 /* ── Scrollbar ───────────────────────────────── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.45); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.7); }
-
-/* ── Login Page ──────────────────────────────── */
-.login-page { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+::-webkit-scrollbar-thumb { background: rgba(20, 127, 161, 0.35); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(20, 127, 161, 0.55); }
 
 /* ── Dark Theme ──────────────────────────────── */
 [data-bs-theme="dark"] {
   .hms-sidebar, .hms-topbar, .card-header, .card-footer {
-    background: #1e1e2e !important;
-    border-color: #2d2d42 !important;
+    background: #0c232c !important;
+    border-color: #1c3e49 !important;
   }
-  .sidebar-nav .nav-link { color: #cdd6f4; &:hover, &.active { background: #313244; color: #89b4fa; } }
+  .sidebar-nav .nav-link { color: #cdeaf2; &:hover, &.active { background: #123542; color: #7ed3ea; } }
 }

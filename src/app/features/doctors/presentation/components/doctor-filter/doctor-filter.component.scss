@@ -2,26 +2,44 @@
 @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
 .filter-card {
-  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
-  box-shadow: 0 1px 3px rgba(22, 101, 52, 0.04) !important;
+  border-radius: 16px !important; border: 1px solid #d3ecf3 !important;
+  box-shadow: 0 1px 3px rgba(10, 39, 51, 0.05) !important;
 }
 
 .form-label {
-  color: #166534; font-weight: 700; font-size: 0.78rem;
+  color: #126685; font-weight: 700; font-size: 0.78rem;
   margin-bottom: 0.35rem;
 }
 
 .form-control, .form-select {
-  border-radius: 10px; border: 1.5px solid #d1e7da; transition: all 0.25s;
+  border-radius: 10px; border: 1.5px solid #cdeaf2; transition: all 0.25s;
   padding: 0.5rem 0.75rem; font-size: 0.88rem;
-  &:focus { border-color: #16a34a; box-shadow: 0 0 0 3.5px rgba(22, 163, 74, 0.1); }
-  &:hover { border-color: #a7d7b8; }
-  &::placeholder { color: #a3c4b0; }
+  &:focus { border-color: #147fa1; box-shadow: 0 0 0 3.5px rgba(20, 127, 161, 0.1); }
+  &:hover { border-color: #9ed7e6; }
+  &::placeholder { color: #a3c9d1; }
 }
 
+// أيقونة البحث — زوايا واتجاه الحد الداخلي بخصائص منطقية
+// (inline-start/end) بدل الاعتماد على "يمين/يسار" ثابتة،
+// عشان الشكل يتصحح تلقائيًا لما الفورم يبقى RTL
 .input-group-text {
-  border-radius: 10px 0 0 10px; border: 1.5px solid #d1e7da; border-right: none;
-  background: #f7fdf9 !important;
+  border: 1.5px solid #cdeaf2;
+  border-start-start-radius: 10px;
+  border-end-start-radius: 10px;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  border-inline-end: none;
+  background: #f5fbfd !important;
+  color: #6b96a3;
+}
+
+// نفس المبدأ لحقل البحث الملاصق للأيقونة
+.form-control.border-start-0 {
+  border-inline-start: none !important;
+  border-start-start-radius: 0 !important;
+  border-end-start-radius: 0 !important;
+  border-start-end-radius: 10px !important;
+  border-end-end-radius: 10px !important;
 }
 
 .reset-btn {
