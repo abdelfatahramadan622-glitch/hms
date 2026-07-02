@@ -1,0 +1,23 @@
+@if (label) {
+  <label class="form-label">
+    {{ label }}
+    @if (required) {
+      <span class="text-danger">*</span>
+    }
+  </label>
+}
+<input
+  type="date"
+  class="form-control"
+  [class.is-invalid]="!!error"
+  [value]="value"
+  [attr.min]="min || null"
+  [attr.max]="max || null"
+  [required]="required"
+  [disabled]="disabled"
+  (input)="update($any($event.target).value)"
+  (blur)="touch()"
+/>
+@if (error) {
+  <div class="invalid-feedback d-block">{{ error }}</div>
+}

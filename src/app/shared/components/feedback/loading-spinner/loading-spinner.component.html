@@ -1,0 +1,13 @@
+<div class="hms-loading-spinner" [class.text-center]="centered">
+  <div
+    class="spinner-border text-primary"
+    [class.spinner-border-sm]="size === 'sm'"
+    [class.hms-loading-spinner__lg]="size === 'lg'"
+    role="status"
+  >
+    <span class="visually-hidden">{{ label }}</span>
+  </div>
+  @if (label) {
+    <div class="small text-muted mt-2">{{ label }}</div>
+  }
+</div>

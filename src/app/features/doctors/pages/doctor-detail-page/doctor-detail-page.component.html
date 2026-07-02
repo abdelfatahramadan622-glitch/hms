@@ -1,0 +1,96 @@
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb small">
+    <li class="breadcrumb-item"><a routerLink="/doctors" class="text-decoration-none">الأطباء</a></li>
+    <li class="breadcrumb-item active">{{ facade.selectedDoctor()?.fullName ?? 'تفاصيل الطبيب' }}</li>
+  </ol>
+</nav>
+
+@if (facade.isDetailLoading()) {
+  <div class="text-center py-5"><div class="spinner-border" role="status"></div></div>
+}
+
+@if (facade.selectedDoctor(); as doctor) {
+  <div class="card border-0 shadow-sm mb-4 detail-header-card">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-start gap-4 flex-wrap">
+        <div class="flex-shrink-0">
+          @if (doctor.avatar) {
+            <img [src]="doctor.avatar" [alt]="doctor.fullName" class="doc-detail-avatar-img" />
+          } @else {
+            <div class="doc-detail-avatar">{{ doctor.firstName.charAt(0) }}{{ doctor.lastName.charAt(0) }}</div>
+          }
+        </div>
+        <div class="flex-grow-1 doc-detail-info">
+          <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+            <h2 class="h5 fw-bold mb-0 doc-detail-name">د. {{ doctor.fullName }}</h2>
+            <span class="badge rounded-pill doc-detail-badge" [ngClass]="statusConfig[doctor.status]?.class ?? 'bg-secondary-subtle text-secondary'">
+              {{ statusConfig[doctor.status]?.label ?? doctor.status }}
+            </span>
+          </div>
+          <div class="doc-detail-spec">{{ doctor.specialization }}</div>
+          <div class="doc-detail-dept">{{ doctor.departmentName }}</div>
+          <div class="doc-detail-meta">
+            <span><i class="fa-solid fa-phone"></i><span dir="ltr">{{ doctor.phone }}</span></span>
+            <span><i class="fa-regular fa-envelope"></i>{{ doctor.email }}</span>
+            <span><i class="fa-solid fa-award"></i>{{ doctor.yearsOfExperience }} سنوات خبرة</span>
+            <span><i class="fa-solid fa-coins"></i>{{ formatCurrency(doctor.consultationFee) }}</span>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <a [routerLink]="['/doctors', doctor.id, 'schedule']" class="btn btn-sm btn-outline-info"><i class="fa-regular fa-calendar"></i>الجدول</a>
+          <a [routerLink]="['/doctors', doctor.id, 'edit']" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pen"></i>تعديل</a>
+          <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDelete()"><i class="fa-regular fa-trash-can"></i>حذف</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12 col-lg-6">
+      <div class="card border-0 shadow-sm h-100 detail-card">
+        <div class="card-header bg-white border-bottom py-3">
+          <h6 class="mb-0 fw-bold"><i class="fa-solid fa-id-badge"></i>بيانات مهنية</h6>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-5">رقم الترخيص</dt>
+            <dd class="col-7" dir="ltr">{{ doctor.licenseNumber }}</dd>
+            <dt class="col-5">انتهاء الترخيص</dt>
+            <dd class="col-7">{{ doctor.licenseExpiryDate | date:'dd/MM/yyyy' }}</dd>
+            <dt class="col-5">القسم</dt>
+            <dd class="col-7">{{ doctor.departmentName }}</dd>
+            <dt class="col-5">تاريخ الانضمام</dt>
+            <dd class="col-7">{{ doctor.joinedAt | date:'dd/MM/yyyy' }}</dd>
+            <dt class="col-5">اللغات</dt>
+            <dd class="col-7">{{ doctor.languages.join('، ') }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card border-0 shadow-sm h-100 detail-card">
+        <div class="card-header bg-white border-bottom py-3">
+          <h6 class="mb-0 fw-bold"><i class="fa-regular fa-clock"></i>جدول العمل</h6>
+        </div>
+        <div class="card-body">
+          <p class="small text-muted mb-2">أيام العمل:</p>
+          <div class="d-flex flex-wrap gap-1 mb-3">
+            @for (day of doctor.availableDays; track day) {
+              <span class="badge day-badge rounded-pill">{{ dayLabels[day] }}</span>
+            }
+          </div>
+          <p class="small text-muted mb-1">ساعات العمل:</p>
+          <div class="doc-shift" dir="ltr">
+            <i class="fa-regular fa-clock"></i>
+            <span>{{ doctor.shiftStart }} – {{ doctor.shiftEnd }}</span>
+          </div>
+          @if (doctor.bio) {
+            <hr class="my-3" style="border-color: #f0f7f2;">
+            <p class="small text-muted mb-1">نبذة:</p>
+            <p class="small mb-0" style="color: #3d6b4f;">{{ doctor.bio }}</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

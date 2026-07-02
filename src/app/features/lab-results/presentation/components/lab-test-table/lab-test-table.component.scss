@@ -1,0 +1,121 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+:host {
+  display: block;
+  animation: fadeUp 0.45s ease-out;
+}
+
+// ── Table Styling ──
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+
+  thead {
+    background-color: #f0fdf4;
+
+    th {
+      border-bottom: 2px solid #dcfce7;
+      color: #15803d;
+      font-weight: 600;
+      padding: 12px 16px;
+      white-space: nowrap;
+    }
+  }
+
+  td, th {
+    border-color: #dcfce7;
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    transition: background-color 0.25s ease;
+
+    &:hover {
+      background-color: #f0fdf4;
+    }
+
+    td {
+      padding: 10px 16px;
+    }
+  }
+
+  // ── Critical Row ──
+  &-danger {
+    > td {
+      background-color: #fef2f2;
+      border-color: #fecaca;
+
+      .badge.bg-danger {
+        background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+        border-radius: 8px;
+        padding: 4px 10px;
+        font-weight: 600;
+      }
+    }
+
+    &:hover > td {
+      background-color: #fee2e2;
+    }
+  }
+
+  // ── Abnormal Row ──
+  &-warning {
+    > td {
+      background-color: #fffbeb;
+      border-color: #fde68a;
+
+      .badge.bg-warning {
+        background: linear-gradient(135deg, #d97706, #f59e0b) !important;
+        border-radius: 8px;
+        padding: 4px 10px;
+        font-weight: 600;
+      }
+    }
+
+    &:hover > td {
+      background-color: #fef3c7;
+    }
+  }
+}
+
+// ── Normal Badge ──
+.badge.bg-success-subtle {
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-weight: 500;
+}
+
+// ── Category Badge ──
+.badge.bg-light {
+  border-color: #e2e8f0;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+// ── Skeleton Shimmer ──
+.placeholder-glow .placeholder {
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+}
+
+// ── Empty State ──
+.text-center {
+  .fa-thermometer {
+    color: #86efac;
+  }
+}

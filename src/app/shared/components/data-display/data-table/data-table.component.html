@@ -1,0 +1,135 @@
+<div class="hms-data-table border rounded bg-white">
+  @if (searchable || pageSizeOptions.length > 1) {
+    <div class="d-flex flex-column flex-md-row gap-2 justify-content-between align-items-md-center p-3 border-bottom">
+      @if (searchable) {
+        <div class="input-group input-group-sm hms-data-table__search">
+          <span class="input-group-text">Search</span>
+          <input
+            type="search"
+            class="form-control"
+            [value]="search()"
+            [attr.aria-label]="'Search ' + tableLabel"
+            (input)="updateSearch($any($event.target).value)"
+          />
+        </div>
+      }
+
+      @if (pageSizeOptions.length > 1) {
+        <div class="d-flex align-items-center gap-2 ms-md-auto">
+          <label class="form-label small text-muted mb-0" for="data-table-page-size">Rows</label>
+          <select
+            id="data-table-page-size"
+            class="form-select form-select-sm w-auto"
+            [value]="pageSizeValue()"
+            (change)="updatePageSize($any($event.target).value)"
+          >
+            @for (option of pageSizeOptions; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="table-responsive position-relative">
+    @if (loading) {
+      <div class="hms-data-table__loading d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" aria-label="Loading table data"></div>
+      </div>
+    }
+
+    <table class="table table-hover align-middle mb-0" [attr.aria-label]="tableLabel">
+      <thead class="table-light">
+        <tr>
+          @for (column of columnsState(); track column.key) {
+            <th [style.width]="column.width || null" [class.text-center]="column.align === 'center'" [class.text-end]="column.align === 'end'">
+              <button
+                type="button"
+                class="btn btn-link btn-sm p-0 text-decoration-none fw-semibold text-body"
+                [class.pe-none]="!column.sortable"
+                [attr.aria-sort]="sortColumn() === column.key ? sortDirection() || 'none' : 'none'"
+                (click)="sort(column)"
+              >
+                {{ column.header }}
+                @if (column.sortable) {
+                  <span class="text-muted ms-1">
+                    @if (sortColumn() === column.key && sortDirection() === 'asc') { ↑ }
+                    @else if (sortColumn() === column.key && sortDirection() === 'desc') { ↓ }
+                    @else { ↕ }
+                  </span>
+                }
+              </button>
+            </th>
+          }
+          @if (actions().length) {
+            <th class="text-end">Actions</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @if (!loading && pagedData().length === 0) {
+          <tr>
+            <td [attr.colspan]="columnsState().length + (actions().length ? 1 : 0)" class="text-center py-5">
+              <div class="text-muted fw-semibold">{{ emptyTitle }}</div>
+              <div class="small text-muted">{{ emptyDescription }}</div>
+            </td>
+          </tr>
+        }
+
+        @for (row of pagedData(); track trackByIndex($index)) {
+          <tr>
+            @for (column of columnsState(); track column.key) {
+              <td [class.text-center]="column.align === 'center'" [class.text-end]="column.align === 'end'">
+                {{ getCellValue(row, column) }}
+              </td>
+            }
+            @if (actions().length) {
+              <td class="text-end">
+                <div class="btn-group btn-group-sm">
+                  @for (action of actions(); track action.label) {
+                    @if (isActionVisible(action, row)) {
+                      <button
+                        type="button"
+                        class="btn"
+                        [class]="'btn-outline-' + (action.variant || 'secondary')"
+                        [disabled]="isActionDisabled(action, row)"
+                        (click)="emitAction(action, row)"
+                      >
+                        @if (action.icon) {
+                          <span class="me-1" aria-hidden="true">{{ action.icon }}</span>
+                        }
+                        {{ action.label }}
+                      </button>
+                    }
+                  }
+                </div>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex flex-column flex-md-row gap-2 justify-content-between align-items-md-center p-3 border-top">
+    <div class="small text-muted">
+      Showing {{ pagedData().length }} of {{ totalItems() }} records
+    </div>
+    <nav aria-label="Table pagination">
+      <ul class="pagination pagination-sm mb-0">
+        <li class="page-item" [class.disabled]="page() === 1">
+          <button class="page-link" type="button" (click)="goToPage(page() - 1)">Previous</button>
+        </li>
+        @for (visiblePage of visiblePages(); track visiblePage) {
+          <li class="page-item" [class.active]="visiblePage === page()">
+            <button class="page-link" type="button" (click)="goToPage(visiblePage)">{{ visiblePage }}</button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="page() === totalPages()">
+          <button class="page-link" type="button" (click)="goToPage(page() + 1)">Next</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

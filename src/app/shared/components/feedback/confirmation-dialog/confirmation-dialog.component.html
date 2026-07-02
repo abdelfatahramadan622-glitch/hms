@@ -1,0 +1,24 @@
+@if (state(); as dialog) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5">{{ dialog.title }}</h2>
+          <button type="button" class="btn-close" aria-label="Close" (click)="close(false)"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0">{{ dialog.message }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="close(false)">
+            {{ dialog.cancelLabel }}
+          </button>
+          <button type="button" class="btn" [class]="'btn-' + dialog.variant" (click)="close(true)">
+            {{ dialog.confirmLabel }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

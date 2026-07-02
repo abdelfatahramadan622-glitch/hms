@@ -1,59 +1,71 @@
-# HMS
+# HMS — نظام إدارة المستشفى
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.3.
+نظام إدارة مستشفى متكامل مبني بـ **Angular 19** باستخدام **Clean Architecture** و **NgRx Signal Store**.
 
-## Development server
+## المتطلبات
 
-To start a local development server, run:
+- Node.js 18.19+ أو 20.9+
+- npm 10+
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## التشغيل
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+التطبيق هيشتغل على `http://localhost:4200`
+
+## البناء للإنتاج
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+## البنية المعمارية
 
-To build the project run:
+المشروع مبني على **Clean Architecture** لكل feature:
 
-```bash
-ng build
+```
+feature/
+├── domain/           # Models, Entities, Repository Interfaces (لا تعتمد على أي حاجة تانية)
+├── infrastructure/   # API Services, DTOs, Mappers, Repository Implementations
+├── application/      # Services, Facades, State (NgRx Signal Store)
+└── presentation/      # Components, Pages
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## الـ Features المتاحة
 
-## Running unit tests
+| Feature | الوصف |
+|---|---|
+| Authentication | تسجيل دخول، استرداد كلمة مرور |
+| Dashboard | لوحة تحكم بالإحصائيات الرئيسية |
+| Patients | إدارة المرضى |
+| Doctors | إدارة الأطباء وجداولهم |
+| Appointments | المواعيد والتقويم |
+| Emergency Cases | حالات الطوارئ ولوحة Triage |
+| Medical Records | السجلات الطبية |
+| Lab Results | نتائج المختبر |
+| Prescriptions | الوصفات الطبية |
+| Billing | الفواتير والمدفوعات |
+| Staff Management | إدارة الموظفين |
+| Analytics | التحليلات والتقارير |
+| Calendar | التقويم العام |
+| Role Management | إدارة الأدوار |
+| Authorization | الصلاحيات |
+| Audit Logs | سجل التدقيق |
+| Notifications | الإشعارات |
+| Real-time Updates | التحديثات الفورية |
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## التقنيات المستخدمة
 
-```bash
-ng test
-```
+- **Angular 19** (Standalone Components, Signals)
+- **NgRx Signal Store** لإدارة الحالة
+- **Bootstrap 5 RTL** للتصميم
+- **Bootstrap Icons**
+- **RxJS** للتعامل مع العمليات غير المتزامنة
 
-## Running end-to-end tests
+## ملاحظات الإعداد
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- عدّل `src/environments/environment.development.ts` لضبط رابط الـ API
+- نظام الـ Auth بيستخدم JWT مخزّن في `localStorage` (مشفّر base64 بشكل أساسي — استبدله بتشفير حقيقي قبل الإنتاج)

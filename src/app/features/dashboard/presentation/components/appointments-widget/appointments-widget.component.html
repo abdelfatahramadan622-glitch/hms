@@ -1,0 +1,41 @@
+<div class="card border-0 shadow-sm h-100">
+  <div class="card-header bg-white border-bottom d-flex align-items-center justify-content-between py-3">
+    <h6 class="mb-0 fw-bold">
+      <i class="fa-regular fa-calendar-check"></i>مواعيد اليوم
+    </h6>
+    <a routerLink="/appointments" class="btn btn-sm btn-outline-primary">عرض الكل</a>
+  </div>
+  <div class="card-body p-0">
+    @if (isLoading()) {
+      @for (i of [1,2,3,4,5]; track i) {
+        <div class="d-flex align-items-center gap-3 px-3 py-3 border-bottom">
+          <div class="placeholder-glow flex-grow-1">
+            <span class="placeholder col-6 d-block mb-1 rounded"></span>
+            <span class="placeholder col-4 rounded"></span>
+          </div>
+          <span class="placeholder col-2 rounded-pill"></span>
+        </div>
+      }
+    } @else if (appointments().length === 0) {
+      <div class="text-center py-5 text-muted">
+        <i class="fa-regular fa-calendar-xmark d-block mb-2"></i>
+        <small>لا توجد مواعيد اليوم</small>
+      </div>
+    } @else {
+      @for (apt of appointments(); track apt.id) {
+        <a [routerLink]="['/appointments', apt.id]"
+          class="d-flex align-items-center gap-3 px-3 py-3 border-bottom text-decoration-none text-dark widget-row">
+          <div class="widget-time flex-shrink-0">{{ apt.time }}</div>
+          <div class="flex-grow-1 min-w-0 widget-info">
+            <div class="fw-semibold small text-truncate w-name">{{ apt.patientName }}</div>
+            <div class="text-muted w-doc">{{ apt.doctorName }}</div>
+          </div>
+          <span class="badge rounded-pill small flex-shrink-0"
+            [ngClass]="statusConfig[apt.status]?.class ?? 'bg-secondary-subtle text-secondary'">
+            {{ statusConfig[apt.status]?.label ?? apt.status }}
+          </span>
+        </a>
+      }
+    }
+  </div>
+</div>

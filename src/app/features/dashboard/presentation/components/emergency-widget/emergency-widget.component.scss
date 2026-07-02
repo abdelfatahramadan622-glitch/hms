@@ -1,0 +1,69 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+  border-radius: 16px !important;
+  border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important;
+  overflow: hidden;
+}
+
+.card-header {
+  background: #fff !important;
+  border-bottom: 1px solid #e8f5ec !important;
+  padding: 0.9rem 1.25rem;
+  h6 {
+    color: #14532d; font-weight: 700; font-size: 0.92rem; margin: 0;
+    i { color: #ef4444; margin-left: 0.5rem; }
+  }
+  .btn {
+    border-radius: 8px; font-size: 0.78rem; font-weight: 600;
+    border: 1.5px solid #fecaca; color: #dc2626; transition: all 0.2s;
+    padding: 0.3rem 0.8rem;
+    &:hover { background: #fef2f2; border-color: #fca5a5; }
+  }
+}
+
+.card-body { padding: 0 !important; }
+
+.widget-row {
+  padding: 0.85rem 1.25rem !important;
+  border-bottom: 1px solid #f0f7f2 !important;
+  transition: all 0.2s;
+  animation: rowSlide 0.3s ease both;
+
+  // Fixing spacing: Gap between triage badge, patient info, and time
+  gap: 1rem !important;
+
+  &:hover { background: #fef2f2; }
+  &:last-child { border-bottom: none !important; }
+}
+@keyframes rowSlide { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+
+.triage-badge {
+  border-radius: 10px !important; font-size: 1rem;
+  transition: transform 0.2s;
+  &:hover { transform: scale(1.1); }
+}
+
+.em-info {
+  display: flex; flex-direction: column; gap: 0.2rem;
+  .em-name { font-size: 0.88rem; font-weight: 600; color: #14532d; }
+  .em-complaint { font-size: 0.76rem; color: #6b9a7e; }
+}
+
+.em-meta {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.2rem;
+  font-size: 0.73rem;
+  .em-time { color: #6b9a7e; }
+  .em-doc { color: #15803d; }
+  .em-unassigned { color: #dc2626; font-weight: 600; }
+}
+
+.text-center.py-5 { color: #a3c4b0; i { font-size: 2rem; margin-bottom: 0.5rem; color: #16a34a; } small { font-size: 0.85rem; } }
+
+.placeholder-glow .placeholder {
+  background: linear-gradient(90deg, #e8f5ec 25%, #f0fdf4 50%, #e8f5ec 75%);
+  background-size: 200% 100%; animation: cms-shimmer 1.5s infinite;
+}
+@keyframes cms-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }

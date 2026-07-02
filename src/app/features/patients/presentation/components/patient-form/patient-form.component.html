@@ -1,0 +1,247 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+  <!-- Section: Personal Info -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold">
+        <i class="fa-solid fa-user text-primary me-2"></i>
+        البيانات الشخصية
+      </h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">الاسم الأول <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="firstName"
+            [class.is-invalid]="f['firstName'].invalid && f['firstName'].touched"
+            placeholder="الاسم الأول" />
+          <div class="invalid-feedback">الاسم الأول مطلوب (2 أحرف على الأقل)</div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">الاسم الأخير <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="lastName"
+            [class.is-invalid]="f['lastName'].invalid && f['lastName'].touched"
+            placeholder="الاسم الأخير" />
+          <div class="invalid-feedback">الاسم الأخير مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">تاريخ الميلاد <span class="text-danger">*</span></label>
+          <input type="date" class="form-control" formControlName="dateOfBirth"
+            [class.is-invalid]="f['dateOfBirth'].invalid && f['dateOfBirth'].touched" />
+          <div class="invalid-feedback">تاريخ الميلاد مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">الجنس <span class="text-danger">*</span></label>
+          <select class="form-select" formControlName="gender"
+            [class.is-invalid]="f['gender'].invalid && f['gender'].touched">
+            <option value="">اختر الجنس</option>
+            <option value="male">ذكر</option>
+            <option value="female">أنثى</option>
+          </select>
+          <div class="invalid-feedback">الجنس مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">فصيلة الدم</label>
+          <select class="form-select" formControlName="bloodType">
+            <option value="">غير محدد</option>
+            @for (bt of bloodTypes; track bt) {
+              <option [value]="bt">{{ bt }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">رقم الهوية الوطنية <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="nationalId"
+            [class.is-invalid]="f['nationalId'].invalid && f['nationalId'].touched"
+            placeholder="14 رقم" maxlength="14" dir="ltr" />
+          <div class="invalid-feedback">رقم الهوية يجب أن يكون 14 رقماً</div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">الحالة الاجتماعية <span class="text-danger">*</span></label>
+          <select class="form-select" formControlName="maritalStatus"
+            [class.is-invalid]="f['maritalStatus'].invalid && f['maritalStatus'].touched">
+            <option value="">اختر</option>
+            <option value="single">أعزب</option>
+            <option value="married">متزوج</option>
+            <option value="divorced">مطلق</option>
+            <option value="widowed">أرمل</option>
+          </select>
+          <div class="invalid-feedback">الحالة الاجتماعية مطلوبة</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Contact Info -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold">
+        <i class="bi bi-telephone-fill text-info me-2"></i>
+        بيانات التواصل
+      </h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">رقم الهاتف <span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" formControlName="phone"
+            [class.is-invalid]="f['phone'].invalid && f['phone'].touched"
+            placeholder="+20xxxxxxxxxx" dir="ltr" />
+          <div class="invalid-feedback">رقم هاتف صحيح مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">البريد الإلكتروني</label>
+          <input type="email" class="form-control" formControlName="email"
+            [class.is-invalid]="f['email'].invalid && f['email'].touched"
+            placeholder="example&#64;email.com" dir="ltr" />
+          <div class="invalid-feedback">بريد إلكتروني غير صحيح</div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-semibold">الشارع <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="street"
+            [class.is-invalid]="f['street'].invalid && f['street'].touched"
+            placeholder="اسم الشارع ورقم المبنى" />
+          <div class="invalid-feedback">العنوان مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">المدينة <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="city"
+            [class.is-invalid]="f['city'].invalid && f['city'].touched" placeholder="المدينة" />
+          <div class="invalid-feedback">المدينة مطلوبة</div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">المحافظة <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="governorate"
+            [class.is-invalid]="f['governorate'].invalid && f['governorate'].touched" placeholder="المحافظة" />
+          <div class="invalid-feedback">المحافظة مطلوبة</div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">الدولة <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="country" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Emergency Contact -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold">
+        <i class="fa-solid fa-phone-volume text-warning me-2"></i>
+        جهة الاتصال في حالات الطوارئ
+      </h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">الاسم <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="emergencyName"
+            [class.is-invalid]="f['emergencyName'].invalid && f['emergencyName'].touched"
+            placeholder="اسم جهة الاتصال" />
+          <div class="invalid-feedback">الاسم مطلوب</div>
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">صلة القرابة <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="emergencyRelation"
+            [class.is-invalid]="f['emergencyRelation'].invalid && f['emergencyRelation'].touched"
+            placeholder="زوج، أب، أخ..." />
+          <div class="invalid-feedback">صلة القرابة مطلوبة</div>
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">رقم الهاتف <span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" formControlName="emergencyPhone"
+            [class.is-invalid]="f['emergencyPhone'].invalid && f['emergencyPhone'].touched"
+            placeholder="+20xxxxxxxxxx" dir="ltr" />
+          <div class="invalid-feedback">رقم هاتف صحيح مطلوب</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Insurance -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold">
+        <i class="bi bi-shield-check text-success me-2"></i>
+        التأمين الصحي
+      </h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">رقم التأمين</label>
+          <input type="text" class="form-control" formControlName="insuranceNumber"
+            placeholder="رقم بوليصة التأمين" dir="ltr" />
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">شركة التأمين</label>
+          <input type="text" class="form-control" formControlName="insuranceProvider"
+            placeholder="اسم شركة التأمين" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Medical Info -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold">
+        <i class="fa-solid fa-file-medical text-danger me-2"></i>
+        المعلومات الطبية
+      </h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">الحساسية</label>
+          <input type="text" class="form-control" formControlName="allergies"
+            placeholder="مفصولة بفاصلة: بنسلين، أسبرين..." />
+          <div class="form-text">أدخل أنواع الحساسية مفصولة بفاصلة</div>
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">الأمراض المزمنة</label>
+          <input type="text" class="form-control" formControlName="chronicDiseases"
+            placeholder="مفصولة بفاصلة: سكري، ضغط..." />
+          <div class="form-text">أدخل الأمراض المزمنة مفصولة بفاصلة</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-semibold">ملاحظات</label>
+          <textarea class="form-control" formControlName="notes" rows="3"
+            placeholder="أي ملاحظات إضافية..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="d-flex gap-3 justify-content-end">
+    <button type="button" class="btn btn-outline-secondary px-4" (click)="cancelled.emit()">
+      إلغاء
+    </button>
+    <button type="submit" class="btn btn-primary px-4" [disabled]="isSaving()">
+      @if (isSaving()) {
+        <span class="spinner-border spinner-border-sm me-2"></span>
+        جاري الحفظ...
+      } @else {
+        <i class="bi bi-check-lg me-2"></i>
+        {{ isEditMode ? 'حفظ التعديلات' : 'إضافة المريض' }}
+      }
+    </button>
+  </div>
+
+</form>

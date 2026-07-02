@@ -1,0 +1,136 @@
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb small">
+    <li class="breadcrumb-item"><a routerLink="/billing/invoices" class="text-decoration-none">الفواتير</a></li>
+    <li class="breadcrumb-item active">{{ isEdit ? 'تعديل' : 'فاتورة جديدة' }}</li>
+  </ol>
+</nav>
+
+<h1 class="h4 fw-bold mb-4">
+  <i class="bi me-2"
+    [class.bi-receipt]="!isEdit"
+    [class.bi-pencil-square]="isEdit"
+    [class.text-primary]="!isEdit"
+    [class.text-warning]="isEdit"></i>
+  {{ isEdit ? 'تعديل الفاتورة' : 'إنشاء فاتورة جديدة' }}
+</h1>
+
+@if (facade.hasError()) {
+  <div class="alert alert-danger d-flex gap-2 mb-4">
+    <i class="bi bi-exclamation-circle-fill"></i>{{ facade.error() }}
+    <button class="btn-close ms-auto" (click)="facade.clearError()"></button>
+  </div>
+}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+  <!-- Basic Info -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle text-primary me-2"></i>معلومات الفاتورة</h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">معرّف المريض <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="patientId"
+            [class.is-invalid]="f['patientId'].invalid && f['patientId'].touched" dir="ltr" />
+          <div class="invalid-feedback">معرّف المريض مطلوب</div>
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">معرّف الموعد</label>
+          <input type="text" class="form-control" formControlName="appointmentId" dir="ltr" placeholder="اختياري" />
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">تاريخ الاستحقاق <span class="text-danger">*</span></label>
+          <input type="date" class="form-control" formControlName="dueDate"
+            [class.is-invalid]="f['dueDate'].invalid && f['dueDate'].touched" />
+          <div class="invalid-feedback">تاريخ الاستحقاق مطلوب</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label fw-semibold">خصم عام (%)</label>
+          <input type="number" class="form-control" formControlName="discountPercent" min="0" max="100" />
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label fw-semibold">ضريبة (%)</label>
+          <input type="number" class="form-control" formControlName="taxPercent" min="0" max="100" />
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">ملاحظات</label>
+          <input type="text" class="form-control" formControlName="notes" placeholder="ملاحظات اختيارية..." />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Items -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+      <h6 class="mb-0 fw-bold"><i class="bi bi-list-ul text-success me-2"></i>البنود</h6>
+      <button type="button" class="btn btn-sm btn-outline-success" (click)="addItem()">
+        <i class="bi bi-plus-lg me-1"></i>إضافة بند
+      </button>
+    </div>
+    <div class="card-body p-3">
+      <div formArrayName="items">
+        @for (item of itemsArray.controls; track $index; let i = $index) {
+          <div [formGroupName]="i" class="row g-2 align-items-end border rounded-3 p-2 mb-2">
+            <div class="col-12 col-md-2">
+              <label class="form-label small fw-semibold mb-1">النوع</label>
+              <select class="form-select form-select-sm" formControlName="type">
+                @for (t of types; track t) {
+                  <option [value]="t">{{ typeLabels[t] }}</option>
+                }
+              </select>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="form-label small fw-semibold mb-1">الوصف <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm" formControlName="description"
+                [class.is-invalid]="item.get('description')!.invalid && item.get('description')!.touched"
+                placeholder="وصف الخدمة أو البند" />
+              <div class="invalid-feedback">الوصف مطلوب</div>
+            </div>
+            <div class="col-4 col-md-2">
+              <label class="form-label small fw-semibold mb-1">الكمية</label>
+              <input type="number" class="form-control form-control-sm" formControlName="quantity" min="1" />
+            </div>
+            <div class="col-4 col-md-2">
+              <label class="form-label small fw-semibold mb-1">سعر الوحدة</label>
+              <input type="number" class="form-control form-control-sm" formControlName="unitPrice" min="0" dir="ltr" />
+            </div>
+            <div class="col-3 col-md-1">
+              <label class="form-label small fw-semibold mb-1">خصم%</label>
+              <input type="number" class="form-control form-control-sm" formControlName="discount" min="0" max="100" />
+            </div>
+            <div class="col-1">
+              @if (itemsArray.length > 1) {
+                <button type="button" class="btn btn-sm btn-outline-danger w-100" (click)="removeItem(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Totals Preview -->
+    <div class="card-footer bg-light border-top p-3">
+      <div class="d-flex justify-content-end gap-4 small">
+        <div class="text-muted">الإجمالي الجزئي: <span class="fw-bold text-dark" dir="ltr">{{ formatCurrency(calculatedSubtotal) }}</span></div>
+        <div class="fw-bold text-primary">الإجمالي الكلي: <span dir="ltr">{{ formatCurrency(calculatedTotal) }}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-3 justify-content-end">
+    <button type="button" class="btn btn-outline-secondary px-4" (click)="onCancel()">إلغاء</button>
+    <button type="submit" class="btn btn-primary px-4" [disabled]="facade.isSaving()">
+      @if (facade.isSaving()) {
+        <span class="spinner-border spinner-border-sm me-2"></span>جاري الحفظ...
+      } @else {
+        <i class="bi bi-check-lg me-2"></i>{{ isEdit ? 'حفظ التعديلات' : 'إنشاء الفاتورة' }}
+      }
+    </button>
+  </div>
+
+</form>

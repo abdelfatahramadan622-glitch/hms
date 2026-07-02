@@ -1,0 +1,47 @@
+<div class="card border-0 shadow-sm h-100">
+  <div class="card-body p-4">
+
+    @if (isLoading()) {
+      <div class="placeholder-glow">
+        <span class="placeholder col-6 d-block mb-3 rounded"></span>
+        <span class="placeholder col-12 d-block mb-2 rounded" style="height: 12px;"></span>
+        <span class="placeholder col-4 rounded"></span>
+      </div>
+    } @else {
+      <div class="d-flex align-items-start justify-content-between mb-3">
+        <div>
+          <p class="text-muted small mb-1">نسبة الإشغال</p>
+          <h3 class="fw-bold mb-0">{{ occupancyPercent() }}<small class="fs-5">%</small></h3>
+        </div>
+        <span class="badge rounded-pill px-3 py-2"
+          [ngClass]="{
+            'bg-danger-subtle text-danger': occupancyPercent() >= 90,
+            'bg-warning-subtle text-warning': occupancyPercent() >= 75 && occupancyPercent() < 90,
+            'bg-success-subtle text-success': occupancyPercent() < 75
+          }">
+          {{ statusLabel() }}
+        </span>
+      </div>
+
+      <div class="progress mb-3" style="height: 12px; border-radius: 6px;">
+        <div
+          class="progress-bar transition-all"
+          [ngClass]="progressColor()"
+          [style.width]="occupancyPercent() + '%'"
+          role="progressbar"
+          [attr.aria-valuenow]="occupancyPercent()"
+          aria-valuemin="0"
+          aria-valuemax="100">
+        </div>
+      </div>
+
+      @if (availableBeds()) {
+        <div class="d-flex align-items-center gap-2 text-muted small">
+          <i class="bi bi-hospital"></i>
+          <span>{{ availableBeds()!.value }} سرير متاح</span>
+        </div>
+      }
+    }
+
+  </div>
+</div>

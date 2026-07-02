@@ -1,0 +1,1 @@
+export { createInsuranceNumber, type InsuranceNumber } from './patient-identifier.vo';

@@ -1,0 +1,140 @@
+<nav aria-label="breadcrumb" class="mb-3 detail-breadcrumb">
+  <ol class="breadcrumb small mb-0">
+    <li class="breadcrumb-item"><a routerLink="/appointments" class="text-decoration-none breadcrumb-link">المواعيد</a></li>
+    <li class="breadcrumb-item active text-muted">تفاصيل الموعد</li>
+  </ol>
+</nav>
+
+@if (facade.isDetailLoading()) {
+  <div class="text-center py-5 detail-loading">
+    <div class="spinner-border" role="status"></div>
+  </div>
+}
+
+@if (facade.selectedAppointment(); as apt) {
+
+  <!-- Header -->
+  <div class="card border-0 shadow-sm mb-4 detail-header-card">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
+        <div>
+          <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+            <h2 class="h5 fw-bold mb-0 detail-title">موعد #{{ apt.appointmentNumber }}</h2>
+            <hms-appointment-status-badge [status]="apt.status" />
+            <span class="badge bg-light text-dark border detail-type-badge">{{ typeLabels[apt.type] }}</span>
+          </div>
+          <div class="detail-meta-text text-muted small">
+            <i class="fa-regular fa-calendar me-1"></i>{{ apt.date | date:'EEEE dd MMMM yyyy':'':'ar' }}
+            &nbsp;|&nbsp;
+            <i class="fa-regular fa-clock me-1"></i>
+            <span dir="ltr">{{ apt.startTime }} – {{ apt.endTime }}</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex gap-2 flex-wrap detail-actions">
+          @if (apt.status === 'scheduled') {
+            <button type="button" class="btn btn-sm btn-success action-success" (click)="onConfirm()">
+              <i class="fa-solid fa-check me-1"></i>تأكيد
+            </button>
+          }
+          @if (apt.status === 'in-progress') {
+            <button type="button" class="btn btn-sm btn-info text-white action-info" (click)="onComplete()">
+              <i class="fa-solid fa-check-double me-1"></i>إنهاء
+            </button>
+          }
+          @if (['scheduled','confirmed'].includes(apt.status)) {
+            <button type="button" class="btn btn-sm btn-outline-danger action-cancel" (click)="onCancel()">
+              <i class="fa-solid fa-xmark me-1"></i>إلغاء
+            </button>
+          }
+          <a [routerLink]="['/appointments', apt.id, 'edit']" class="btn btn-sm btn-light action-edit">
+            <i class="fa-solid fa-pen-to-square me-1"></i>تعديل
+          </a>
+          <button type="button" class="btn btn-sm btn-outline-danger action-delete" (click)="onDelete()">
+            <i class="fa-regular fa-trash-can me-1"></i>حذف
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Details -->
+  <div class="row g-4">
+    <div class="col-12 col-lg-6">
+      <div class="card border-0 shadow-sm h-100 detail-info-card">
+        <div class="card-header bg-white border-bottom py-3">
+          <h6 class="mb-0 fw-bold detail-card-title"><i class="fa-solid fa-user-group me-2"></i>أطراف الموعد</h6>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4 text-muted fw-normal">المريض</dt>
+            <dd class="col-sm-8">
+              <a [routerLink]="['/patients', apt.patientId]" class="text-decoration-none fw-semibold detail-link">
+                {{ apt.patientName }}
+              </a>
+            </dd>
+            <dt class="col-sm-4 text-muted fw-normal mt-2">الطبيب</dt>
+            <dd class="col-sm-8 mt-2">
+              <a [routerLink]="['/doctors', apt.doctorId]" class="text-decoration-none fw-semibold detail-link">
+                د. {{ apt.doctorName }}
+              </a>
+            </dd>
+            <dt class="col-sm-4 text-muted fw-normal mt-2">القسم</dt>
+            <dd class="col-sm-8 mt-2 fw-semibold text-dark">{{ apt.departmentName }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card border-0 shadow-sm h-100 detail-info-card">
+        <div class="card-header bg-white border-bottom py-3">
+          <h6 class="mb-0 fw-bold detail-card-title"><i class="fa-solid fa-receipt me-2"></i>معلومات الدفع</h6>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-sm-4 text-muted fw-normal">رسوم الكشف</dt>
+            <dd class="col-sm-8 fw-bold text-dark fs-6" dir="ltr">{{ formatCurrency(apt.fee) }}</dd>
+            <dt class="col-sm-4 text-muted fw-normal mt-2">حالة الدفع</dt>
+            <dd class="col-sm-8 mt-2">
+              <span class="badge" [class.bg-success]="apt.isPaid" [class.bg-danger]="!apt.isPaid">
+                {{ apt.isPaid ? 'مدفوع' : 'غير مدفوع' }}
+              </span>
+            </dd>
+          </dl>
+          @if (!apt.isPaid) {
+            <a [routerLink]="['/billing/payment']" [queryParams]="{ appointmentId: apt.id }"
+              class="btn btn-sm btn-success mt-3 w-100 pay-btn">
+              <i class="fa-solid fa-credit-card me-1"></i>تسجيل الدفع
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+
+    @if (apt.reason || apt.notes || apt.cancelReason) {
+      <div class="col-12">
+        <div class="card border-0 shadow-sm detail-info-card">
+          <div class="card-header bg-white border-bottom py-3">
+            <h6 class="mb-0 fw-bold detail-card-title"><i class="fa-regular fa-note-sticky me-2"></i>تفاصيل إضافية</h6>
+          </div>
+          <div class="card-body">
+            @if (apt.reason) {
+              <p class="small mb-2"><span class="text-muted">سبب الزيارة:</span> <span class="fw-semibold text-dark">{{ apt.reason }}</span></p>
+            }
+            @if (apt.notes) {
+              <p class="small mb-2"><span class="text-muted">ملاحظات:</span> <span class="text-dark">{{ apt.notes }}</span></p>
+            }
+            @if (apt.cancelReason) {
+              <div class="small p-2 rounded-2 bg-danger-subtle text-danger mt-2">
+                <i class="fa-solid fa-circle-xmark me-1"></i>
+                <span class="fw-semibold">سبب الإلغاء:</span> {{ apt.cancelReason }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

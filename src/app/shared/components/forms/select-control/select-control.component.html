@@ -1,0 +1,25 @@
+@if (label) {
+  <label class="form-label">
+    {{ label }}
+    @if (required) {
+      <span class="text-danger">*</span>
+    }
+  </label>
+}
+<select
+  class="form-select"
+  [class.is-invalid]="!!error"
+  [disabled]="disabled"
+  [required]="required"
+  [value]="selectedIndex() ?? ''"
+  (change)="update($any($event.target).value)"
+  (blur)="touch()"
+>
+  <option value="" disabled>{{ placeholder }}</option>
+  @for (option of options; track option.label + $index) {
+    <option [value]="$index" [disabled]="option.disabled">{{ option.label }}</option>
+  }
+</select>
+@if (error) {
+  <div class="invalid-feedback d-block">{{ error }}</div>
+}

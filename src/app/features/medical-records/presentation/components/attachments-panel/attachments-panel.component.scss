@@ -1,0 +1,110 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+:host {
+  display: block;
+  animation: fadeUp 0.45s ease-out;
+}
+
+// ── Upload Button ──
+.btn-outline-primary {
+  border-radius: 8px;
+  border-color: #bbf7d0;
+  color: #15803d;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #f0fdf4;
+    border-color: #22c55e;
+    color: #166534;
+  }
+
+  &.disabled {
+    opacity: 0.65;
+    pointer-events: none;
+  }
+}
+
+// ── Empty State ──
+.empty-state {
+  border-radius: 12px;
+  border-color: #dcfce7;
+  background-color: #f0fdf4;
+  transition: all 0.3s ease;
+
+  .bi-paperclip {
+    color: #86efac;
+  }
+}
+
+// ── Attachments List ──
+.attachments-list {
+  .attachment-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0fdf4;
+    animation: cardIn 0.35s ease-out both;
+    transition: background-color 0.25s ease;
+    border-radius: 8px;
+
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #f0fdf4;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    // ── File Link ──
+    a.fw-semibold {
+      transition: color 0.2s ease;
+      letter-spacing: 0.01em;
+
+      &:hover {
+        color: #15803d !important;
+      }
+    }
+
+    // ── Action Buttons ──
+    .btn-outline-primary {
+      border-radius: 7px;
+      border-color: #bbf7d0;
+      color: #15803d;
+      padding: 3px 8px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #dcfce7;
+        border-color: #22c55e;
+      }
+    }
+
+    .btn-outline-danger {
+      border-radius: 7px;
+      border-color: #fecaca;
+      color: #dc2626;
+      padding: 3px 8px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #fef2f2;
+        border-color: #f87171;
+      }
+    }
+  }
+}

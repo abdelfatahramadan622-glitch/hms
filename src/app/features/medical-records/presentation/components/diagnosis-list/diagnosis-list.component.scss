@@ -1,0 +1,80 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+:host {
+  display: block;
+  animation: fadeUp 0.45s ease-out;
+}
+
+// ── Diagnosis List ──
+.diagnosis-list {
+  .diagnosis-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f0fdf4;
+    animation: cardIn 0.35s ease-out both;
+    transition: all 0.25s ease;
+
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.06}s;
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #f0fdf4;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 8px;
+    }
+
+    // ── Type Badge ──
+    .badge {
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      min-width: 56px;
+      text-align: center;
+    }
+
+    // ── Diagnosis Name ──
+    .fw-semibold {
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    // ── Code ──
+    [dir="ltr"] {
+      font-family: 'Courier New', monospace;
+      color: #9ca3af;
+    }
+
+    // ── Remove Button ──
+    .btn-outline-danger {
+      border-radius: 7px;
+      border-color: #fecaca;
+      color: #dc2626;
+      padding: 2px 8px;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+
+      &:hover {
+        opacity: 1;
+        background-color: #fef2f2;
+        border-color: #f87171;
+      }
+    }
+  }
+}

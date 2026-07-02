@@ -1,0 +1,81 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.breadcrumb-item a { color: #15803d; text-decoration: none; &:hover { color: #0d9488; } }
+.breadcrumb-item.active { color: #6b9a7e; }
+
+// Header Card
+.detail-header-card {
+  border-radius: 16px !important; border: none !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+  border-left: 5px solid !important; overflow: hidden;
+}
+.detail-header-card .card-body { padding: 1.5rem !important; }
+
+.detail-header-content { display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+
+.em-detail-badge {
+  width: 56px; height: 56px; border-radius: 16px; flex-shrink: 0;
+  display: grid; place-items: center; font-weight: 800; font-size: 1.4rem;
+}
+
+.em-detail-info { display: flex; flex-direction: column; gap: 0.25rem; flex-grow: 1; }
+.em-detail-name { color: #14532d; font-weight: 800; font-size: 1.25rem; margin-bottom: 0.1rem; }
+.em-detail-triage { color: #15803d; font-weight: 700; font-size: 0.92rem; margin-bottom: 0.15rem; }
+.em-detail-meta { color: #6b9a7e; font-size: 0.84rem; i { margin-left: 0.35rem; color: #a3c4b0; } }
+
+.detail-actions {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  .btn { border-radius: 10px; font-weight: 600; font-size: 0.82rem; transition: all 0.25s; border: 1.5px solid transparent; i { margin-left: 0.35rem; } }
+  .btn-success { background: #15803d; color: #fff; &:hover { background: #166534; transform: translateY(-2px); color: #fff; } }
+  .btn-outline-secondary { border-color: #e8f5ec !important; color: #166534; &:hover { background: #f0fdf4; } }
+  .btn-outline-warning { border-color: #fde68a !important; color: #b45309; &:hover { background: #fffbeb; } }
+  .btn-outline-danger { border-color: #fecaca !important; color: #dc2626; &:hover { background: #fef2f2; } }
+}
+
+// Detail Cards
+.detail-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important; transition: all 0.3s;
+  &:hover { box-shadow: 0 4px 16px rgba(22, 101, 52, 0.08) !important; }
+}
+.detail-card .card-header {
+  background: #fff !important; border-bottom: 1px solid #e8f5ec !important;
+  padding: 0.9rem 1.25rem;
+  h6 { color: #14532d; font-weight: 700; font-size: 0.95rem; margin: 0; i { margin-left: 0.5rem; } }
+}
+.detail-card .card-body { padding: 1.25rem !important; }
+
+dl.row { --bs-gutter-x: 1rem; }
+dl dt { color: #6b9a7e; font-size: 0.85rem; padding-bottom: 0.5rem; }
+dl dd { color: #14532d; font-size: 0.9rem; font-weight: 600; padding-bottom: 0.5rem; }
+
+// Symptoms Badges
+.symptom-badge {
+  font-weight: 600; font-size: 0.78rem; padding: 0.35em 0.75em;
+  background: #fffbeb !important; color: #b45309 !important;
+  border: 1px solid #fde68a; border-radius: 8px !important;
+}
+
+.doc-assigned { color: #15803d; font-weight: 600; i { margin-left: 0.4rem; color: #16a34a; } }
+.bed-assigned { color: #0e7490; font-weight: 600; i { margin-left: 0.4rem; } }
+
+// Vital Signs
+.vital-card {
+  border-radius: 12px; padding: 0.65rem; text-align: center;
+  transition: transform 0.2s;
+  &:hover { transform: translateY(-2px); }
+}
+.vital-val { font-weight: 800; font-size: 1.1rem; margin-bottom: 0.1rem; }
+.vital-label { font-size: 0.78rem; color: #6b9a7e; }
+.bg-danger-subtle { background: #fef2f2 !important; }
+.bg-primary-subtle { background: #ecfeff !important; }
+.bg-info-subtle { background: #f5f3ff !important; }
+.bg-warning-subtle { background: #fffbeb !important; }
+.text-danger { color: #b91c1c !important; }
+.text-primary { color: #0e7490 !important; }
+.text-info { color: #7c3aed !important; }
+.text-warning { color: #b45309 !important; }
+
+// Loading
+.text-center .spinner-border { width: 3rem; height: 3rem; border-width: 3px; color: #dc2626 !important; }

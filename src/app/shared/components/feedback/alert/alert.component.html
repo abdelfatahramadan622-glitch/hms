@@ -1,0 +1,16 @@
+@if (visible()) {
+  <div class="alert d-flex align-items-start gap-2 mb-0"
+    [class.alert-dismissible]="dismissible()"
+    [ngClass]="'alert-' + type()"
+    role="alert">
+    @if (icon()) { <i class="bi flex-shrink-0" [ngClass]="icon()!"></i> }
+    <div class="flex-grow-1">
+      @if (title()) { <div class="fw-semibold">{{ title() }}</div> }
+      <ng-content />
+      @if (message()) { <div [class.small]="title()">{{ message() }}</div> }
+    </div>
+    @if (dismissible()) {
+      <button type="button" class="btn-close" aria-label="Dismiss alert" (click)="onDismiss()"></button>
+    }
+  </div>
+}

@@ -1,0 +1,211 @@
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb small">
+    <li class="breadcrumb-item"><a routerLink="/patients" class="text-decoration-none">المرضى</a></li>
+    <li class="breadcrumb-item active">
+      {{ facade.selectedPatient()?.fullName ?? 'تفاصيل المريض' }}
+    </li>
+  </ol>
+</nav>
+
+<!-- Loading -->
+@if (facade.isDetailLoading()) {
+  <div class="card border-0 shadow-sm p-4 mb-4">
+    <div class="d-flex gap-3">
+      <div class="placeholder-glow">
+        <span class="placeholder rounded-circle d-block" style="width: 64px; height: 64px;"></span>
+      </div>
+      <div class="placeholder-glow flex-grow-1">
+        <span class="placeholder col-5 d-block mb-2 rounded" style="height: 1.5rem;"></span>
+        <span class="placeholder col-8 d-block mb-1 rounded"></span>
+        <span class="placeholder col-4 rounded"></span>
+      </div>
+    </div>
+  </div>
+}
+
+@if (facade.selectedPatient(); as patient) {
+
+  <!-- Patient Summary -->
+  <hms-patient-summary [patient]="patient" class="d-block mb-4" />
+
+  <!-- Action Bar -->
+  <div class="d-flex gap-2 mb-4 flex-wrap">
+    <a [routerLink]="['/appointments/new']" [queryParams]="{ patientId: patient.id }"
+      class="btn btn-sm btn-outline-primary">
+      <i class="bi bi-calendar-plus me-1"></i> موعد جديد
+    </a>
+    <a [routerLink]="['/medical-records/new']" [queryParams]="{ patientId: patient.id }"
+      class="btn btn-sm btn-outline-info">
+      <i class="bi bi-file-plus me-1"></i> سجل طبي
+    </a>
+    <a [routerLink]="['/prescriptions/new']" [queryParams]="{ patientId: patient.id }"
+      class="btn btn-sm btn-outline-success">
+      <i class="fa-solid fa-capsules me-1"></i> وصفة طبية
+    </a>
+    <a [routerLink]="['/patients', patient.id, 'edit']" class="btn btn-sm btn-outline-secondary">
+      <i class="bi bi-pencil me-1"></i> تعديل
+    </a>
+    <button type="button" class="btn btn-sm btn-outline-danger ms-auto" (click)="onDelete()">
+      <i class="bi bi-trash me-1"></i> حذف
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'overview'" (click)="setTab('overview')">
+        <i class="bi bi-person me-1"></i> نظرة عامة
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'medical'" (click)="setTab('medical')">
+        <i class="fa-solid fa-file-medical me-1"></i> السجلات الطبية
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'appointments'" (click)="setTab('appointments')">
+        <i class="bi bi-calendar-check me-1"></i> المواعيد
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'billing'" (click)="setTab('billing')">
+        <i class="bi bi-receipt me-1"></i> الفواتير
+      </button>
+    </li>
+  </ul>
+
+  <!-- Tab: Overview -->
+  @if (activeTab === 'overview') {
+    <div class="row g-4">
+
+      <!-- Personal Info -->
+      <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-white border-bottom py-3">
+            <h6 class="mb-0 fw-bold"><i class="bi bi-person-fill text-primary me-2"></i>البيانات الشخصية</h6>
+          </div>
+          <div class="card-body">
+            <dl class="row mb-0 small">
+              <dt class="col-5 text-muted fw-normal">الاسم الكامل</dt>
+              <dd class="col-7 fw-semibold">{{ patient.fullName }}</dd>
+              <dt class="col-5 text-muted fw-normal">تاريخ الميلاد</dt>
+              <dd class="col-7">{{ patient.dateOfBirth | date:'dd/MM/yyyy' }}</dd>
+              <dt class="col-5 text-muted fw-normal">الجنس</dt>
+              <dd class="col-7">{{ genderLabels[patient.gender] }}</dd>
+              <dt class="col-5 text-muted fw-normal">فصيلة الدم</dt>
+              <dd class="col-7">{{ patient.bloodType ?? '—' }}</dd>
+              <dt class="col-5 text-muted fw-normal">رقم الهوية</dt>
+              <dd class="col-7" dir="ltr">{{ patient.nationalId }}</dd>
+              <dt class="col-5 text-muted fw-normal">الحالة الاجتماعية</dt>
+              <dd class="col-7">{{ patient.maritalStatus }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-white border-bottom py-3">
+            <h6 class="mb-0 fw-bold"><i class="bi bi-telephone-fill text-info me-2"></i>بيانات التواصل</h6>
+          </div>
+          <div class="card-body">
+            <dl class="row mb-0 small">
+              <dt class="col-5 text-muted fw-normal">الهاتف</dt>
+              <dd class="col-7" dir="ltr">{{ patient.phone }}</dd>
+              <dt class="col-5 text-muted fw-normal">البريد الإلكتروني</dt>
+              <dd class="col-7">{{ patient.email ?? '—' }}</dd>
+              <dt class="col-5 text-muted fw-normal">المحافظة</dt>
+              <dd class="col-7">{{ patient.address.governorate }}</dd>
+              <dt class="col-5 text-muted fw-normal">المدينة</dt>
+              <dd class="col-7">{{ patient.address.city }}</dd>
+              <dt class="col-5 text-muted fw-normal">العنوان</dt>
+              <dd class="col-7">{{ patient.address.street }}</dd>
+              <dt class="col-5 text-muted fw-normal">طوارئ</dt>
+              <dd class="col-7">
+                {{ patient.emergencyContact.name }} ({{ patient.emergencyContact.relation }})
+                — <span dir="ltr">{{ patient.emergencyContact.phone }}</span>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medical Info -->
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-bottom py-3">
+            <h6 class="mb-0 fw-bold"><i class="fa-solid fa-file-medical text-danger me-2"></i>المعلومات الطبية</h6>
+          </div>
+          <div class="card-body">
+            <div class="row g-3 small">
+              <div class="col-12 col-md-6">
+                <p class="text-muted mb-1">الحساسية</p>
+                @if (patient.allergies.length > 0) {
+                  <div class="d-flex flex-wrap gap-1">
+                    @for (a of patient.allergies; track a) {
+                      <span class="badge bg-danger-subtle text-danger rounded-pill">{{ a }}</span>
+                    }
+                  </div>
+                } @else {
+                  <span class="text-muted">لا توجد حساسية مسجلة</span>
+                }
+              </div>
+              <div class="col-12 col-md-6">
+                <p class="text-muted mb-1">الأمراض المزمنة</p>
+                @if (patient.chronicDiseases.length > 0) {
+                  <div class="d-flex flex-wrap gap-1">
+                    @for (d of patient.chronicDiseases; track d) {
+                      <span class="badge bg-warning-subtle text-warning rounded-pill">{{ d }}</span>
+                    }
+                  </div>
+                } @else {
+                  <span class="text-muted">لا توجد أمراض مزمنة مسجلة</span>
+                }
+              </div>
+              @if (patient.notes) {
+                <div class="col-12">
+                  <p class="text-muted mb-1">ملاحظات</p>
+                  <p class="mb-0">{{ patient.notes }}</p>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  }
+
+  <!-- Tab: Medical Records -->
+  @if (activeTab === 'medical') {
+    <div class="text-center py-5 text-muted">
+      <i class="fa-solid fa-file-medical fs-2 d-block mb-2"></i>
+      <p class="small">سيتم عرض السجلات الطبية هنا</p>
+      <a [routerLink]="['/medical-records']" [queryParams]="{ patientId: patient.id }"
+        class="btn btn-sm btn-outline-primary">عرض السجلات</a>
+    </div>
+  }
+
+  <!-- Tab: Appointments -->
+  @if (activeTab === 'appointments') {
+    <div class="text-center py-5 text-muted">
+      <i class="bi bi-calendar-check fs-2 d-block mb-2"></i>
+      <p class="small">سيتم عرض المواعيد هنا</p>
+      <a [routerLink]="['/appointments']" [queryParams]="{ patientId: patient.id }"
+        class="btn btn-sm btn-outline-primary">عرض المواعيد</a>
+    </div>
+  }
+
+  <!-- Tab: Billing -->
+  @if (activeTab === 'billing') {
+    <div class="text-center py-5 text-muted">
+      <i class="bi bi-receipt fs-2 d-block mb-2"></i>
+      <p class="small">سيتم عرض الفواتير هنا</p>
+      <a [routerLink]="['/billing/invoices']" [queryParams]="{ patientId: patient.id }"
+        class="btn btn-sm btn-outline-primary">عرض الفواتير</a>
+    </div>
+  }
+
+}

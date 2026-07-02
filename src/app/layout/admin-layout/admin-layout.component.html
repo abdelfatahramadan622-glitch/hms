@@ -1,0 +1,198 @@
+<div class="hms-layout d-flex" [class.sidebar-collapsed]="layout.isSidebarCollapsed()">
+
+  <!-- Sidebar -->
+  <aside class="hms-sidebar d-flex flex-column"
+    [class.collapsed]="layout.isSidebarCollapsed()"
+    [class.mobile-open]="layout.isSidebarMobileOpen()">
+
+    <!-- Brand -->
+    <div class="sidebar-brand d-flex align-items-center px-3 py-3 border-bottom">
+      <i class="fa-solid fa-hospital text-primary fs-4 flex-shrink-0"></i>
+      @if (!layout.isSidebarCollapsed()) {
+        <div class="ms-2 overflow-hidden">
+          <div class="fw-bold text-dark lh-sm small">نظام إدارة</div>
+          <div class="fw-bold text-primary lh-sm small">المستشفى</div>
+        </div>
+      }
+    </div>
+
+    <!-- Nav -->
+    <nav class="sidebar-nav flex-grow-1 overflow-y-auto py-2">
+      <ul class="list-unstyled mb-0">
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-speedometer2 flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>لوحة التحكم</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/patients" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-people flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>المرضى</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/doctors" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="fa-solid fa-user-doctor flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>الأطباء</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/appointments" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-calendar-check flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>المواعيد</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/emergency-cases" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="fa-solid fa-triangle-exclamation flex-shrink-0 text-danger"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>الطوارئ</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/medical-records" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="fa-solid fa-file-medical flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>السجلات الطبية</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/lab-results" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="fa-solid fa-thermometer flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>نتائج المختبر</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/prescriptions" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="fa-solid fa-capsules flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>الوصفات الطبية</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/billing" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-receipt flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>الفواتير</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/staff-management" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-person-workspace flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>الموظفون</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/charts-analytics" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-bar-chart flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>التحليلات</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/calendar-scheduling" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-calendar3 flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>التقويم</span> }
+          </a>
+        </li>
+
+        @if (!layout.isSidebarCollapsed()) {
+          <li class="px-3 pt-3 pb-1">
+            <small class="text-muted text-uppercase" style="font-size: 0.65rem; letter-spacing: 0.08em;">الإدارة</small>
+          </li>
+        }
+
+        <li>
+          <a routerLink="/role-management" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-shield flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>الأدوار</span> }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/audit-logs" routerLinkActive="active"
+            class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded mx-2">
+            <i class="bi bi-journal-text flex-shrink-0"></i>
+            @if (!layout.isSidebarCollapsed()) { <span>سجل التدقيق</span> }
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- User & Logout -->
+    <div class="sidebar-footer border-top px-3 py-3">
+      @if (!layout.isSidebarCollapsed()) {
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+            style="width:32px; height:32px; font-size: 0.75rem;">
+            {{ auth.userFullName().charAt(0) }}
+          </div>
+          <div class="overflow-hidden">
+            <div class="small fw-semibold text-truncate">{{ auth.userFullName() }}</div>
+          </div>
+        </div>
+      }
+      <button class="btn btn-sm btn-outline-danger w-100" (click)="onLogout()">
+        <i class="bi bi-box-arrow-right"></i>
+        @if (!layout.isSidebarCollapsed()) { <span class="ms-1">تسجيل الخروج</span> }
+      </button>
+    </div>
+  </aside>
+
+  <!-- Mobile overlay -->
+  @if (layout.isSidebarMobileOpen()) {
+    <div class="sidebar-overlay d-md-none" (click)="layout.closeMobileSidebar()"></div>
+  }
+
+  <!-- Main content -->
+  <div class="hms-main d-flex flex-column flex-grow-1 min-w-0">
+
+    <!-- Topbar -->
+    <header class="hms-topbar d-flex align-items-center px-3 px-md-4 border-bottom">
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary me-2 d-none d-md-flex" (click)="layout.toggleSidebar()">
+          <i class="bi bi-layout-sidebar-reverse"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-secondary me-2 d-md-none" (click)="layout.openMobileSidebar()">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+      </div>
+
+      <h1 class="h6 fw-bold mb-0 flex-grow-1 text-truncate">
+        {{ layout.pageTitleAr() || layout.pageTitle() }}
+      </h1>
+
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary" (click)="theme.toggleTheme()" [title]="theme.isDark() ? 'الوضع النهاري' : 'الوضع الليلي'">
+          <i class="bi" [class.bi-sun]="theme.isDark()" [class.bi-moon]="!theme.isDark()"></i>
+        </button>
+        <a routerLink="/notifications" class="btn btn-sm btn-outline-secondary position-relative">
+          <i class="bi bi-bell"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- Loading bar -->
+    @if (layout.isLoading()) {
+      <div class="progress rounded-0" style="height: 3px;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated w-100"></div>
+      </div>
+    }
+
+    <!-- Page content -->
+    <main class="flex-grow-1 overflow-y-auto p-2 p-sm-3 p-md-4">
+      <div class="page-shell">
+        <router-outlet />
+      </div>
+    </main>
+
+  </div>
+</div>

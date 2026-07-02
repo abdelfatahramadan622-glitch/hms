@@ -1,0 +1,108 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+// Page Header
+.dash-header {
+  h1 { color: #14532d; font-weight: 800; margin-bottom: 0.2rem !important; }
+  .text-muted { color: #6b9a7e; font-size: 0.82rem; }
+}
+
+.header-actions {
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+}
+
+// Period Filter Buttons
+.btn-group {
+  border-radius: 10px; overflow: hidden;
+  border: 1.5px solid #e8f5ec;
+  .btn {
+    border: none !important; border-radius: 0 !important;
+    font-size: 0.8rem; font-weight: 600; color: #166534;
+    padding: 0.4rem 1rem; transition: all 0.2s;
+    background: #fff;
+    &:hover { background: #f0fdf4; }
+    &.btn-primary {
+      background: linear-gradient(135deg, #15803d, #16a34a) !important;
+      color: #fff !important;
+      box-shadow: 0 2px 8px rgba(22, 101, 52, 0.2);
+    }
+  }
+}
+
+.btn-refresh {
+  border-radius: 10px; font-size: 0.85rem; font-weight: 600;
+  border: 1.5px solid #e8f5ec; color: #166534; transition: all 0.2s;
+  width: 38px; height: 38px; padding: 0; display: grid; place-items: center;
+  &:hover { background: #f0fdf4; border-color: #bbf7d0; }
+  &:disabled { opacity: 0.6; }
+  i { transition: transform 0.5s; }
+  .spin { animation: spin 0.8s linear infinite; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// Error Alert
+.alert-danger {
+  border-radius: 12px; border: none; background: #fef2f2; color: #b91c1c;
+  animation: shake 0.4s ease;
+  .btn { border-radius: 8px; font-weight: 600; font-size: 0.8rem; }
+}
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+// Quick Stats Cards
+.stat-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important;
+  background: #fff; transition: all 0.3s; overflow: hidden; position: relative;
+  animation: cardIn 0.4s ease both;
+  &::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  &:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(22, 101, 52, 0.1) !important; }
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.col-lg-3:nth-child(1) .stat-card::before { background: #0e7490; }
+.col-lg-3:nth-child(2) .stat-card::before { background: #7c3aed; }
+.col-lg-3:nth-child(3) .stat-card::before { background: #ef4444; }
+.col-lg-3:nth-child(4) .stat-card::before { background: #16a34a; }
+
+.stat-card .card-body { padding: 1.15rem !important; }
+
+.stat-content {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.stat-label { font-size: 0.8rem; color: #6b9a7e; margin-bottom: 0.35rem; font-weight: 500; }
+.stat-value { color: #14532d; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+
+.stat-trend {
+  display: flex; align-items: center; gap: 0.3rem;
+  font-size: 0.75rem; font-weight: 600;
+  i { font-size: 0.7rem; }
+}
+
+.stat-icon-wrap {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: grid; place-items: center; flex-shrink: 0;
+  i { font-size: 1.2rem; }
+}
+.bg-primary-subtle { background: #ecfeff !important; }
+.bg-info-subtle { background: #f5f3ff !important; }
+.bg-danger-subtle { background: #fef2f2 !important; }
+.bg-success-subtle { background: #f0fdf4 !important; }
+
+.text-primary { color: #0e7490 !important; }
+.text-info { color: #7c3aed !important; }
+.text-danger { color: #dc2626 !important; }
+.text-success { color: #15803d !important; }
+
+.placeholder-glow .placeholder {
+  background: linear-gradient(90deg, #e8f5ec 25%, #f0fdf4 50%, #e8f5ec 75%);
+  background-size: 200% 100%; animation: cms-shimmer 1.5s infinite;
+}
+@keyframes cms-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+// Widget Rows
+.row.g-3.mb-4, .row.g-3 {
+  --bs-gutter-y: 1.25rem;
+  --bs-gutter-x: 1.25rem;
+}

@@ -1,0 +1,136 @@
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+  <div>
+    <h1 class="h4 fw-bold mb-0">نتائج المختبر</h1>
+    @if (!facade.isLoading() && facade.pendingCount() > 0) {
+      <p class="text-warning small mb-0">
+        <i class="bi bi-hourglass me-1"></i>{{ facade.pendingCount() }} نتيجة في الانتظار
+      </p>
+    }
+  </div>
+  <div class="d-flex gap-2">
+    <a routerLink="/lab-results/upload" class="btn btn-sm btn-outline-primary">
+      <i class="bi bi-upload me-1"></i>رفع نتيجة
+    </a>
+    <a routerLink="/lab-results/new" class="btn btn-primary btn-sm">
+      <i class="bi bi-plus-circle-fill me-1"></i>طلب اختبار جديد
+    </a>
+  </div>
+</div>
+
+<!-- Filter -->
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body p-3">
+    <div [formGroup]="searchForm" class="row g-2 align-items-end">
+      <div class="col-12 col-md-7">
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-light"><i class="bi bi-search text-muted"></i></span>
+          <input type="text" class="form-control border-start-0" formControlName="search"
+            placeholder="اسم المريض، رقم النتيجة، اسم الطبيب..." />
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <select class="form-select form-select-sm" formControlName="status">
+          <option value="">كل الحالات</option>
+          @for (s of statusConfig | keyvalue; track s.key) {
+            <option [value]="s.key">{{ s.value?.label }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (facade.hasError()) {
+  <div class="alert alert-danger d-flex gap-2 align-items-center mb-4">
+    <i class="bi bi-exclamation-circle-fill"></i>{{ facade.error() }}
+    <button class="btn btn-sm btn-danger ms-auto" (click)="facade.loadAll()">إعادة المحاولة</button>
+  </div>
+}
+
+@if (facade.isLoading()) {
+  <div class="card border-0 shadow-sm">
+    @for (i of [1,2,3,4,5]; track i) {
+      <div class="card-body border-bottom py-3 placeholder-glow">
+        <span class="placeholder col-3 d-block mb-1 rounded"></span>
+        <span class="placeholder col-5 rounded"></span>
+      </div>
+    }
+  </div>
+} @else if (!facade.hasResults()) {
+  <div class="text-center py-5">
+    <i class="fa-solid fa-thermometer fs-1 text-muted d-block mb-3"></i>
+    <h5 class="fw-bold text-muted">لا توجد نتائج مختبر</h5>
+    <a routerLink="/lab-results/new" class="btn btn-primary mt-3">طلب اختبار جديد</a>
+  </div>
+} @else {
+  <div class="card border-0 shadow-sm mb-4">
+    @for (result of facade.results().items; track result.id) {
+      <div class="card-body border-bottom py-3">
+        <div class="d-flex align-items-start gap-3">
+          <div class="flex-grow-1 min-w-0">
+            <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+              <a [routerLink]="['/lab-results', result.id]"
+                class="fw-semibold text-dark text-decoration-none">
+                #{{ result.resultNumber }}
+              </a>
+              <span class="badge rounded-pill small" [ngClass]="statusConfig[result.status]?.class ?? 'bg-secondary-subtle text-secondary'">
+                <i class="bi me-1" [ngClass]="statusConfig[result.status]?.icon ?? 'bi-circle'"></i>
+                {{ statusConfig[result.status]?.label ?? result.status }}
+              </span>
+              @if (hasCriticalTest(result)) {
+                <span class="badge bg-danger small">
+                  <i class="fa-solid fa-triangle-exclamation me-1"></i>حرج
+                </span>
+              } @else if (hasAbnormalTest(result)) {
+                <span class="badge bg-warning text-dark small">غير طبيعي</span>
+              }
+            </div>
+            <div class="small text-muted">
+              {{ result.patientName }} &nbsp;|&nbsp; د. {{ result.doctorName }}
+              &nbsp;|&nbsp; {{ result.orderedAt | date:'dd/MM/yyyy' }}
+              &nbsp;|&nbsp; {{ result.tests.length }} اختبار
+            </div>
+          </div>
+          <div class="d-flex gap-1 flex-shrink-0">
+            <a [routerLink]="['/lab-results', result.id]" class="btn btn-sm btn-outline-primary">
+              <i class="bi bi-eye"></i>
+            </a>
+            @if (result.status === 'completed') {
+              <button type="button" class="btn btn-sm btn-outline-success" (click)="onApprove(result.id)" title="اعتماد">
+                <i class="fa-solid fa-clipboard-check"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-warning" (click)="onReject(result.id)" title="رفض">
+                <i class="bi bi-x-circle"></i>
+              </button>
+            }
+            <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDelete(result.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (facade.totalPages() > 1) {
+    <nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="facade.currentPage() === 1">
+          <button class="page-link" (click)="onPageChange(facade.currentPage() - 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </li>
+        @for (p of pages; track p) {
+          <li class="page-item" [class.active]="p === facade.currentPage()">
+            <button class="page-link" (click)="onPageChange(p)">{{ p }}</button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="facade.currentPage() === facade.totalPages()">
+          <button class="page-link" (click)="onPageChange(facade.currentPage() + 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
+}

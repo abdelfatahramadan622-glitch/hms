@@ -1,0 +1,25 @@
+<div class="card border-0 shadow-sm h-100">
+  <div class="card-body p-4">
+    @if (isLoading()) {
+      <div class="placeholder-glow">
+        <span class="placeholder col-5 d-block mb-2 rounded"></span>
+        <span class="placeholder col-8 d-block mb-1 rounded" style="height: 2rem;"></span>
+        <span class="placeholder col-3 rounded"></span>
+      </div>
+    } @else if (metric()) {
+      <div class="rev-header">
+        <div>
+          <p class="rev-label">إيرادات اليوم</p>
+          <h3 class="rev-value mb-1" dir="ltr">{{ formatCurrency(metric()!.value) }}</h3>
+          <div class="rev-trend" [ngClass]="getTrendClass(metric()!.trend)">
+            <i class="bi" [ngClass]="getTrendIcon(metric()!.trend)"></i>
+            <span>{{ metric()!.trendPercent }}% مقارنة بالأمس</span>
+          </div>
+        </div>
+        <div class="rev-icon-wrap">
+          <i class="fa-solid fa-coins"></i>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="hms-empty-state text-center py-5 px-3">
+  <div class="hms-empty-state__icon mx-auto mb-3" aria-hidden="true">{{ icon }}</div>
+  <h2 class="h5 mb-2">{{ title }}</h2>
+  <p class="text-muted mb-3">{{ description }}</p>
+  @if (actionLabel) {
+    <button type="button" class="btn btn-primary btn-sm" (click)="action.emit()">
+      {{ actionLabel }}
+    </button>
+  }
+</div>

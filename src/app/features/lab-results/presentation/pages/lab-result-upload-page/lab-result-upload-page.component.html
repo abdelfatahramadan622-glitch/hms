@@ -1,0 +1,90 @@
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb small">
+    <li class="breadcrumb-item"><a routerLink="/lab-results" class="text-decoration-none">نتائج المختبر</a></li>
+    <li class="breadcrumb-item active">رفع نتيجة</li>
+  </ol>
+</nav>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6">
+
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+
+        <h1 class="h5 fw-bold mb-1">
+          <i class="bi bi-upload text-primary me-2"></i>رفع ملف نتيجة PDF
+        </h1>
+        <p class="text-muted small mb-4">يمكنك رفع ملف PDF لنتيجة مختبر موجودة بالفعل في النظام</p>
+
+        @if (uploadSuccess()) {
+          <div class="alert alert-success d-flex align-items-center gap-2">
+            <i class="fa-solid fa-circle-check fs-4"></i>
+            <div>
+              <div class="fw-semibold">تم رفع الملف بنجاح!</div>
+              <div class="small">جاري التحويل إلى صفحة النتيجة...</div>
+            </div>
+          </div>
+        } @else {
+          @if (facade.hasError()) {
+            <div class="alert alert-danger d-flex gap-2 align-items-center mb-4">
+              <i class="bi bi-exclamation-circle-fill"></i>{{ facade.error() }}
+              <button class="btn-close ms-auto" (click)="facade.clearError()"></button>
+            </div>
+          }
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">معرّف النتيجة <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" formControlName="resultId"
+                [class.is-invalid]="form.get('resultId')!.invalid && form.get('resultId')!.touched"
+                placeholder="أدخل معرّف نتيجة المختبر" dir="ltr" />
+              <div class="invalid-feedback">معرّف النتيجة مطلوب</div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold">ملف PDF <span class="text-danger">*</span></label>
+              <div class="border rounded-3 p-4 text-center"
+                [class.border-primary]="selectedFile()"
+                [class.bg-primary-subtle]="selectedFile()">
+                @if (selectedFile()) {
+                  <i class="fa-solid fa-file-pdf text-danger fs-2 d-block mb-2"></i>
+                  <div class="fw-semibold small">{{ selectedFile()!.name }}</div>
+                  <div class="text-muted" style="font-size:0.75rem;">
+                    {{ (selectedFile()!.size / 1024).toFixed(1) }} KB
+                  </div>
+                  <label class="btn btn-sm btn-outline-secondary mt-2">
+                    تغيير الملف
+                    <input type="file" class="d-none" accept=".pdf" (change)="onFileChange($event)" />
+                  </label>
+                } @else {
+                  <i class="bi bi-cloud-upload fs-2 text-muted d-block mb-2"></i>
+                  <p class="text-muted small mb-2">اضغط لاختيار ملف PDF</p>
+                  <label class="btn btn-sm btn-outline-primary">
+                    اختيار ملف
+                    <input type="file" class="d-none" accept=".pdf" (change)="onFileChange($event)" />
+                  </label>
+                }
+              </div>
+            </div>
+
+            <div class="d-flex gap-3">
+              <a routerLink="/lab-results" class="btn btn-outline-secondary flex-grow-1">إلغاء</a>
+              <button type="submit" class="btn btn-primary flex-grow-1"
+                [disabled]="form.invalid || !selectedFile() || facade.isUploading()">
+                @if (facade.isUploading()) {
+                  <span class="spinner-border spinner-border-sm me-2"></span>جاري الرفع...
+                } @else {
+                  <i class="bi bi-upload me-2"></i>رفع الملف
+                }
+              </button>
+            </div>
+
+          </form>
+        }
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,100 @@
+:host {
+  display: block;
+  animation: formIn 0.4s ease both;
+}
+
+@keyframes formIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  border-radius: 16px !important;
+  border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important;
+  overflow: hidden;
+}
+
+.card-header {
+  background: #fff !important;
+  border-bottom: 1px solid #e8f5ec !important;
+  padding: 1rem 1.5rem;
+  
+  h6 {
+    color: #14532d;
+    display: flex; align-items: center; gap: 0.5rem;
+    i { color: #16a34a; font-size: 1.1rem; }
+  }
+}
+
+.card-body { padding: 1.5rem !important; }
+
+.form-label {
+  color: #166534;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.form-control, .form-select {
+  border-radius: 12px;
+  border: 1.5px solid #d1e7da;
+  padding: 0.65rem 1rem;
+  transition: all 0.25s ease;
+  font-size: 0.9rem;
+
+  &::placeholder { color: #a3c4b0; }
+
+  &:focus {
+    border-color: #16a34a;
+    background-color: #fff;
+    box-shadow: 0 0 0 3.5px rgba(22, 163, 74, 0.1);
+  }
+
+  &:hover { border-color: #a7d7b8; }
+  
+  &.is-invalid {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3.5px rgba(239, 68, 68, 0.08);
+  }
+}
+
+.invalid-feedback { font-size: 0.8rem; font-weight: 500; }
+
+textarea.form-control { resize: vertical; min-height: 80px; }
+
+// الأزرار أسفل الفورم
+.d-flex > .btn {
+  padding: 0.7rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-outline-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1.5px solid #e5e7eb !important;
+  &:hover { background: #e5e7eb; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #15803d, #16a34a, #22c55e) !important;
+  background-size: 200% 100% !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(22, 101, 52, 0.25);
+  
+  &:hover:not(:disabled) {
+    background-position: 100% 50% !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(22, 101, 52, 0.3);
+  }
+
+  &:disabled { opacity: 0.6; }
+}
+
+.spinner-border {
+  width: 1.1rem; height: 1.1rem; border-width: 2px;
+}

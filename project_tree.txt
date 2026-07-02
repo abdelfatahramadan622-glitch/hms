@@ -1,0 +1,1259 @@
+﻿HMS/
+├── .agents
+├── public
+├── src
+│   ├── app
+│   │   ├── core
+│   │   │   ├── application
+│   │   │   │   ├── services
+│   │   │   │   │   ├── app-initializer.service.ts
+│   │   │   │   │   ├── bootstrap.service.ts
+│   │   │   │   │   ├── layout.service.ts
+│   │   │   │   │   ├── navigation.service.ts
+│   │   │   │   │   ├── session.service.ts
+│   │   │   │   │   └── theme.service.ts
+│   │   │   │   └── state
+│   │   │   │       ├── app.store.ts
+│   │   │   │       ├── layout.store.ts
+│   │   │   │       └── navigation.store.ts
+│   │   │   ├── constants
+│   │   │   │   ├── app.constants.ts
+│   │   │   │   ├── permissions.constants.ts
+│   │   │   │   ├── roles.constants.ts
+│   │   │   │   └── route-paths.constants.ts
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   │   ├── app-user-context.entity.ts
+│   │   │   │   │   ├── breadcrumb.entity.ts
+│   │   │   │   │   └── menu-item.entity.ts
+│   │   │   │   ├── models
+│   │   │   │   │   ├── api-error.model.ts
+│   │   │   │   │   ├── api-response.model.ts
+│   │   │   │   │   ├── app-config.model.ts
+│   │   │   │   │   ├── application-token.model.ts
+│   │   │   │   │   ├── filtering.model.ts
+│   │   │   │   │   ├── pagination.model.ts
+│   │   │   │   │   └── sorting.model.ts
+│   │   │   │   └── repositories
+│   │   │   │       ├── app-config.repository.ts
+│   │   │   │       └── lookup.repository.ts
+│   │   │   ├── guards
+│   │   │   │   ├── auth.guard.ts
+│   │   │   │   ├── feature-access.guard.ts
+│   │   │   │   ├── guest.guard.ts
+│   │   │   │   ├── permission.guard.ts
+│   │   │   │   ├── role.guard.ts
+│   │   │   │   └── unsaved-changes.guard.ts
+│   │   │   ├── infrastructure
+│   │   │   │   ├── api
+│   │   │   │   │   ├── api-client.service.ts
+│   │   │   │   │   ├── api-endpoints.ts
+│   │   │   │   │   ├── api-url-builder.service.ts
+│   │   │   │   │   └── http-response-mapper.service.ts
+│   │   │   │   ├── logging
+│   │   │   │   │   ├── error-logger.service.ts
+│   │   │   │   │   └── logger.service.ts
+│   │   │   │   ├── realtime
+│   │   │   │   │   ├── realtime-connection.service.ts
+│   │   │   │   │   ├── realtime-event-bus.service.ts
+│   │   │   │   │   └── realtime-events.ts
+│   │   │   │   ├── repositories
+│   │   │   │   │   ├── app-config-api.repository.ts
+│   │   │   │   │   └── lookup-api.repository.ts
+│   │   │   │   └── storage
+│   │   │   │       ├── local-storage.service.ts
+│   │   │   │       ├── secure-storage.service.ts
+│   │   │   │       └── session-storage.service.ts
+│   │   │   ├── interceptors
+│   │   │   │   ├── audit.interceptor.ts
+│   │   │   │   ├── auth-token.interceptor.ts
+│   │   │   │   ├── cache.interceptor.ts
+│   │   │   │   ├── correlation-id.interceptor.ts
+│   │   │   │   ├── error.interceptor.ts
+│   │   │   │   ├── loading.interceptor.ts
+│   │   │   │   └── retry.interceptor.ts
+│   │   │   └── resolvers
+│   │   │       ├── app-config.resolver.ts
+│   │   │       └── user-context.resolver.ts
+│   │   ├── errors
+│   │   │   ├── forbidden-page
+│   │   │   │   ├── forbidden-page.component.html
+│   │   │   │   ├── forbidden-page.component.scss
+│   │   │   │   └── forbidden-page.component.ts
+│   │   │   ├── not-found-page
+│   │   │   │   ├── not-found-page.component.html
+│   │   │   │   ├── not-found-page.component.scss
+│   │   │   │   └── not-found-page.component.ts
+│   │   │   └── server-error-page
+│   │   │       ├── server-error-page.component.html
+│   │   │       ├── server-error-page.component.scss
+│   │   │       └── server-error-page.component.ts
+│   │   ├── features
+│   │   │   ├── appointments
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── appointments.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── appointment.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── appointments.selectors.ts
+│   │   │   │   │       └── appointments.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── appointment.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── appointment-filter.model.ts
+│   │   │   │   │   │   ├── appointment-status.model.ts
+│   │   │   │   │   │   └── appointment.model.ts
+│   │   │   │   │   ├── repositories
+│   │   │   │   │   │   └── appointment.repository.ts
+│   │   │   │   │   └── value-objects
+│   │   │   │   │       └── appointment-slot.vo.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── appointment-api.service.ts
+│   │   │   │   │   ├── dto
+│   │   │   │   │   │   └── appointment.dto.ts
+│   │   │   │   │   ├── mappers
+│   │   │   │   │   │   └── appointment.mapper.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── appointment-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── appointment-card
+│   │   │   │   │   │   │   ├── appointment-card.component.html
+│   │   │   │   │   │   │   ├── appointment-card.component.scss
+│   │   │   │   │   │   │   └── appointment-card.component.ts
+│   │   │   │   │   │   ├── appointment-filter
+│   │   │   │   │   │   │   ├── appointment-filter.component.html
+│   │   │   │   │   │   │   ├── appointment-filter.component.scss
+│   │   │   │   │   │   │   └── appointment-filter.component.ts
+│   │   │   │   │   │   ├── appointment-form
+│   │   │   │   │   │   │   ├── appointment-form.component.html
+│   │   │   │   │   │   │   ├── appointment-form.component.scss
+│   │   │   │   │   │   │   └── appointment-form.component.ts
+│   │   │   │   │   │   └── appointment-status-badge
+│   │   │   │   │   │       ├── appointment-status-badge.component.html
+│   │   │   │   │   │       ├── appointment-status-badge.component.scss
+│   │   │   │   │   │       └── appointment-status-badge.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── appointment-calendar-page
+│   │   │   │   │       │   ├── appointment-calendar-page.component.html
+│   │   │   │   │       │   ├── appointment-calendar-page.component.scss
+│   │   │   │   │       │   └── appointment-calendar-page.component.ts
+│   │   │   │   │       ├── appointment-detail-page
+│   │   │   │   │       │   ├── appointment-detail-page.component.html
+│   │   │   │   │       │   ├── appointment-detail-page.component.scss
+│   │   │   │   │       │   └── appointment-detail-page.component.ts
+│   │   │   │   │       ├── appointment-form-page
+│   │   │   │   │       │   ├── appointment-form-page.component.html
+│   │   │   │   │       │   ├── appointment-form-page.component.scss
+│   │   │   │   │       │   └── appointment-form-page.component.ts
+│   │   │   │   │       └── appointment-list-page
+│   │   │   │   │           ├── appointment-list-page.component.html
+│   │   │   │   │           ├── appointment-list-page.component.scss
+│   │   │   │   │           └── appointment-list-page.component.ts
+│   │   │   │   └── appointments.routes.ts
+│   │   │   ├── audit-logs
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── audit-logs.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── audit-log.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── audit-logs.selectors.ts
+│   │   │   │   │       └── audit-logs.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── audit-log.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   └── audit-log-filter.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── audit-log.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── audit-log-api.service.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── audit-log-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   └── audit-log-filter
+│   │   │   │   │   │       ├── audit-log-filter.component.html
+│   │   │   │   │   │       ├── audit-log-filter.component.scss
+│   │   │   │   │   │       └── audit-log-filter.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       └── audit-log-list-page
+│   │   │   │   │           ├── audit-log-list-page.component.html
+│   │   │   │   │           ├── audit-log-list-page.component.scss
+│   │   │   │   │           └── audit-log-list-page.component.ts
+│   │   │   │   └── audit-logs.routes.ts
+│   │   │   ├── authentication
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── authentication.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   ├── login.service.ts
+│   │   │   │   │   │   ├── logout.service.ts
+│   │   │   │   │   │   ├── password-reset.service.ts
+│   │   │   │   │   │   └── token.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── authentication.selectors.ts
+│   │   │   │   │       └── authentication.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   ├── auth-session.entity.ts
+│   │   │   │   │   │   └── authenticated-user.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── login-request.model.ts
+│   │   │   │   │   │   ├── login-response.model.ts
+│   │   │   │   │   │   ├── password-reset.model.ts
+│   │   │   │   │   │   └── refresh-token-request.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── authentication.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── authentication-api.service.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── authentication-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── login-form
+│   │   │   │   │   │   │   ├── login-form.component.html
+│   │   │   │   │   │   │   ├── login-form.component.scss
+│   │   │   │   │   │   │   └── login-form.component.ts
+│   │   │   │   │   │   └── password-policy
+│   │   │   │   │   │       ├── password-policy.component.html
+│   │   │   │   │   │       ├── password-policy.component.scss
+│   │   │   │   │   │       └── password-policy.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── change-password-page
+│   │   │   │   │       │   ├── change-password-page.component.html
+│   │   │   │   │       │   ├── change-password-page.component.scss
+│   │   │   │   │       │   └── change-password-page.component.ts
+│   │   │   │   │       ├── forgot-password-page
+│   │   │   │   │       │   ├── forgot-password-page.component.html
+│   │   │   │   │       │   ├── forgot-password-page.component.scss
+│   │   │   │   │       │   └── forgot-password-page.component.ts
+│   │   │   │   │       ├── login-page
+│   │   │   │   │       │   ├── login-page.component.html
+│   │   │   │   │       │   ├── login-page.component.scss
+│   │   │   │   │       │   └── login-page.component.ts
+│   │   │   │   │       └── reset-password-page
+│   │   │   │   │           ├── reset-password-page.component.html
+│   │   │   │   │           ├── reset-password-page.component.scss
+│   │   │   │   │           └── reset-password-page.component.ts
+│   │   │   │   └── authentication.routes.ts
+│   │   │   ├── authorization
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── authorization.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── permission.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── authorization.selectors.ts
+│   │   │   │   │       └── authorization.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── permission.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   └── permission.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── permission.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── authorization-api.service.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── permission-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   └── permission-matrix
+│   │   │   │   │   │       ├── permission-matrix.component.html
+│   │   │   │   │   │       ├── permission-matrix.component.scss
+│   │   │   │   │   │       └── permission-matrix.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       └── permissions-page
+│   │   │   │   │           ├── permissions-page.component.html
+│   │   │   │   │           ├── permissions-page.component.scss
+│   │   │   │   │           └── permissions-page.component.ts
+│   │   │   │   └── authorization.routes.ts
+│   │   │   ├── billing
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── billing.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   ├── billing.service.ts
+│   │   │   │   │   │   ├── invoice.service.ts
+│   │   │   │   │   │   └── payment.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── billing.selectors.ts
+│   │   │   │   │       └── billing.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   ├── invoice.entity.ts
+│   │   │   │   │   │   └── payment.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── billing-filter.model.ts
+│   │   │   │   │   │   ├── invoice.model.ts
+│   │   │   │   │   │   └── payment.model.ts
+│   │   │   │   │   ├── repositories
+│   │   │   │   │   │   └── billing.repository.ts
+│   │   │   │   │   └── value-objects
+│   │   │   │   │       └── money.vo.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── billing-api.service.ts
+│   │   │   │   │   ├── dto
+│   │   │   │   │   │   ├── invoice.dto.ts
+│   │   │   │   │   │   └── payment.dto.ts
+│   │   │   │   │   ├── mappers
+│   │   │   │   │   │   └── billing.mapper.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── billing-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── billing-summary
+│   │   │   │   │   │   │   ├── billing-summary.component.html
+│   │   │   │   │   │   │   ├── billing-summary.component.scss
+│   │   │   │   │   │   │   └── billing-summary.component.ts
+│   │   │   │   │   │   ├── invoice-form
+│   │   │   │   │   │   │   ├── invoice-form.component.html
+│   │   │   │   │   │   │   ├── invoice-form.component.scss
+│   │   │   │   │   │   │   └── invoice-form.component.ts
+│   │   │   │   │   │   ├── invoice-items-table
+│   │   │   │   │   │   │   ├── invoice-items-table.component.html
+│   │   │   │   │   │   │   ├── invoice-items-table.component.scss
+│   │   │   │   │   │   │   └── invoice-items-table.component.ts
+│   │   │   │   │   │   └── payment-form
+│   │   │   │   │   │       ├── payment-form.component.html
+│   │   │   │   │   │       ├── payment-form.component.scss
+│   │   │   │   │   │       └── payment-form.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── invoice-detail-page
+│   │   │   │   │       │   ├── invoice-detail-page.component.html
+│   │   │   │   │       │   ├── invoice-detail-page.component.scss
+│   │   │   │   │       │   └── invoice-detail-page.component.ts
+│   │   │   │   │       ├── invoice-form-page
+│   │   │   │   │       │   ├── invoice-form-page.component.html
+│   │   │   │   │       │   ├── invoice-form-page.component.scss
+│   │   │   │   │       │   └── invoice-form-page.component.ts
+│   │   │   │   │       ├── invoice-list-page
+│   │   │   │   │       │   ├── invoice-list-page.component.html
+│   │   │   │   │       │   ├── invoice-list-page.component.scss
+│   │   │   │   │       │   └── invoice-list-page.component.ts
+│   │   │   │   │       └── payment-page
+│   │   │   │   │           ├── payment-page.component.html
+│   │   │   │   │           ├── payment-page.component.scss
+│   │   │   │   │           └── payment-page.component.ts
+│   │   │   │   └── billing.routes.ts
+│   │   │   ├── calendar-scheduling
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── calendar-scheduling.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── calendar.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── calendar-scheduling.selectors.ts
+│   │   │   │   │       └── calendar-scheduling.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── calendar-event.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   └── calendar-view.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── calendar.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── calendar-api.service.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── calendar-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── calendar-event-form
+│   │   │   │   │   │   │   ├── calendar-event-form.component.html
+│   │   │   │   │   │   │   ├── calendar-event-form.component.scss
+│   │   │   │   │   │   │   └── calendar-event-form.component.ts
+│   │   │   │   │   │   ├── calendar-filters
+│   │   │   │   │   │   │   ├── calendar-filters.component.html
+│   │   │   │   │   │   │   ├── calendar-filters.component.scss
+│   │   │   │   │   │   │   └── calendar-filters.component.ts
+│   │   │   │   │   │   └── calendar-view
+│   │   │   │   │   │       ├── calendar-view.component.html
+│   │   │   │   │   │       ├── calendar-view.component.scss
+│   │   │   │   │   │       └── calendar-view.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       └── calendar-page
+│   │   │   │   │           ├── calendar-page.component.html
+│   │   │   │   │           ├── calendar-page.component.scss
+│   │   │   │   │           └── calendar-page.component.ts
+│   │   │   │   └── calendar-scheduling.routes.ts
+│   │   │   ├── charts-analytics
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── charts-analytics.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── analytics.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── charts-analytics.selectors.ts
+│   │   │   │   │       └── charts-analytics.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── analytics-report.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   └── chart-data.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── analytics.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── analytics-api.service.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── analytics-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── occupancy-chart
+│   │   │   │   │   │   │   ├── occupancy-chart.component.html
+│   │   │   │   │   │   │   ├── occupancy-chart.component.scss
+│   │   │   │   │   │   │   └── occupancy-chart.component.ts
+│   │   │   │   │   │   ├── patient-flow-chart
+│   │   │   │   │   │   │   ├── patient-flow-chart.component.html
+│   │   │   │   │   │   │   ├── patient-flow-chart.component.scss
+│   │   │   │   │   │   │   └── patient-flow-chart.component.ts
+│   │   │   │   │   │   ├── report-filter
+│   │   │   │   │   │   │   ├── report-filter.component.html
+│   │   │   │   │   │   │   ├── report-filter.component.scss
+│   │   │   │   │   │   │   └── report-filter.component.ts
+│   │   │   │   │   │   └── revenue-chart
+│   │   │   │   │   │       ├── revenue-chart.component.html
+│   │   │   │   │   │       ├── revenue-chart.component.scss
+│   │   │   │   │   │       └── revenue-chart.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       └── analytics-dashboard-page
+│   │   │   │   │           ├── analytics-dashboard-page.component.html
+│   │   │   │   │           ├── analytics-dashboard-page.component.scss
+│   │   │   │   │           └── analytics-dashboard-page.component.ts
+│   │   │   │   └── charts-analytics.routes.ts
+│   │   │   ├── dashboard
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── dashboard.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── dashboard.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── dashboard.selectors.ts
+│   │   │   │   │       └── dashboard.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── dashboard-metric.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   └── dashboard-filter.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── dashboard.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── dashboard-api.service.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── dashboard-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── appointments-widget
+│   │   │   │   │   │   │   ├── appointments-widget.component.html
+│   │   │   │   │   │   │   ├── appointments-widget.component.scss
+│   │   │   │   │   │   │   └── appointments-widget.component.ts
+│   │   │   │   │   │   ├── emergency-widget
+│   │   │   │   │   │   │   ├── emergency-widget.component.html
+│   │   │   │   │   │   │   ├── emergency-widget.component.scss
+│   │   │   │   │   │   │   └── emergency-widget.component.ts
+│   │   │   │   │   │   ├── occupancy-widget
+│   │   │   │   │   │   │   ├── occupancy-widget.component.html
+│   │   │   │   │   │   │   ├── occupancy-widget.component.scss
+│   │   │   │   │   │   │   └── occupancy-widget.component.ts
+│   │   │   │   │   │   └── revenue-widget
+│   │   │   │   │   │       ├── revenue-widget.component.html
+│   │   │   │   │   │       ├── revenue-widget.component.scss
+│   │   │   │   │   │       └── revenue-widget.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       └── hospital-dashboard-page
+│   │   │   │   │           ├── hospital-dashboard-page.component.html
+│   │   │   │   │           ├── hospital-dashboard-page.component.scss
+│   │   │   │   │           └── hospital-dashboard-page.component.ts
+│   │   │   │   └── dashboard.routes.ts
+│   │   │   ├── doctors
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── doctors.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── doctor.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── doctors.selectors.ts
+│   │   │   │   │       └── doctors.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── doctor.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── doctor-filter.model.ts
+│   │   │   │   │   │   ├── doctor-schedule.model.ts
+│   │   │   │   │   │   └── doctor.model.ts
+│   │   │   │   │   ├── repositories
+│   │   │   │   │   │   └── doctor.repository.ts
+│   │   │   │   │   └── value-objects
+│   │   │   │   │       ├── medical-license.vo.ts
+│   │   │   │   │       └── specialization.vo.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── doctor-api.service.ts
+│   │   │   │   │   ├── dto
+│   │   │   │   │   │   └── doctor.dto.ts
+│   │   │   │   │   ├── mappers
+│   │   │   │   │   │   └── doctor.mapper.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── doctor-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── doctor-card
+│   │   │   │   │   │   │   ├── doctor-card.component.html
+│   │   │   │   │   │   │   ├── doctor-card.component.scss
+│   │   │   │   │   │   │   └── doctor-card.component.ts
+│   │   │   │   │   │   ├── doctor-filter
+│   │   │   │   │   │   │   ├── doctor-filter.component.html
+│   │   │   │   │   │   │   ├── doctor-filter.component.scss
+│   │   │   │   │   │   │   └── doctor-filter.component.ts
+│   │   │   │   │   │   ├── doctor-form
+│   │   │   │   │   │   │   ├── doctor-form.component.html
+│   │   │   │   │   │   │   ├── doctor-form.component.scss
+│   │   │   │   │   │   │   └── doctor-form.component.ts
+│   │   │   │   │   │   └── doctor-schedule-calendar
+│   │   │   │   │   │       ├── doctor-schedule-calendar.component.html
+│   │   │   │   │   │       ├── doctor-schedule-calendar.component.scss
+│   │   │   │   │   │       └── doctor-schedule-calendar.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── doctor-detail-page
+│   │   │   │   │       │   ├── doctor-detail-page.component.html
+│   │   │   │   │       │   ├── doctor-detail-page.component.scss
+│   │   │   │   │       │   └── doctor-detail-page.component.ts
+│   │   │   │   │       ├── doctor-form-page
+│   │   │   │   │       │   ├── doctor-form-page.component.html
+│   │   │   │   │       │   ├── doctor-form-page.component.scss
+│   │   │   │   │       │   └── doctor-form-page.component.ts
+│   │   │   │   │       ├── doctor-list-page
+│   │   │   │   │       │   ├── doctor-list-page.component.html
+│   │   │   │   │       │   ├── doctor-list-page.component.scss
+│   │   │   │   │       │   └── doctor-list-page.component.ts
+│   │   │   │   │       └── doctor-schedule-page
+│   │   │   │   │           ├── doctor-schedule-page.component.html
+│   │   │   │   │           ├── doctor-schedule-page.component.scss
+│   │   │   │   │           └── doctor-schedule-page.component.ts
+│   │   │   │   └── doctors.routes.ts
+│   │   │   ├── emergency-cases
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── emergency-cases.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── emergency-case.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── emergency-cases.selectors.ts
+│   │   │   │   │       └── emergency-cases.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── emergency-case.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── emergency-case.model.ts
+│   │   │   │   │   │   ├── emergency-filter.model.ts
+│   │   │   │   │   │   └── triage.model.ts
+│   │   │   │   │   ├── repositories
+│   │   │   │   │   │   └── emergency-case.repository.ts
+│   │   │   │   │   └── value-objects
+│   │   │   │   │       └── triage-level.vo.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── emergency-case-api.service.ts
+│   │   │   │   │   ├── dto
+│   │   │   │   │   │   └── emergency-case.dto.ts
+│   │   │   │   │   ├── mappers
+│   │   │   │   │   │   └── emergency-case.mapper.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── emergency-case-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── emergency-case-card
+│   │   │   │   │   │   │   ├── emergency-case-card.component.html
+│   │   │   │   │   │   │   ├── emergency-case-card.component.scss
+│   │   │   │   │   │   │   └── emergency-case-card.component.ts
+│   │   │   │   │   │   ├── emergency-case-form
+│   │   │   │   │   │   │   ├── emergency-case-form.component.html
+│   │   │   │   │   │   │   ├── emergency-case-form.component.scss
+│   │   │   │   │   │   │   └── emergency-case-form.component.ts
+│   │   │   │   │   │   └── triage-board
+│   │   │   │   │   │       ├── triage-board.component.html
+│   │   │   │   │   │       ├── triage-board.component.scss
+│   │   │   │   │   │       └── triage-board.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── emergency-case-detail-page
+│   │   │   │   │       │   ├── emergency-case-detail-page.component.html
+│   │   │   │   │       │   ├── emergency-case-detail-page.component.scss
+│   │   │   │   │       │   └── emergency-case-detail-page.component.ts
+│   │   │   │   │       ├── emergency-case-form-page
+│   │   │   │   │       │   ├── emergency-case-form-page.component.html
+│   │   │   │   │       │   ├── emergency-case-form-page.component.scss
+│   │   │   │   │       │   └── emergency-case-form-page.component.ts
+│   │   │   │   │       └── emergency-case-list-page
+│   │   │   │   │           ├── emergency-case-list-page.component.html
+│   │   │   │   │           ├── emergency-case-list-page.component.scss
+│   │   │   │   │           └── emergency-case-list-page.component.ts
+│   │   │   │   └── emergency-cases.routes.ts
+│   │   │   ├── lab-results
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── lab-results.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── lab-result.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── lab-results.selectors.ts
+│   │   │   │   │       └── lab-results.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   ├── lab-result.entity.ts
+│   │   │   │   │   │   └── lab-test.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── lab-result-filter.model.ts
+│   │   │   │   │   │   ├── lab-result.model.ts
+│   │   │   │   │   │   └── lab-test.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── lab-result.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── lab-result-api.service.ts
+│   │   │   │   │   ├── dto
+│   │   │   │   │   │   └── lab-result.dto.ts
+│   │   │   │   │   ├── mappers
+│   │   │   │   │   │   └── lab-result.mapper.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── lab-result-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── lab-result-form
+│   │   │   │   │   │   │   ├── lab-result-form.component.html
+│   │   │   │   │   │   │   ├── lab-result-form.component.scss
+│   │   │   │   │   │   │   └── lab-result-form.component.ts
+│   │   │   │   │   │   ├── lab-result-viewer
+│   │   │   │   │   │   │   ├── lab-result-viewer.component.html
+│   │   │   │   │   │   │   ├── lab-result-viewer.component.scss
+│   │   │   │   │   │   │   └── lab-result-viewer.component.ts
+│   │   │   │   │   │   └── lab-test-table
+│   │   │   │   │   │       ├── lab-test-table.component.html
+│   │   │   │   │   │       ├── lab-test-table.component.scss
+│   │   │   │   │   │       └── lab-test-table.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── lab-result-detail-page
+│   │   │   │   │       │   ├── lab-result-detail-page.component.html
+│   │   │   │   │       │   ├── lab-result-detail-page.component.scss
+│   │   │   │   │       │   └── lab-result-detail-page.component.ts
+│   │   │   │   │       ├── lab-result-list-page
+│   │   │   │   │       │   ├── lab-result-list-page.component.html
+│   │   │   │   │       │   ├── lab-result-list-page.component.scss
+│   │   │   │   │       │   └── lab-result-list-page.component.ts
+│   │   │   │   │       └── lab-result-upload-page
+│   │   │   │   │           ├── lab-result-upload-page.component.html
+│   │   │   │   │           ├── lab-result-upload-page.component.scss
+│   │   │   │   │           └── lab-result-upload-page.component.ts
+│   │   │   │   └── lab-results.routes.ts
+│   │   │   ├── medical-records
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── medical-records.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── medical-record.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── medical-records.selectors.ts
+│   │   │   │   │       └── medical-records.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   ├── diagnosis.entity.ts
+│   │   │   │   │   │   └── medical-record.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── diagnosis.model.ts
+│   │   │   │   │   │   ├── medical-record-filter.model.ts
+│   │   │   │   │   │   ├── medical-record.model.ts
+│   │   │   │   │   │   └── treatment-history.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── medical-record.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── medical-record-api.service.ts
+│   │   │   │   │   ├── dto
+│   │   │   │   │   │   └── medical-record.dto.ts
+│   │   │   │   │   ├── mappers
+│   │   │   │   │   │   └── medical-record.mapper.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── medical-record-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── attachments-panel
+│   │   │   │   │   │   │   ├── attachments-panel.component.html
+│   │   │   │   │   │   │   ├── attachments-panel.component.scss
+│   │   │   │   │   │   │   └── attachments-panel.component.ts
+│   │   │   │   │   │   ├── diagnosis-list
+│   │   │   │   │   │   │   ├── diagnosis-list.component.html
+│   │   │   │   │   │   │   ├── diagnosis-list.component.scss
+│   │   │   │   │   │   │   └── diagnosis-list.component.ts
+│   │   │   │   │   │   ├── medical-record-form
+│   │   │   │   │   │   │   ├── medical-record-form.component.html
+│   │   │   │   │   │   │   ├── medical-record-form.component.scss
+│   │   │   │   │   │   │   └── medical-record-form.component.ts
+│   │   │   │   │   │   └── treatment-history
+│   │   │   │   │   │       ├── treatment-history.component.html
+│   │   │   │   │   │       ├── treatment-history.component.scss
+│   │   │   │   │   │       └── treatment-history.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── medical-record-detail-page
+│   │   │   │   │       │   ├── medical-record-detail-page.component.html
+│   │   │   │   │       │   ├── medical-record-detail-page.component.scss
+│   │   │   │   │       │   └── medical-record-detail-page.component.ts
+│   │   │   │   │       ├── medical-record-form-page
+│   │   │   │   │       │   ├── medical-record-form-page.component.html
+│   │   │   │   │       │   ├── medical-record-form-page.component.scss
+│   │   │   │   │       │   └── medical-record-form-page.component.ts
+│   │   │   │   │       └── medical-record-list-page
+│   │   │   │   │           ├── medical-record-list-page.component.html
+│   │   │   │   │           ├── medical-record-list-page.component.scss
+│   │   │   │   │           └── medical-record-list-page.component.ts
+│   │   │   │   └── medical-records.routes.ts
+│   │   │   ├── notifications
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── notifications.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── notification.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── notifications.selectors.ts
+│   │   │   │   │       └── notifications.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── notification.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   └── notification-preference.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── notification.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── notification-api.service.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── notification-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── notification-item
+│   │   │   │   │   │   │   ├── notification-item.component.html
+│   │   │   │   │   │   │   ├── notification-item.component.scss
+│   │   │   │   │   │   │   └── notification-item.component.ts
+│   │   │   │   │   │   ├── notification-list
+│   │   │   │   │   │   │   ├── notification-list.component.html
+│   │   │   │   │   │   │   ├── notification-list.component.scss
+│   │   │   │   │   │   │   └── notification-list.component.ts
+│   │   │   │   │   │   └── notification-preferences
+│   │   │   │   │   │       ├── notification-preferences.component.html
+│   │   │   │   │   │       ├── notification-preferences.component.scss
+│   │   │   │   │   │       └── notification-preferences.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       └── notification-center-page
+│   │   │   │   │           ├── notification-center-page.component.html
+│   │   │   │   │           ├── notification-center-page.component.scss
+│   │   │   │   │           └── notification-center-page.component.ts
+│   │   │   │   └── notifications.routes.ts
+│   │   │   ├── patients
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── patients.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── patient.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── patients.selectors.ts
+│   │   │   │   │       └── patients.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── patient.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── patient-contact.model.ts
+│   │   │   │   │   │   ├── patient-filter.model.ts
+│   │   │   │   │   │   └── patient.model.ts
+│   │   │   │   │   ├── repositories
+│   │   │   │   │   │   └── patient.repository.ts
+│   │   │   │   │   └── value-objects
+│   │   │   │   │       ├── insurance-number.vo.ts
+│   │   │   │   │       └── patient-identifier.vo.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── patient-api.service.ts
+│   │   │   │   │   ├── dto
+│   │   │   │   │   │   └── patient.dto.ts
+│   │   │   │   │   ├── mappers
+│   │   │   │   │   │   └── patient.mapper.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── patient-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── patient-card
+│   │   │   │   │   │   │   ├── patient-card.component.html
+│   │   │   │   │   │   │   ├── patient-card.component.scss
+│   │   │   │   │   │   │   └── patient-card.component.ts
+│   │   │   │   │   │   ├── patient-filter
+│   │   │   │   │   │   │   ├── patient-filter.component.html
+│   │   │   │   │   │   │   ├── patient-filter.component.scss
+│   │   │   │   │   │   │   └── patient-filter.component.ts
+│   │   │   │   │   │   ├── patient-form
+│   │   │   │   │   │   │   ├── patient-form.component.html
+│   │   │   │   │   │   │   ├── patient-form.component.scss
+│   │   │   │   │   │   │   └── patient-form.component.ts
+│   │   │   │   │   │   └── patient-summary
+│   │   │   │   │   │       ├── patient-summary.component.html
+│   │   │   │   │   │       ├── patient-summary.component.scss
+│   │   │   │   │   │       └── patient-summary.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── patient-detail-page
+│   │   │   │   │       │   ├── patient-detail-page.component.html
+│   │   │   │   │       │   ├── patient-detail-page.component.scss
+│   │   │   │   │       │   └── patient-detail-page.component.ts
+│   │   │   │   │       ├── patient-form-page
+│   │   │   │   │       │   ├── patient-form-page.component.html
+│   │   │   │   │       │   ├── patient-form-page.component.scss
+│   │   │   │   │       │   └── patient-form-page.component.ts
+│   │   │   │   │       └── patient-list-page
+│   │   │   │   │           ├── patient-list-page.component.html
+│   │   │   │   │           ├── patient-list-page.component.scss
+│   │   │   │   │           └── patient-list-page.component.ts
+│   │   │   │   └── patients.routes.ts
+│   │   │   ├── prescriptions
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── prescriptions.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── prescription.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── prescriptions.selectors.ts
+│   │   │   │   │       └── prescriptions.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   ├── medication.entity.ts
+│   │   │   │   │   │   └── prescription.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   ├── dosage.model.ts
+│   │   │   │   │   │   ├── medication.model.ts
+│   │   │   │   │   │   ├── prescription-filter.model.ts
+│   │   │   │   │   │   └── prescription.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── prescription.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── prescription-api.service.ts
+│   │   │   │   │   ├── dto
+│   │   │   │   │   │   └── prescription.dto.ts
+│   │   │   │   │   ├── mappers
+│   │   │   │   │   │   └── prescription.mapper.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── prescription-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── dosage-instructions
+│   │   │   │   │   │   │   ├── dosage-instructions.component.html
+│   │   │   │   │   │   │   ├── dosage-instructions.component.scss
+│   │   │   │   │   │   │   └── dosage-instructions.component.ts
+│   │   │   │   │   │   ├── medication-list
+│   │   │   │   │   │   │   ├── medication-list.component.html
+│   │   │   │   │   │   │   ├── medication-list.component.scss
+│   │   │   │   │   │   │   └── medication-list.component.ts
+│   │   │   │   │   │   └── prescription-form
+│   │   │   │   │   │       ├── prescription-form.component.html
+│   │   │   │   │   │       ├── prescription-form.component.scss
+│   │   │   │   │   │       └── prescription-form.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── prescription-detail-page
+│   │   │   │   │       │   ├── prescription-detail-page.component.html
+│   │   │   │   │       │   ├── prescription-detail-page.component.scss
+│   │   │   │   │       │   └── prescription-detail-page.component.ts
+│   │   │   │   │       ├── prescription-form-page
+│   │   │   │   │       │   ├── prescription-form-page.component.html
+│   │   │   │   │       │   ├── prescription-form-page.component.scss
+│   │   │   │   │       │   └── prescription-form-page.component.ts
+│   │   │   │   │       └── prescription-list-page
+│   │   │   │   │           ├── prescription-list-page.component.html
+│   │   │   │   │           ├── prescription-list-page.component.scss
+│   │   │   │   │           └── prescription-list-page.component.ts
+│   │   │   │   └── prescriptions.routes.ts
+│   │   │   ├── real-time-updates
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── real-time-updates.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── realtime-notification.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── real-time-updates.selectors.ts
+│   │   │   │   │       └── real-time-updates.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── realtime-message.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   └── realtime-subscription.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── realtime.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── realtime-api.service.ts
+│   │   │   │   │   ├── repositories
+│   │   │   │   │   │   └── realtime-api.repository.ts
+│   │   │   │   │   └── websocket
+│   │   │   │   │       └── realtime-websocket.service.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── connection-status
+│   │   │   │   │   │   │   ├── connection-status.component.html
+│   │   │   │   │   │   │   ├── connection-status.component.scss
+│   │   │   │   │   │   │   └── connection-status.component.ts
+│   │   │   │   │   │   └── live-events-panel
+│   │   │   │   │   │       ├── live-events-panel.component.html
+│   │   │   │   │   │       ├── live-events-panel.component.scss
+│   │   │   │   │   │       └── live-events-panel.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       └── realtime-monitor-page
+│   │   │   │   │           ├── realtime-monitor-page.component.html
+│   │   │   │   │           ├── realtime-monitor-page.component.scss
+│   │   │   │   │           └── realtime-monitor-page.component.ts
+│   │   │   │   └── real-time-updates.routes.ts
+│   │   │   ├── role-management
+│   │   │   │   ├── application
+│   │   │   │   │   ├── facades
+│   │   │   │   │   │   └── role-management.facade.ts
+│   │   │   │   │   ├── services
+│   │   │   │   │   │   └── role.service.ts
+│   │   │   │   │   └── state
+│   │   │   │   │       ├── role-management.selectors.ts
+│   │   │   │   │       └── role-management.store.ts
+│   │   │   │   ├── domain
+│   │   │   │   │   ├── entities
+│   │   │   │   │   │   └── role.entity.ts
+│   │   │   │   │   ├── models
+│   │   │   │   │   │   └── role.model.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── role.repository.ts
+│   │   │   │   ├── infrastructure
+│   │   │   │   │   ├── api
+│   │   │   │   │   │   └── role-management-api.service.ts
+│   │   │   │   │   └── repositories
+│   │   │   │   │       └── role-api.repository.ts
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── components
+│   │   │   │   │   │   ├── role-form
+│   │   │   │   │   │   │   ├── role-form.component.html
+│   │   │   │   │   │   │   ├── role-form.component.scss
+│   │   │   │   │   │   │   └── role-form.component.ts
+│   │   │   │   │   │   └── role-permissions
+│   │   │   │   │   │       ├── role-permissions.component.html
+│   │   │   │   │   │       ├── role-permissions.component.scss
+│   │   │   │   │   │       └── role-permissions.component.ts
+│   │   │   │   │   └── pages
+│   │   │   │   │       ├── role-detail-page
+│   │   │   │   │       │   ├── role-detail-page.component.html
+│   │   │   │   │       │   ├── role-detail-page.component.scss
+│   │   │   │   │       │   └── role-detail-page.component.ts
+│   │   │   │   │       ├── role-form-page
+│   │   │   │   │       │   ├── role-form-page.component.html
+│   │   │   │   │       │   ├── role-form-page.component.scss
+│   │   │   │   │       │   └── role-form-page.component.ts
+│   │   │   │   │       └── role-list-page
+│   │   │   │   │           ├── role-list-page.component.html
+│   │   │   │   │           ├── role-list-page.component.scss
+│   │   │   │   │           └── role-list-page.component.ts
+│   │   │   │   └── role-management.routes.ts
+│   │   │   └── staff-management
+│   │   │       ├── application
+│   │   │       │   ├── facades
+│   │   │       │   │   └── staff-management.facade.ts
+│   │   │       │   ├── services
+│   │   │       │   │   └── staff.service.ts
+│   │   │       │   └── state
+│   │   │       │       ├── staff-management.selectors.ts
+│   │   │       │       └── staff-management.store.ts
+│   │   │       ├── domain
+│   │   │       │   ├── entities
+│   │   │       │   │   └── staff-member.entity.ts
+│   │   │       │   ├── models
+│   │   │       │   │   ├── department.model.ts
+│   │   │       │   │   ├── staff-filter.model.ts
+│   │   │       │   │   └── staff-member.model.ts
+│   │   │       │   └── repositories
+│   │   │       │       └── staff.repository.ts
+│   │   │       ├── infrastructure
+│   │   │       │   ├── api
+│   │   │       │   │   └── staff-api.service.ts
+│   │   │       │   ├── dto
+│   │   │       │   │   └── staff-member.dto.ts
+│   │   │       │   ├── mappers
+│   │   │       │   │   └── staff.mapper.ts
+│   │   │       │   └── repositories
+│   │   │       │       └── staff-api.repository.ts
+│   │   │       ├── presentation
+│   │   │       │   ├── components
+│   │   │       │   │   ├── department-selector
+│   │   │       │   │   │   ├── department-selector.component.html
+│   │   │       │   │   │   ├── department-selector.component.scss
+│   │   │       │   │   │   └── department-selector.component.ts
+│   │   │       │   │   ├── staff-card
+│   │   │       │   │   │   ├── staff-card.component.html
+│   │   │       │   │   │   ├── staff-card.component.scss
+│   │   │       │   │   │   └── staff-card.component.ts
+│   │   │       │   │   └── staff-form
+│   │   │       │   │       ├── staff-form.component.html
+│   │   │       │   │       ├── staff-form.component.scss
+│   │   │       │   │       └── staff-form.component.ts
+│   │   │       │   └── pages
+│   │   │       │       ├── staff-detail-page
+│   │   │       │       │   ├── staff-detail-page.component.html
+│   │   │       │       │   ├── staff-detail-page.component.scss
+│   │   │       │       │   └── staff-detail-page.component.ts
+│   │   │       │       ├── staff-form-page
+│   │   │       │       │   ├── staff-form-page.component.html
+│   │   │       │       │   ├── staff-form-page.component.scss
+│   │   │       │       │   └── staff-form-page.component.ts
+│   │   │       │       └── staff-list-page
+│   │   │       │           ├── staff-list-page.component.html
+│   │   │       │           ├── staff-list-page.component.scss
+│   │   │       │           └── staff-list-page.component.ts
+│   │   │       └── staff-management.routes.ts
+│   │   ├── layout
+│   │   │   ├── admin-layout
+│   │   │   │   ├── admin-layout.component.html
+│   │   │   │   ├── admin-layout.component.scss
+│   │   │   │   └── admin-layout.component.ts
+│   │   │   ├── auth-layout
+│   │   │   │   ├── auth-layout.component.html
+│   │   │   │   ├── auth-layout.component.scss
+│   │   │   │   └── auth-layout.component.ts
+│   │   │   ├── error-layout
+│   │   │   │   ├── error-layout.component.html
+│   │   │   │   ├── error-layout.component.scss
+│   │   │   │   └── error-layout.component.ts
+│   │   │   └── shell
+│   │   │       ├── shell.component.html
+│   │   │       ├── shell.component.scss
+│   │   │       └── shell.component.ts
+│   │   ├── shared
+│   │   │   ├── components
+│   │   │   │   ├── buttons
+│   │   │   │   │   ├── icon-button
+│   │   │   │   │   │   ├── icon-button.component.html
+│   │   │   │   │   │   ├── icon-button.component.scss
+│   │   │   │   │   │   └── icon-button.component.ts
+│   │   │   │   │   ├── primary-button
+│   │   │   │   │   │   ├── primary-button.component.html
+│   │   │   │   │   │   ├── primary-button.component.scss
+│   │   │   │   │   │   └── primary-button.component.ts
+│   │   │   │   │   └── split-button
+│   │   │   │   │       ├── split-button.component.html
+│   │   │   │   │       ├── split-button.component.scss
+│   │   │   │   │       └── split-button.component.ts
+│   │   │   │   ├── charts
+│   │   │   │   │   ├── bar-chart
+│   │   │   │   │   │   ├── bar-chart.component.html
+│   │   │   │   │   │   ├── bar-chart.component.scss
+│   │   │   │   │   │   └── bar-chart.component.ts
+│   │   │   │   │   ├── dashboard-chart
+│   │   │   │   │   │   ├── dashboard-chart.component.html
+│   │   │   │   │   │   ├── dashboard-chart.component.scss
+│   │   │   │   │   │   └── dashboard-chart.component.ts
+│   │   │   │   │   ├── line-chart
+│   │   │   │   │   │   ├── line-chart.component.html
+│   │   │   │   │   │   ├── line-chart.component.scss
+│   │   │   │   │   │   └── line-chart.component.ts
+│   │   │   │   │   └── pie-chart
+│   │   │   │   │       ├── pie-chart.component.html
+│   │   │   │   │       ├── pie-chart.component.scss
+│   │   │   │   │       └── pie-chart.component.ts
+│   │   │   │   ├── data-display
+│   │   │   │   │   ├── data-table
+│   │   │   │   │   │   ├── data-table.component.html
+│   │   │   │   │   │   ├── data-table.component.scss
+│   │   │   │   │   │   └── data-table.component.ts
+│   │   │   │   │   ├── detail-card
+│   │   │   │   │   │   ├── detail-card.component.html
+│   │   │   │   │   │   ├── detail-card.component.scss
+│   │   │   │   │   │   └── detail-card.component.ts
+│   │   │   │   │   ├── empty-state
+│   │   │   │   │   │   ├── empty-state.component.html
+│   │   │   │   │   │   ├── empty-state.component.scss
+│   │   │   │   │   │   └── empty-state.component.ts
+│   │   │   │   │   ├── metric-card
+│   │   │   │   │   │   ├── metric-card.component.html
+│   │   │   │   │   │   ├── metric-card.component.scss
+│   │   │   │   │   │   └── metric-card.component.ts
+│   │   │   │   │   ├── status-badge
+│   │   │   │   │   │   ├── status-badge.component.html
+│   │   │   │   │   │   ├── status-badge.component.scss
+│   │   │   │   │   │   └── status-badge.component.ts
+│   │   │   │   │   └── timeline
+│   │   │   │   │       ├── timeline.component.html
+│   │   │   │   │       ├── timeline.component.scss
+│   │   │   │   │       └── timeline.component.ts
+│   │   │   │   ├── feedback
+│   │   │   │   │   ├── alert
+│   │   │   │   │   │   ├── alert.component.html
+│   │   │   │   │   │   ├── alert.component.scss
+│   │   │   │   │   │   └── alert.component.ts
+│   │   │   │   │   ├── confirmation-dialog
+│   │   │   │   │   │   ├── confirmation-dialog.component.html
+│   │   │   │   │   │   ├── confirmation-dialog.component.scss
+│   │   │   │   │   │   └── confirmation-dialog.component.ts
+│   │   │   │   │   ├── loading-spinner
+│   │   │   │   │   │   ├── loading-spinner.component.html
+│   │   │   │   │   │   ├── loading-spinner.component.scss
+│   │   │   │   │   │   └── loading-spinner.component.ts
+│   │   │   │   │   ├── skeleton-loader
+│   │   │   │   │   │   ├── skeleton-loader.component.html
+│   │   │   │   │   │   ├── skeleton-loader.component.scss
+│   │   │   │   │   │   └── skeleton-loader.component.ts
+│   │   │   │   │   └── toast
+│   │   │   │   │       ├── toast.component.html
+│   │   │   │   │       ├── toast.component.scss
+│   │   │   │   │       └── toast.component.ts
+│   │   │   │   ├── forms
+│   │   │   │   │   ├── date-picker
+│   │   │   │   │   │   ├── date-picker.component.html
+│   │   │   │   │   │   ├── date-picker.component.scss
+│   │   │   │   │   │   └── date-picker.component.ts
+│   │   │   │   │   ├── file-upload
+│   │   │   │   │   │   ├── file-upload.component.html
+│   │   │   │   │   │   ├── file-upload.component.scss
+│   │   │   │   │   │   └── file-upload.component.ts
+│   │   │   │   │   ├── form-field
+│   │   │   │   │   │   ├── form-field.component.html
+│   │   │   │   │   │   ├── form-field.component.scss
+│   │   │   │   │   │   └── form-field.component.ts
+│   │   │   │   │   ├── search-input
+│   │   │   │   │   │   ├── search-input.component.html
+│   │   │   │   │   │   ├── search-input.component.scss
+│   │   │   │   │   │   └── search-input.component.ts
+│   │   │   │   │   ├── select-control
+│   │   │   │   │   │   ├── select-control.component.html
+│   │   │   │   │   │   ├── select-control.component.scss
+│   │   │   │   │   │   └── select-control.component.ts
+│   │   │   │   │   ├── time-picker
+│   │   │   │   │   │   ├── time-picker.component.html
+│   │   │   │   │   │   ├── time-picker.component.scss
+│   │   │   │   │   │   └── time-picker.component.ts
+│   │   │   │   │   └── validation-message
+│   │   │   │   │       ├── validation-message.component.html
+│   │   │   │   │       ├── validation-message.component.scss
+│   │   │   │   │       └── validation-message.component.ts
+│   │   │   │   └── layout
+│   │   │   │       ├── breadcrumb
+│   │   │   │       │   ├── breadcrumb.component.html
+│   │   │   │       │   ├── breadcrumb.component.scss
+│   │   │   │       │   └── breadcrumb.component.ts
+│   │   │   │       ├── footer
+│   │   │   │       │   ├── footer.component.html
+│   │   │   │       │   ├── footer.component.scss
+│   │   │   │       │   └── footer.component.ts
+│   │   │   │       ├── page-header
+│   │   │   │       │   ├── page-header.component.html
+│   │   │   │       │   ├── page-header.component.scss
+│   │   │   │       │   └── page-header.component.ts
+│   │   │   │       ├── page-toolbar
+│   │   │   │       │   ├── page-toolbar.component.html
+│   │   │   │       │   ├── page-toolbar.component.scss
+│   │   │   │       │   └── page-toolbar.component.ts
+│   │   │   │       ├── sidebar
+│   │   │   │       │   ├── sidebar.component.html
+│   │   │   │       │   ├── sidebar.component.scss
+│   │   │   │       │   └── sidebar.component.ts
+│   │   │   │       └── topbar
+│   │   │   │           ├── topbar.component.html
+│   │   │   │           ├── topbar.component.scss
+│   │   │   │           └── topbar.component.ts
+│   │   │   ├── directives
+│   │   │   │   ├── autofocus.directive.ts
+│   │   │   │   ├── debounce-click.directive.ts
+│   │   │   │   ├── has-permission.directive.ts
+│   │   │   │   ├── has-role.directive.ts
+│   │   │   │   └── numeric-only.directive.ts
+│   │   │   ├── pipes
+│   │   │   │   ├── age.pipe.ts
+│   │   │   │   ├── currency-format.pipe.ts
+│   │   │   │   ├── date-time-format.pipe.ts
+│   │   │   │   ├── full-name.pipe.ts
+│   │   │   │   ├── medical-status.pipe.ts
+│   │   │   │   └── phone-format.pipe.ts
+│   │   │   ├── types
+│   │   │   │   ├── id.type.ts
+│   │   │   │   ├── nullable.type.ts
+│   │   │   │   ├── query-params.type.ts
+│   │   │   │   └── table-column.type.ts
+│   │   │   ├── utilities
+│   │   │   │   ├── date.util.ts
+│   │   │   │   ├── form.util.ts
+│   │   │   │   ├── number.util.ts
+│   │   │   │   ├── object.util.ts
+│   │   │   │   ├── route.util.ts
+│   │   │   │   └── string.util.ts
+│   │   │   └── validators
+│   │   │       ├── date-range.validator.ts
+│   │   │       ├── email.validator.ts
+│   │   │       ├── medical-license.validator.ts
+│   │   │       ├── national-id.validator.ts
+│   │   │       └── phone.validator.ts
+│   │   ├── app.component.html
+│   │   ├── app.component.scss
+│   │   ├── app.component.ts
+│   │   ├── app.config.server.ts
+│   │   ├── app.config.ts
+│   │   ├── app.html
+│   │   ├── app.routes.server.ts
+│   │   ├── app.routes.ts
+│   │   ├── app.spec.ts
+│   │   └── app.ts
+│   ├── assets
+│   │   ├── fonts
+│   │   ├── i18n
+│   │   │   ├── ar.json
+│   │   │   └── en.json
+│   │   ├── icons
+│   │   ├── images
+│   │   └── logos
+│   ├── environments
+│   │   ├── environment.development.ts
+│   │   ├── environment.model.ts
+│   │   ├── environment.production.ts
+│   │   ├── environment.staging.ts
+│   │   └── environment.ts
+│   ├── styles
+│   │   ├── abstracts
+│   │   │   ├── _breakpoints.scss
+│   │   │   ├── _functions.scss
+│   │   │   ├── _mixins.scss
+│   │   │   └── _variables.scss
+│   │   ├── base
+│   │   │   ├── _bootstrap-overrides.scss
+│   │   │   ├── _reset.scss
+│   │   │   └── _typography.scss
+│   │   ├── components
+│   │   │   ├── _badges.scss
+│   │   │   ├── _buttons.scss
+│   │   │   ├── _cards.scss
+│   │   │   ├── _forms.scss
+│   │   │   ├── _modals.scss
+│   │   │   └── _tables.scss
+│   │   ├── layout
+│   │   │   ├── _page.scss
+│   │   │   ├── _shell.scss
+│   │   │   ├── _sidebar.scss
+│   │   │   └── _topbar.scss
+│   │   ├── utilities
+│   │   │   ├── _spacing.scss
+│   │   │   ├── _text.scss
+│   │   │   └── _visibility.scss
+│   │   └── main.scss
+│   ├── index.html
+│   ├── main.server.ts
+│   ├── main.ts
+│   ├── server.ts
+│   └── styles.scss
+├── angular.json
+├── package-lock.json
+├── package.json
+├── tsconfig.app.json
+├── tsconfig.json
+└── tsconfig.spec.json

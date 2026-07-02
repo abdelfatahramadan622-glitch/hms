@@ -1,0 +1,237 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+// ── Brand — Green Override ──
+.sidebar-brand {
+  min-height: 62px;
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.1) 0%, rgba(34, 197, 94, 0.06) 100%);
+  border-bottom: 1px solid #dcfce7;
+
+  .fa-hospital {
+    color: #15803d !important;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover .fa-hospital {
+    transform: scale(1.08);
+  }
+
+  .text-primary {
+    color: #15803d !important;
+  }
+}
+
+// ── Footer ──
+.sidebar-footer {
+  background: transparent;
+  border-top: 1px solid #dcfce7;
+
+  .avatar-sm {
+    background: linear-gradient(135deg, #15803d, #22c55e) !important;
+    box-shadow: 0 4px 8px rgba(22, 163, 74, 0.2);
+  }
+
+  .btn-outline-danger {
+    border-radius: 8px;
+    border-color: #fecaca;
+    color: #dc2626;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #fef2f2;
+      border-color: #f87171;
+      color: #b91c1c;
+    }
+  }
+}
+
+// ── Nav Links ──
+.sidebar-nav .nav-link {
+  color: #4b5563;
+  border-radius: 10px;
+  margin: 0.2rem 0.5rem;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+
+  i {
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+    transition: color 0.25s ease;
+  }
+
+  // ── Medical icon colors ──
+  .fa-triangle-exclamation {
+    color: #dc2626;
+  }
+
+  .fa-file-medical {
+    color: #15803d;
+  }
+
+  .fa-thermometer {
+    color: #d97706;
+  }
+
+  .fa-capsules {
+    color: #22c55e;
+  }
+
+  .fa-user-doctor {
+    color: #15803d;
+  }
+}
+
+.sidebar-nav .nav-link:hover {
+  background-color: #f0fdf4;
+  color: #15803d;
+  transform: translateX(-2px);
+
+  i {
+    color: #16a34a;
+  }
+}
+
+.sidebar-nav .nav-link.active {
+  background: linear-gradient(135deg, #15803d 0%, #22c55e 100%);
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(22, 163, 74, 0.25);
+
+  i {
+    color: #fff !important;
+  }
+}
+
+// ── Section Label ──
+.sidebar-nav .text-muted.text-uppercase {
+  color: #9ca3af !important;
+  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+// ── Topbar ──
+.hms-topbar {
+  background-color: #fff;
+  border-bottom-color: #f0fdf4;
+  min-height: 56px;
+
+  .h6 {
+    color: #1f2937;
+    font-size: 0.95rem;
+  }
+
+  .btn-outline-secondary {
+    border-radius: 8px;
+    border-color: #dcfce7;
+    color: #15803d;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f0fdf4;
+      border-color: #22c55e;
+      color: #166534;
+    }
+  }
+}
+
+// ── Loading Bar ──
+.progress {
+  .progress-bar {
+    background: linear-gradient(90deg, #16a34a, #22c55e, #4ade80);
+  }
+}
+
+// ── Mobile Overlay ──
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1040;
+  backdrop-filter: blur(2px);
+  transition: opacity 0.3s ease;
+}
+
+// ── Sidebar Base ──
+.hms-sidebar {
+  width: 260px;
+  background-color: #fff;
+  border-left: 1px solid #f0fdf4;
+  transition: width 0.3s ease, transform 0.3s ease;
+  z-index: 1050;
+
+  &.collapsed {
+    width: 72px;
+
+    .sidebar-brand .text-dark,
+    .sidebar-brand .text-primary,
+    .sidebar-footer .small,
+    .sidebar-footer .ms-1,
+    .sidebar-nav .nav-link span {
+      display: none;
+    }
+
+    .nav-link {
+      justify-content: center;
+      padding-left: 0;
+      padding-right: 0;
+      margin: 0.2rem 0.35rem;
+    }
+
+    .nav-link i {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .sidebar-footer .btn-outline-danger {
+      padding: 6px;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(100%);
+    box-shadow: -8px 0 30px rgba(0, 0, 0, 0.15);
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// ── Main Content ──
+.hms-main {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.page-shell {
+  max-width: 1400px;
+}
+
+// ── Scrollbar ──
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: #dcfce7;
+  border-radius: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: #bbf7d0;
+}

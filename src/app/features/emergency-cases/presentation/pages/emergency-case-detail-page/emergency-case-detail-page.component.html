@@ -1,0 +1,170 @@
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb small">
+    <li class="breadcrumb-item"><a routerLink="/emergency-cases" class="text-decoration-none">الطوارئ</a></li>
+    <li class="breadcrumb-item active">تفاصيل الحالة</li>
+  </ol>
+</nav>
+
+@if (facade.isDetailLoading()) {
+  <div class="text-center py-5"><div class="spinner-border text-danger" role="status"></div></div>
+}
+
+@if (facade.selectedCase(); as c) {
+  <div class="card border-0 shadow-sm mb-4 border-start border-4"
+    [style.border-color]="(triageConfig[c.triageLevel]?.color ?? '#6c757d') + ' !important'">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-start gap-3">
+          <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0"
+            [ngClass]="[triageConfig[c.triageLevel]?.bgClass ?? 'bg-secondary', triageConfig[c.triageLevel]?.textClass ?? 'text-white']"
+            style="width:56px;height:56px;font-size:1.4rem;">
+            {{ c.triageLevel }}
+          </div>
+          <div>
+            <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+              <h2 class="h5 fw-bold mb-0">{{ c.patientName }}</h2>
+              <span class="badge rounded-pill" [ngClass]="statusConfig[c.status]?.class ?? 'bg-secondary-subtle text-secondary'">
+                {{ statusConfig[c.status]?.label ?? c.status }}
+              </span>
+            </div>
+            <div class="text-primary fw-semibold small mb-1">{{ triageConfig[c.triageLevel]?.label ?? 'غير محدد' }}</div>
+            <div class="text-muted small">
+              وصل: {{ c.arrivedAt | date:'dd/MM/yyyy HH:mm' }} •
+              وقت الانتظار: {{ getWaitingTime() }}
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+          @if (!c.assignedDoctorId) {
+            <button type="button" class="btn btn-sm btn-success" (click)="onAssignDoctor()">
+              <i class="fa-solid fa-user-plus" style="margin-left:0.35rem;"></i>تعيين طبيب
+            </button>
+          }
+          @if (['waiting','in-treatment','stable','critical'].includes(c.status)) {
+            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onClose()">
+              <i class="fa-solid fa-xmark" style="margin-left:0.35rem;"></i>إغلاق الحالة
+            </button>
+          }
+          <a [routerLink]="['/emergency-cases', c.id, 'edit']" class="btn btn-sm btn-outline-warning">
+            <i class="fa-solid fa-pen" style="margin-left:0.35rem;"></i>تعديل
+          </a>
+          <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDelete()">
+            <i class="fa-regular fa-trash-can" style="margin-left:0.35rem;"></i>حذف
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12 col-lg-6">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-header bg-white border-bottom py-3">
+          <h6 class="mb-0 fw-bold"><i class="fa-solid fa-user text-primary me-2"></i>بيانات المريض</h6>
+        </div>
+        <div class="card-body">
+          <dl class="row small mb-0">
+            <dt class="col-5 text-muted fw-normal">الاسم</dt>
+            <dd class="col-7 fw-semibold">{{ c.patientName }}</dd>
+            <dt class="col-5 text-muted fw-normal">العمر</dt>
+            <dd class="col-7">{{ c.patientAge ? c.patientAge + ' سنة' : '—' }}</dd>
+            <dt class="col-5 text-muted fw-normal">الجنس</dt>
+            <dd class="col-7">{{ c.patientGender === 'male' ? 'ذكر' : c.patientGender === 'female' ? 'أنثى' : '—' }}</dd>
+            <dt class="col-5 text-muted fw-normal">الهاتف</dt>
+            <dd class="col-7" dir="ltr">{{ c.patientPhone ?? '—' }}</dd>
+            <dt class="col-5 text-muted fw-normal">رقم الهوية</dt>
+            <dd class="col-7" dir="ltr">{{ c.nationalId ?? '—' }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-header bg-white border-bottom py-3">
+          <h6 class="mb-0 fw-bold"><i class="fa-solid fa-file-medical text-danger me-2"></i>المعلومات الطبية</h6>
+        </div>
+        <div class="card-body">
+          <p class="small mb-2"><span class="text-muted">الشكوى الرئيسية:</span> {{ c.chiefComplaint }}</p>
+          @if (c.symptoms.length) {
+            <p class="small mb-2 text-muted">الأعراض:</p>
+            <div class="d-flex flex-wrap gap-1 mb-2">
+              @for (s of c.symptoms; track s) {
+                <span class="badge bg-warning-subtle text-warning rounded-pill">{{ s }}</span>
+              }
+            </div>
+          }
+          @if (c.assignedDoctorName) {
+            <p class="small mb-0 text-success">
+              <i class="fa-solid fa-user-doctor-fill" style="margin-left:0.35rem;"></i>
+              الطبيب المعالج: د. {{ c.assignedDoctorName }}
+            </p>
+          }
+          @if (c.assignedBed) {
+            <p class="small mb-0 mt-1 text-info">
+              <i class="fa-solid fa-hospital" style="margin-left:0.35rem;"></i>السرير: {{ c.assignedBed }}
+            </p>
+          }
+          @if (c.diagnosis) {
+            <hr class="my-2">
+            <p class="small mb-0"><span class="text-muted">التشخيص:</span> {{ c.diagnosis }}</p>
+          }
+          @if (c.notes) {
+            <p class="small mb-0 mt-1"><span class="text-muted">ملاحظات:</span> {{ c.notes }}</p>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Vital Signs -->
+    @if (c.vitalSigns) {
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-bottom py-3">
+            <h6 class="mb-0 fw-bold"><i class="fa-solid fa-heart-pulse text-danger me-2"></i>العلامات الحيوية</h6>
+          </div>
+          <div class="card-body">
+            <div class="row g-3 text-center">
+              @if (c.vitalSigns.temperature) {
+                <div class="col-6 col-md-3">
+                  <div class="bg-danger-subtle rounded p-2">
+                    <div class="fw-bold text-danger">{{ c.vitalSigns.temperature }}°</div>
+                    <div class="text-muted small">الحرارة</div>
+                  </div>
+                </div>
+              }
+              @if (c.vitalSigns.heartRate) {
+                <div class="col-6 col-md-3">
+                  <div class="bg-primary-subtle rounded p-2">
+                    <div class="fw-bold text-primary">{{ c.vitalSigns.heartRate }} bpm</div>
+                    <div class="text-muted small">النبض</div>
+                  </div>
+                </div>
+              }
+              @if (c.vitalSigns.oxygenSaturation) {
+                <div class="col-6 col-md-3">
+                  <div class="bg-info-subtle rounded p-2">
+                    <div class="fw-bold text-info">{{ c.vitalSigns.oxygenSaturation }}%</div>
+                    <div class="text-muted small">تشبع الأكسجين</div>
+                  </div>
+                </div>
+              }
+              @if (c.vitalSigns.bloodPressureSystolic) {
+                <div class="col-6 col-md-3">
+                  <div class="bg-warning-subtle rounded p-2">
+                    <div class="fw-bold text-warning" dir="ltr">
+                      {{ c.vitalSigns.bloodPressureSystolic }}/{{ c.vitalSigns.bloodPressureDiastolic }}
+                    </div>
+                    <div class="text-muted small">ضغط الدم</div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+}

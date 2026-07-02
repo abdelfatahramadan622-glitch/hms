@@ -1,0 +1,260 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.97) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+:host {
+  display: block;
+  animation: fadeUp 0.5s ease-out;
+}
+
+// ── Breadcrumb ──
+.breadcrumb {
+  .breadcrumb-item {
+    a {
+      color: #15803d;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #22c55e;
+      }
+    }
+
+    &.active {
+      color: #6b7280;
+    }
+  }
+}
+
+// ── Loading Skeleton ──
+.card {
+  border-radius: 14px;
+}
+
+.placeholder-glow .placeholder {
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+}
+
+// ── Action Bar Buttons ──
+.d-flex.gap-2 {
+  .btn-outline-primary {
+    border-radius: 8px;
+    border-color: #bbf7d0;
+    color: #15803d;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f0fdf4;
+      border-color: #22c55e;
+      color: #166534;
+    }
+  }
+
+  .btn-outline-info {
+    border-radius: 8px;
+    border-color: #bae6fd;
+    color: #0369a1;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f0f9ff;
+      border-color: #38bdf8;
+      color: #075985;
+    }
+  }
+
+  .btn-outline-success {
+    border-radius: 8px;
+    border-color: #bbf7d0;
+    color: #15803d;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #15803d, #22c55e);
+      border-color: #16a34a;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    }
+  }
+
+  .btn-outline-secondary {
+    border-radius: 8px;
+    border-color: #dcfce7;
+    color: #15803d;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f0fdf4;
+      border-color: #22c55e;
+      color: #166534;
+    }
+  }
+
+  .btn-outline-danger {
+    border-radius: 8px;
+    border-color: #fecaca;
+    color: #dc2626;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #fef2f2;
+      border-color: #f87171;
+      color: #b91c1c;
+    }
+  }
+}
+
+// ── Tabs ──
+.nav-tabs {
+  border-bottom: 2px solid #dcfce7;
+  gap: 4px;
+
+  .nav-link {
+    border: none;
+    border-radius: 10px 10px 0 0;
+    color: #6b7280;
+    font-weight: 500;
+    padding: 10px 18px;
+    transition: all 0.3s ease;
+
+    &:hover:not(.active) {
+      color: #15803d;
+      background-color: #f0fdf4;
+    }
+
+    &.active {
+      color: #15803d;
+      background-color: #fff;
+      border-bottom: 3px solid #22c55e;
+      font-weight: 600;
+
+      i {
+        color: #16a34a;
+      }
+    }
+  }
+}
+
+// ── Overview Cards ──
+.row {
+  > [class*="col-"] {
+    > .card {
+      border-radius: 14px;
+      animation: cardIn 0.45s ease-out both;
+      transition: box-shadow 0.3s ease;
+
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.08}s;
+        }
+      }
+
+      &:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      .card-header {
+        border-radius: 14px 14px 0 0;
+        border-bottom-color: #dcfce7;
+
+        h6 {
+          color: #1f2937;
+
+          .bi-person-fill {
+            color: #15803d;
+          }
+
+          .bi-telephone-fill {
+            color: #3b82f6;
+          }
+
+          .fa-file-medical {
+            color: #dc2626;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ── Definition Lists ──
+dl {
+  dt {
+    padding-bottom: 8px;
+    color: #6b7280;
+  }
+
+  dd {
+    padding-bottom: 8px;
+    color: #1f2937;
+    font-weight: 500;
+    line-height: 1.7;
+
+    &[dir="ltr"] {
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+    }
+  }
+
+  .fw-semibold {
+    color: #15803d;
+  }
+}
+
+// ── Medical Badges ──
+.badge {
+  &.bg-danger-subtle {
+    background-color: #fef2f2 !important;
+    color: #dc2626 !important;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 4px 12px;
+  }
+
+  &.bg-warning-subtle {
+    background-color: #fffbeb !important;
+    color: #d97706 !important;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 4px 12px;
+  }
+}
+
+// ── Placeholder Tab Content ──
+.text-center {
+  .fa-file-medical {
+    color: #86efac;
+  }
+
+  .btn-outline-primary {
+    border-radius: 10px;
+    border-color: #bbf7d0;
+    color: #15803d;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f0fdf4;
+      border-color: #22c55e;
+      color: #166534;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<section class="card hms-detail-card">
+  @if (title || subtitle) {
+    <div class="card-header bg-white">
+      @if (title) {
+        <h2 class="h6 mb-0">{{ title }}</h2>
+      }
+      @if (subtitle) {
+        <p class="small text-muted mb-0 mt-1">{{ subtitle }}</p>
+      }
+    </div>
+  }
+  <div class="card-body">
+    <div class="row g-3">
+      @for (item of items; track item.label) {
+        <div class="col-12 col-md-6">
+          <div class="small text-muted">{{ item.label }}</div>
+          <div class="fw-semibold">{{ item.value || '-' }}</div>
+          @if (item.helpText) {
+            <div class="small text-muted">{{ item.helpText }}</div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

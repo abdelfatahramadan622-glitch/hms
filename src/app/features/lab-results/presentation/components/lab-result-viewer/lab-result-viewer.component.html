@@ -1,0 +1,70 @@
+<div class="lab-result-viewer">
+
+  <!-- Summary Row -->
+  <div class="row g-2 mb-3">
+    <div class="col-4">
+      <div class="bg-light rounded p-2 text-center">
+        <div class="fw-bold">{{ result().tests.length }}</div>
+        <div class="text-muted" style="font-size:0.72rem;">إجمالي الاختبارات</div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="rounded p-2 text-center"
+        [class.bg-warning-subtle]="abnormalCount > 0"
+        [class.bg-light]="abnormalCount === 0">
+        <div class="fw-bold" [class.text-warning]="abnormalCount > 0">{{ abnormalCount }}</div>
+        <div class="text-muted" style="font-size:0.72rem;">غير طبيعي</div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="rounded p-2 text-center"
+        [class.bg-danger-subtle]="criticalCount > 0"
+        [class.bg-light]="criticalCount === 0">
+        <div class="fw-bold" [class.text-danger]="criticalCount > 0">{{ criticalCount }}</div>
+        <div class="text-muted" style="font-size:0.72rem;">حرج</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status + Meta -->
+  <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+    <span class="badge rounded-pill" [ngClass]="statusConfig[result().status]?.class ?? 'bg-secondary-subtle text-secondary'">
+      <i class="bi me-1" [ngClass]="statusConfig[result().status]?.icon ?? 'bi-circle'"></i>
+      {{ statusConfig[result().status]?.label ?? result().status }}
+    </span>
+    <span class="text-muted small">
+      طُلب: {{ result().orderedAt | date:'dd/MM/yyyy HH:mm' }}
+    </span>
+    @if (result().completedAt) {
+      <span class="text-muted small">
+        • اكتمل: {{ result().completedAt | date:'dd/MM/yyyy HH:mm' }}
+      </span>
+    }
+    @if (result().approvedBy) {
+      <span class="text-success small">
+        • اعتمده: {{ result().approvedBy }}
+      </span>
+    }
+  </div>
+
+  <!-- Attached File -->
+  @if (result().fileUrl) {
+    <div class="alert alert-info d-flex align-items-center gap-2 py-2 mb-3 small">
+      <i class="fa-solid fa-file-pdf text-danger fs-5"></i>
+      <span>يوجد ملف PDF مرفق</span>
+      <a [href]="result().fileUrl" target="_blank" class="btn btn-sm btn-outline-info ms-auto">
+        <i class="bi bi-download me-1"></i>تحميل
+      </a>
+    </div>
+  }
+
+  <!-- Tests Table -->
+  <hms-lab-test-table [tests]="result().tests" />
+
+  @if (result().notes) {
+    <div class="mt-3 p-3 bg-light rounded-3 small">
+      <span class="text-muted">ملاحظات:</span> {{ result().notes }}
+    </div>
+  }
+
+</div>

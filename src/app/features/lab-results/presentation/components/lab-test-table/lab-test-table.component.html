@@ -1,0 +1,76 @@
+@if (isLoading()) {
+  <div class="table-responsive">
+    <table class="table table-sm mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>الاختبار</th><th>الفئة</th><th>النتيجة</th><th>المرجع</th><th>الحالة</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (i of [1,2,3,4,5]; track i) {
+          <tr class="placeholder-glow">
+            <td><span class="placeholder col-8 rounded"></span></td>
+            <td><span class="placeholder col-6 rounded"></span></td>
+            <td><span class="placeholder col-4 rounded"></span></td>
+            <td><span class="placeholder col-6 rounded"></span></td>
+            <td><span class="placeholder col-5 rounded"></span></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+} @else if (tests().length === 0) {
+  <div class="text-center py-4 text-muted">
+    <i class="fa-solid fa-thermometer fs-2 d-block mb-2"></i>
+    <small>لا توجد اختبارات مسجلة</small>
+  </div>
+} @else {
+  <div class="table-responsive">
+    <table class="table table-sm table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr>
+          <th class="small fw-semibold">الاختبار</th>
+          <th class="small fw-semibold">الفئة</th>
+          <th class="small fw-semibold">النتيجة</th>
+          <th class="small fw-semibold">النطاق المرجعي</th>
+          <th class="small fw-semibold">الحالة</th>
+          <th class="small fw-semibold">ملاحظات</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (test of tests(); track test.id) {
+          <tr [ngClass]="getRowClass(test)">
+            <td class="fw-semibold small">{{ test.name }}</td>
+            <td>
+              <span class="badge bg-light text-dark border small">
+                {{ categoryLabels[test.category] }}
+              </span>
+            </td>
+            <td class="small" dir="ltr">
+              <span [class.fw-bold]="test.isAbnormal || test.isCritical">
+                {{ getValueDisplay(test) }}
+              </span>
+            </td>
+            <td class="small text-muted" dir="ltr">{{ getReferenceRange(test) }}</td>
+            <td>
+              @if (test.isCritical) {
+                <span class="badge bg-danger small">
+                  <i class="fa-solid fa-triangle-exclamation me-1"></i>حرج
+                </span>
+              } @else if (test.isAbnormal) {
+                <span class="badge bg-warning text-dark small">
+                  <i class="fa-solid fa-circle-exclamation me-1"></i>غير طبيعي
+                </span>
+              } @else {
+                <span class="badge bg-success-subtle text-success small">
+                  <i class="fa-solid fa-circle-check me-1"></i>طبيعي
+                </span>
+              }
+            </td>
+            <td class="small text-muted">{{ test.notes ?? '—' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

@@ -1,0 +1,360 @@
+// ================================================================
+//  متغيرات الألوان — متوافقة مع الصفحة الأم
+// ================================================================
+:host {
+  --g-50: #f0fdf4;
+  --g-100: #dcfce7;
+  --g-200: #bbf7d0;
+  --g-300: #86efac;
+  --g-400: #4ade80;
+  --g-500: #22c55e;
+  --g-600: #16a34a;
+  --g-700: #15803d;
+  --g-800: #166534;
+  --g-900: #14532d;
+
+  --t-primary: #0c2e1a;
+  --t-secondary: #3d6b4f;
+  --t-muted: #6b9a7e;
+  --t-faint: #a3c4b0;
+
+  --border: #d1e7da;
+  --border-hover: #a7d7b8;
+  --border-focus: var(--g-600);
+  --input-bg: #f7fdf9;
+  --input-bg-hover: #f0faf4;
+  --input-bg-focus: #ffffff;
+
+  display: block;
+  width: 100%;
+}
+
+// ================================================================
+//  رسالة خطأ عامة (من السيرفر)
+// ================================================================
+.lf-error {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%);
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 0.84rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+  animation: lfShake 0.45s ease;
+  line-height: 1.5;
+
+  i {
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+}
+
+@keyframes lfShake {
+  0%, 100% { transform: translateX(0); }
+  15%      { transform: translateX(-7px); }
+  30%      { transform: translateX(6px); }
+  45%      { transform: translateX(-4px); }
+  60%      { transform: translateX(3px); }
+  75%      { transform: translateX(-1px); }
+}
+
+// ================================================================
+//  الفورم
+// ================================================================
+.lf-form {
+  display: flex;
+  flex-direction: column;
+}
+
+// ================================================================
+//  الحقول
+// ================================================================
+.lf-field {
+  margin-bottom: 1.15rem;
+}
+
+.lf-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--t-primary);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.005em;
+}
+
+.lf-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.lf-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--t-faint);
+  font-size: 0.9rem;
+  pointer-events: none;
+  transition: color 0.25s ease;
+  z-index: 1;
+}
+
+.lf-input-wrap input {
+  width: 100%;
+  padding: 0.78rem 0.9rem 0.78rem 2.5rem;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: var(--t-primary);
+  background: var(--input-bg);
+  transition: all 0.25s ease;
+  outline: none;
+  font-family: inherit;
+
+  &::placeholder {
+    color: var(--t-faint);
+    font-weight: 400;
+  }
+
+  &:hover {
+    border-color: var(--border-hover);
+    background: var(--input-bg-hover);
+  }
+
+  &:focus {
+    border-color: var(--border-focus);
+    background: var(--input-bg-focus);
+    box-shadow: 0 0 0 3.5px rgba(22, 163, 74, 0.1);
+  }
+
+  &:focus ~ .lf-icon {
+    color: var(--g-600);
+  }
+
+  // حالة الخطأ
+  &.ng-invalid.ng-touched:not(:focus) {
+    border-color: #e74c3c;
+    background: #fef8f8;
+
+    & ~ .lf-icon {
+      color: #e74c3c;
+    }
+  }
+}
+
+// زر إظهار/إخفاء كلمة المرور
+.lf-toggle-pass {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--t-faint);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+
+  &:hover {
+    color: var(--g-600);
+  }
+}
+
+// رسالة خطأ تحت الحقل
+.lf-field-err {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+  font-size: 0.77rem;
+  color: #c0392b;
+  font-weight: 500;
+  animation: lfFieldErr 0.3s ease;
+
+  i {
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+}
+
+@keyframes lfFieldErr {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ================================================================
+//  خيارات — تذكرني + نسيت كلمة المرور
+// ================================================================
+.lf-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  font-size: 0.83rem;
+}
+
+.lf-remember {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--t-secondary);
+  font-weight: 500;
+  user-select: none;
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--g-600);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  span {
+    line-height: 1;
+  }
+}
+
+.lf-forgot {
+  color: var(--g-700);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.82rem;
+  transition: color 0.2s;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--g-700);
+    transition: width 0.25s ease;
+  }
+
+  &:hover {
+    color: var(--g-800);
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+// ================================================================
+//  زر تسجيل الدخول
+// ================================================================
+.lf-submit {
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--g-700) 0%, var(--g-600) 50%, var(--g-500) 100%);
+  background-size: 200% 100%;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.01em;
+  font-family: inherit;
+  line-height: 1.4;
+
+  // لمعان يمر على الزر
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+    transition: left 0.6s ease;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow:
+      0 6px 20px rgba(22, 101, 52, 0.28),
+      0 12px 36px rgba(22, 101, 52, 0.12);
+    background-position: 100% 50%;
+  }
+
+  &:hover:not(:disabled)::before {
+    left: 100%;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(22, 101, 52, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+// سبينر التحميل
+.lf-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: lfSpin 0.65s linear infinite;
+  display: inline-block;
+}
+
+@keyframes lfSpin {
+  to { transform: rotate(360deg); }
+}
+
+// ================================================================
+//  Responsive
+// ================================================================
+@media (max-width: 480px) {
+  .lf-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .lf-forgot {
+    align-self: flex-end;
+  }
+}
+
+// ================================================================
+//  تقليل الحركة
+// ================================================================
+@media (prefers-reduced-motion: reduce) {
+  .lf-error {
+    animation: none;
+  }
+
+  .lf-field-err {
+    animation: none;
+  }
+
+  .lf-submit::before {
+    display: none;
+  }
+}
+
+// استبقاء الـ cursor-pointer اللي كانت موجودة
+.cursor-pointer {
+  cursor: pointer;
+}

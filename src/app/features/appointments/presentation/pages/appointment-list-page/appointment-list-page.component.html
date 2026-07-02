@@ -1,0 +1,89 @@
+<div class="page-header d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+  <div>
+    <h1 class="h4 fw-bold mb-0 page-title">
+      <i class="fa-solid fa-calendar-check me-2"></i>المواعيد
+    </h1>
+    @if (!facade.isLoading()) {
+      <p class="text-muted small mb-0 total-count">إجمالي: {{ facade.totalAppointments() | number }} موعد</p>
+    }
+  </div>
+  <a routerLink="/appointments/new" class="btn btn-primary add-btn">
+    <i class="fa-solid fa-plus me-2"></i>إضافة موعد جديد
+  </a>
+</div>
+
+<hms-appointment-filter
+  (filterChanged)="onFilterChanged($event)"
+  (filterReset)="onFilterReset()"
+/>
+
+@if (facade.hasError()) {
+  <div class="alert alert-danger d-flex gap-2 align-items-center mb-4 error-alert">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span class="flex-grow-1">{{ facade.error() }}</span>
+    <button class="btn btn-sm btn-light error-retry" (click)="facade.loadAll()">
+      <i class="fa-solid fa-rotate-right me-1"></i>إعادة المحاولة
+    </button>
+  </div>
+}
+
+@if (facade.isLoading()) {
+  <div class="row g-3">
+    @for (i of [1,2,3,4,5,6]; track i) {
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card border-0 p-3 skeleton-card">
+          <div class="skeleton-line w-75 mb-2"></div>
+          <div class="skeleton-line w-100 mb-1"></div>
+          <div class="skeleton-line w-50 mb-3"></div>
+          <div class="skeleton-line w-100" style="height: 32px;"></div>
+        </div>
+      </div>
+    }
+  </div>
+} @else if (!facade.hasAppointments()) {
+  <div class="text-center py-5 empty-state">
+    <div class="empty-icon-wrap">
+      <i class="fa-regular fa-calendar-xmark"></i>
+    </div>
+    <h5 class="fw-bold text-muted mt-3">لا توجد مواعيد</h5>
+    <p class="text-muted small mb-4">لم يتم العثور على مواعيد مطابقة للفلتر المحدد</p>
+    <a routerLink="/appointments/new" class="btn btn-primary add-btn">
+      <i class="fa-solid fa-plus me-2"></i>إضافة موعد جديد
+    </a>
+  </div>
+} @else {
+  <div class="row g-3 mb-4">
+    @for (apt of facade.appointments().items; track apt.id) {
+      <div class="col-12 col-md-6 col-xl-4">
+        <hms-appointment-card
+          [appointment]="apt"
+          (confirmed)="onConfirm($event)"
+          (cancelled)="onCancel($event)"
+          (completed)="onComplete($event)"
+        />
+      </div>
+    }
+  </div>
+
+  @if (facade.totalPages() > 1) {
+    <nav class="pagination-wrapper">
+      <ul class="pagination justify-content-center pagination-custom">
+        <li class="page-item" [class.disabled]="facade.currentPage() === 1">
+          <button class="page-link" (click)="onPageChange(facade.currentPage() - 1)">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </li>
+        @for (p of pages; track p) {
+          <li class="page-item" [class.active]="p === facade.currentPage()">
+            <button class="page-link" (click)="onPageChange(p)">{{ p }}</button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="facade.currentPage() === facade.totalPages()">
+          <button class="page-link" (click)="onPageChange(facade.currentPage() + 1)">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
+}

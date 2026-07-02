@@ -1,0 +1,72 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+  border-radius: 16px !important;
+  border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important;
+  overflow: hidden;
+}
+
+.card-header {
+  background: #fff !important;
+  border-bottom: 1px solid #e8f5ec !important;
+  padding: 0.9rem 1.25rem;
+  h6 {
+    color: #14532d; font-weight: 700; font-size: 0.92rem; margin: 0;
+    i { color: #16a34a; margin-left: 0.5rem; }
+  }
+  .btn {
+    border-radius: 8px; font-size: 0.78rem; font-weight: 600;
+    border: 1.5px solid #e8f5ec; color: #166534; transition: all 0.2s;
+    padding: 0.3rem 0.8rem;
+    &:hover { background: #f0fdf4; border-color: #bbf7d0; }
+  }
+}
+
+.card-body { padding: 0 !important; }
+
+// Widget Rows
+.widget-row {
+  padding: 0.85rem 1.25rem !important;
+  border-bottom: 1px solid #f0f7f2 !important;
+  transition: all 0.2s;
+  animation: rowSlide 0.3s ease both;
+
+  // Fixing spacing between time, name, and badge
+  gap: 1rem !important;
+
+  &:hover { background: #f7fdf9; }
+  &:last-child { border-bottom: none !important; }
+}
+@keyframes rowSlide { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+
+.widget-time {
+  color: #15803d; font-weight: 700; font-size: 0.85rem;
+  min-width: 50px; text-align: center;
+}
+
+.widget-info {
+  display: flex; flex-direction: column; gap: 0.15rem;
+  .w-name { font-size: 0.88rem; font-weight: 600; color: #14532d; }
+  .w-doc { font-size: 0.76rem; color: #6b9a7e; }
+}
+
+.badge.rounded-pill {
+  padding: 0.35em 0.75em; font-size: 0.72rem; font-weight: 600;
+  border: 1px solid transparent;
+  &.bg-info-subtle { border-color: #bae6fd; }
+  &.bg-primary-subtle { border-color: #bfdbfe; }
+  &.bg-warning-subtle { border-color: #fde68a; }
+  &.bg-success-subtle { border-color: #bbf7d0; }
+  &.bg-danger-subtle { border-color: #fecaca; }
+}
+
+// Empty & Skeleton
+.text-center.py-5 { color: #a3c4b0; i { font-size: 2rem; margin-bottom: 0.5rem; } small { font-size: 0.85rem; } }
+
+.placeholder-glow .placeholder {
+  background: linear-gradient(90deg, #e8f5ec 25%, #f0fdf4 50%, #e8f5ec 75%);
+  background-size: 200% 100%; animation: cms-shimmer 1.5s infinite;
+}
+@keyframes cms-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }

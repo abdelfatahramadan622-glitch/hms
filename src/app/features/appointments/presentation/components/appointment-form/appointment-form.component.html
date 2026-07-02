@@ -1,0 +1,102 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold">
+        <i class="bi bi-calendar-plus text-primary me-2"></i>
+        بيانات الموعد
+      </h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">رقم المريض <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="patientId"
+            [class.is-invalid]="f['patientId'].invalid && f['patientId'].touched"
+            placeholder="معرّف المريض" dir="ltr" />
+          <div class="invalid-feedback">رقم المريض مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">رقم الطبيب <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="doctorId"
+            [class.is-invalid]="f['doctorId'].invalid && f['doctorId'].touched"
+            placeholder="معرّف الطبيب" dir="ltr" />
+          <div class="invalid-feedback">رقم الطبيب مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">القسم <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="departmentId"
+            [class.is-invalid]="f['departmentId'].invalid && f['departmentId'].touched"
+            placeholder="معرّف القسم" dir="ltr" />
+          <div class="invalid-feedback">القسم مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">نوع الموعد <span class="text-danger">*</span></label>
+          <select class="form-select" formControlName="type"
+            [class.is-invalid]="f['type'].invalid && f['type'].touched">
+            @for (type of types; track type) {
+              <option [value]="type">{{ typeLabels[type] }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">التاريخ <span class="text-danger">*</span></label>
+          <input type="date" class="form-control" formControlName="date"
+            [class.is-invalid]="f['date'].invalid && f['date'].touched" />
+          <div class="invalid-feedback">التاريخ مطلوب</div>
+        </div>
+
+        <div class="col-6 col-md-4">
+          <label class="form-label fw-semibold">وقت البداية <span class="text-danger">*</span></label>
+          <input type="time" class="form-control" formControlName="startTime"
+            [class.is-invalid]="f['startTime'].invalid && f['startTime'].touched" />
+          <div class="invalid-feedback">وقت البداية مطلوب</div>
+        </div>
+
+        <div class="col-6 col-md-4">
+          <label class="form-label fw-semibold">وقت النهاية <span class="text-danger">*</span></label>
+          <input type="time" class="form-control" formControlName="endTime"
+            [class.is-invalid]="f['endTime'].invalid && f['endTime'].touched" />
+          <div class="invalid-feedback">وقت النهاية مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-8">
+          <label class="form-label fw-semibold">سبب الزيارة <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="reason"
+            [class.is-invalid]="f['reason'].invalid && f['reason'].touched"
+            placeholder="سبب الزيارة أو الشكوى الرئيسية" />
+          <div class="invalid-feedback">سبب الزيارة مطلوب (5 أحرف على الأقل)</div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">رسوم الكشف (ج.م) <span class="text-danger">*</span></label>
+          <input type="number" class="form-control" formControlName="fee" min="0" />
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-semibold">ملاحظات</label>
+          <textarea class="form-control" formControlName="notes" rows="2"
+            placeholder="أي ملاحظات إضافية..."></textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-3 justify-content-end">
+    <button type="button" class="btn btn-outline-secondary px-4" (click)="cancelled.emit()">إلغاء</button>
+    <button type="submit" class="btn btn-primary px-4" [disabled]="isSaving()">
+      @if (isSaving()) {
+        <span class="spinner-border spinner-border-sm me-2"></span>جاري الحفظ...
+      } @else {
+        <i class="bi bi-check-lg me-2"></i>{{ isEdit ? 'حفظ التعديلات' : 'إضافة الموعد' }}
+      }
+    </button>
+  </div>
+
+</form>

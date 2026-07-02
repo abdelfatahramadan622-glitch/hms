@@ -1,0 +1,164 @@
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+:host {
+  display: block;
+  animation: cardIn 0.45s ease-out both;
+}
+
+// ── Card ──
+.patient-card {
+  border-radius: 16px;
+  border: 1px solid #dcfce7;
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(22, 163, 74, 0.12);
+  }
+}
+
+// ── Avatar ──
+.rounded-circle {
+  &.bg-primary-subtle {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  &.object-fit-cover {
+    border: 2px solid #dcfce7;
+    transition: border-color 0.3s ease;
+  }
+}
+
+.patient-card:hover {
+  .rounded-circle.bg-primary-subtle {
+    transform: scale(1.06);
+    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.15);
+  }
+
+  .rounded-circle.object-fit-cover {
+    border-color: #22c55e;
+  }
+}
+
+// ── Patient Name ──
+.patient-name {
+  color: #1f2937;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #15803d !important;
+  }
+}
+
+// ── Status Badge ──
+.badge {
+  &.rounded-pill {
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+
+  &.bg-primary-subtle {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+  }
+
+  &.bg-danger-subtle {
+    background-color: #fef2f2 !important;
+    color: #dc2626 !important;
+    font-weight: 500;
+  }
+
+  &.bg-secondary-subtle {
+    background-color: #f3f4f6 !important;
+    color: #6b7280 !important;
+  }
+}
+
+// ── Meta Grid ──
+.patient-meta {
+  .col-6 {
+    padding: 6px 8px;
+    border-radius: 8px;
+    background-color: rgba(22, 163, 74, 0.04);
+    transition: background-color 0.25s ease;
+
+    i {
+      color: #22c55e;
+      font-size: 0.8rem;
+      width: 16px;
+      text-align: center;
+    }
+
+    span {
+      color: #4b5563;
+      font-size: 0.8rem;
+    }
+
+    .fa-droplet {
+      color: #dc2626;
+    }
+  }
+}
+
+.patient-card:hover .patient-meta .col-6 {
+  background-color: rgba(22, 163, 74, 0.07);
+}
+
+// ── Border Top ──
+.border-top {
+  border-color: #dcfce7 !important;
+}
+
+// ── Action Buttons ──
+.card-actions {
+  .btn {
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.82rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-primary {
+    border-color: #bbf7d0;
+    color: #15803d;
+
+    &:hover {
+      background: linear-gradient(135deg, #15803d, #22c55e);
+      border-color: #16a34a;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    }
+  }
+
+  .btn-outline-secondary {
+    border-color: #dcfce7;
+    color: #15803d;
+
+    &:hover {
+      background-color: #f0fdf4;
+      border-color: #22c55e;
+      color: #166534;
+    }
+  }
+
+  .btn-outline-danger {
+    border-color: #fecaca;
+    color: #dc2626;
+
+    &:hover {
+      background-color: #fef2f2;
+      border-color: #f87171;
+      color: #b91c1c;
+    }
+  }
+}

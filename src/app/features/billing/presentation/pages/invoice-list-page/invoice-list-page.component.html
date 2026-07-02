@@ -1,0 +1,138 @@
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+  <div>
+    <h1 class="h4 fw-bold mb-0">الفواتير والمدفوعات</h1>
+    @if (facade.overdueCount() > 0) {
+      <p class="text-danger small mb-0">
+        <i class="bi bi-exclamation-triangle me-1"></i>{{ facade.overdueCount() }} فاتورة متأخرة
+      </p>
+    }
+  </div>
+  <a routerLink="/billing/invoices/new" class="btn add-btn">
+    <i class="fa-solid fa-file-invoice"></i>فاتورة جديدة
+  </a>
+</div>
+
+<!-- Summary -->
+@if (facade.summary()) {
+  <div class="mb-4">
+    <hms-billing-summary [summary]="facade.summary()" />
+  </div>
+}
+
+<!-- Filter -->
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body p-3">
+    <div [formGroup]="searchForm" class="row g-2">
+      <div class="col-12 col-md-7">
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-light"><i class="bi bi-search text-muted"></i></span>
+          <input type="text" class="form-control border-start-0" formControlName="search"
+            placeholder="اسم المريض، رقم الفاتورة..." />
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <select class="form-select form-select-sm" formControlName="status">
+          <option value="">كل الحالات</option>
+          @for (s of statusConfig | keyvalue; track s.key) {
+            <option [value]="s.key">{{ s.value?.label }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (facade.hasError()) {
+  <div class="alert alert-danger d-flex gap-2 align-items-center mb-4">
+    <i class="bi bi-exclamation-circle-fill"></i>{{ facade.error() }}
+    <button class="btn btn-sm btn-danger ms-auto" (click)="facade.loadAll()">إعادة المحاولة</button>
+  </div>
+}
+
+@if (facade.isLoading()) {
+  <div class="card border-0 shadow-sm">
+    @for (i of [1,2,3,4,5]; track i) {
+      <div class="card-body border-bottom py-3 placeholder-glow">
+        <span class="placeholder col-4 d-block mb-1 rounded"></span>
+        <span class="placeholder col-7 rounded"></span>
+      </div>
+    }
+  </div>
+} @else if (!facade.hasInvoices()) {
+  <div class="text-center py-5">
+    <i class="bi bi-receipt fs-1 text-muted d-block mb-3"></i>
+    <h5 class="fw-bold text-muted">لا توجد فواتير</h5>
+    <a routerLink="/billing/invoices/new" class="btn btn-primary mt-3">إنشاء فاتورة جديدة</a>
+  </div>
+} @else {
+  <div class="card border-0 shadow-sm mb-4">
+    @for (inv of facade.invoices().items; track inv.id) {
+      <div class="card-body border-bottom py-3 inv-item">
+        <div class="d-flex align-items-start gap-3">
+          <div class="flex-shrink-0 mt-1">
+            <span class="badge rounded-pill small" [ngClass]="statusConfig[inv.status]?.class ?? 'bg-secondary-subtle text-secondary'">
+              <i class="bi me-1" [ngClass]="statusConfig[inv.status]?.icon ?? 'bi-circle'"></i>
+              {{ statusConfig[inv.status]?.label ?? inv.status }}
+            </span>
+          </div>
+
+          <div class="flex-grow-1 min-w-0 inv-content">
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <a [routerLink]="['/billing/invoices', inv.id]" class="inv-title">#{{ inv.invoiceNumber }}</a>
+              <span class="inv-meta">— {{ inv.patientName }}</span>
+            </div>
+            <div class="inv-meta">
+              صدرت: {{ inv.issuedAt | date:'dd/MM/yyyy' }}
+              &nbsp;|&nbsp; تستحق: {{ inv.dueDate | date:'dd/MM/yyyy' }}
+              &nbsp;|&nbsp; {{ inv.items.length }} بنود
+            </div>
+            <div class="inv-progress">
+              <div class="progress flex-grow-1" style="max-width: 150px;">
+                <div class="progress-bar bg-success" [style.width]="(inv.totalAmount > 0 ? (inv.paidAmount / inv.totalAmount * 100) : 0) + '%'"></div>
+              </div>
+              <span class="inv-amounts" dir="ltr">{{ fmt(inv.paidAmount) }} / {{ fmt(inv.totalAmount) }}</span>
+            </div>
+          </div>
+
+          <div class="inv-actions">
+            <a [routerLink]="['/billing/invoices', inv.id]" class="btn btn-sm btn-outline-primary" title="عرض"><i class="fa-solid fa-eye"></i></a>
+            @if (inv.status === 'draft') {
+              <button type="button" class="btn btn-sm btn-outline-success" (click)="onIssue(inv.id)" title="إصدار"><i class="fa-solid fa-paper-plane"></i></button>
+            }
+            @if (['issued','partially-paid','overdue'].includes(inv.status)) {
+              <a [routerLink]="['/billing/payment']" [queryParams]="{ invoiceId: inv.id }" class="btn btn-sm btn-success" title="دفع"><i class="fa-solid fa-credit-card"></i></a>
+            }
+            @if (['draft','issued'].includes(inv.status)) {
+              <button type="button" class="btn btn-sm btn-outline-warning" (click)="onCancel(inv.id)" title="إلغاء"><i class="fa-solid fa-xmark"></i></button>
+            }
+            @if (inv.status === 'draft') {
+              <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDelete(inv.id)" title="حذف"><i class="fa-regular fa-trash-can"></i></button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (facade.totalPages() > 1) {
+    <nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="facade.currentPage() === 1">
+          <button class="page-link" (click)="onPageChange(facade.currentPage() - 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </li>
+        @for (p of pages; track p) {
+          <li class="page-item" [class.active]="p === facade.currentPage()">
+            <button class="page-link" (click)="onPageChange(p)">{{ p }}</button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="facade.currentPage() === facade.totalPages()">
+          <button class="page-link" (click)="onPageChange(facade.currentPage() + 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
+}

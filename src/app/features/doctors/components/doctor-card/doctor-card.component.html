@@ -1,0 +1,54 @@
+<div class="card border-0 shadow-sm h-100 doctor-card">
+  <div class="card-body p-3">
+    <div class="doc-header">
+      @if (doctor().avatar) {
+        <img [src]="doctor().avatar" [alt]="doctor().fullName" class="doc-avatar-img" />
+      } @else {
+        <div class="doc-avatar">{{ getInitials() }}</div>
+      }
+      <div class="doc-info">
+        <a [routerLink]="['/doctors', doctor().id]" class="doc-name text-truncate">د. {{ doctor().fullName }}</a>
+        <div class="doc-spec text-truncate">{{ doctor().specialization }}</div>
+        <div class="doc-dept">{{ doctor().departmentName }}</div>
+      </div>
+      <span class="badge rounded-pill small doc-badge" [ngClass]="statusConfig[doctor().status]?.class ?? 'bg-secondary-subtle text-secondary'">
+        {{ statusConfig[doctor().status]?.label ?? doctor().status }}
+      </span>
+    </div>
+
+    <div class="row g-2 small text-center doc-stats">
+      <div class="col-4">
+        <div class="doc-stat-box">
+          <div class="doc-stat-val">{{ doctor().yearsOfExperience }}</div>
+          <div class="doc-stat-label">سنوات خبرة</div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="doc-stat-box">
+          <div class="doc-stat-val text-success" style="font-size:0.8rem;">{{ formatCurrency(doctor().consultationFee) }}</div>
+          <div class="doc-stat-label">الكشف</div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="doc-stat-box">
+          <div class="doc-stat-val text-info">{{ doctor().availableDays.length }}</div>
+          <div class="doc-stat-label">أيام عمل</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-hours">
+      <i class="fa-regular fa-clock"></i>
+      <span dir="ltr">{{ doctor().shiftStart }} – {{ doctor().shiftEnd }}</span>
+    </div>
+
+    <div class="doc-actions">
+      <a [routerLink]="['/doctors', doctor().id]" class="btn btn-sm doc-btn-main flex-grow-1">
+        <i class="fa-solid fa-eye" style="margin-left:0.35rem;"></i>عرض
+      </a>
+      <a [routerLink]="['/doctors', doctor().id, 'schedule']" class="btn btn-sm doc-btn-icon doc-btn-info" title="الجدول"><i class="fa-regular fa-calendar"></i></a>
+      <a [routerLink]="['/doctors', doctor().id, 'edit']" class="btn btn-sm doc-btn-icon doc-btn-edit" title="تعديل"><i class="fa-solid fa-pen"></i></a>
+      <button type="button" class="btn btn-sm doc-btn-icon doc-btn-del" (click)="onDelete($event)" title="حذف"><i class="fa-regular fa-trash-can"></i></button>
+    </div>
+  </div>
+</div>

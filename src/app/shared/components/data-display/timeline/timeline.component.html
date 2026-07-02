@@ -1,0 +1,16 @@
+<ol class="hms-timeline list-unstyled mb-0">
+  @for (item of items; track item.title + $index) {
+    <li class="hms-timeline__item">
+      <span class="hms-timeline__marker" [class]="'bg-' + (item.variant || 'primary')" aria-hidden="true"></span>
+      <div class="d-flex flex-column flex-md-row gap-1 justify-content-between">
+        <h3 class="h6 mb-1">{{ item.title }}</h3>
+        @if (item.timestamp) {
+          <time class="small text-muted">{{ item.timestamp | date: dateFormat }}</time>
+        }
+      </div>
+      @if (item.description) {
+        <p class="text-muted mb-0">{{ item.description }}</p>
+      }
+    </li>
+  }
+</ol>

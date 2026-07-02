@@ -1,0 +1,26 @@
+<header class="d-flex flex-column flex-lg-row gap-3 justify-content-between align-items-lg-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">{{ title }}</h1>
+    @if (subtitle) {
+      <p class="text-muted mb-0">{{ subtitle }}</p>
+    }
+  </div>
+  @if (actions.length) {
+    <div class="d-flex flex-wrap gap-2">
+      @for (action of actions; track action.label) {
+        <button
+          type="button"
+          class="btn"
+          [class]="'btn-' + (action.variant || 'primary')"
+          [disabled]="action.disabled"
+          (click)="actionClick.emit(action)"
+        >
+          @if (action.icon) {
+            <span aria-hidden="true" class="me-1">{{ action.icon }}</span>
+          }
+          {{ action.label }}
+        </button>
+      }
+    </div>
+  }
+</header>

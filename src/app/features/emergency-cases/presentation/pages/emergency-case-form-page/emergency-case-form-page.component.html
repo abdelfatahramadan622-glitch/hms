@@ -1,0 +1,142 @@
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb small">
+    <li class="breadcrumb-item"><a routerLink="/emergency-cases" class="text-decoration-none">الطوارئ</a></li>
+    <li class="breadcrumb-item active">{{ isEdit ? 'تعديل الحالة' : 'حالة جديدة' }}</li>
+  </ol>
+</nav>
+
+<h1 class="h4 fw-bold mb-4">
+  <i class="fa-solid fa-triangle-exclamation"></i>
+  {{ isEdit ? 'تعديل حالة الطوارئ' : 'تسجيل حالة طوارئ جديدة' }}
+</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+  <div class="card border-0 shadow-sm mb-4 em-form-card triage-card">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold"><i class="fa-solid fa-shield-exclamation" style="color:#dc2626;"></i>مستوى الخطورة (Triage) <span class="text-danger">*</span></h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-2">
+        @for (level of triageLevels; track level) {
+          <div class="col">
+            <button type="button"
+              class="btn w-100 py-3 d-flex flex-column align-items-center gap-1 triage-btn"
+              [class.active]="f['triageLevel'].value === level"
+              [ngClass]="'triage-' + level"
+              (click)="setTriageLevel(level)">
+              <span class="triage-num">{{ level }}</span>
+              <span class="triage-label">{{ triageConfig[level]?.label ?? 'غير محدد' }}</span>
+              <span class="triage-wait">{{ triageConfig[level]?.waitTime ?? '—' }}</span>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm mb-4 em-form-card">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold"><i class="fa-solid fa-user"></i>بيانات المريض</h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">اسم المريض <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="patientName"
+            [class.is-invalid]="f['patientName'].invalid && f['patientName'].touched"
+            placeholder="اسم المريض كاملاً" />
+          <div class="invalid-feedback">اسم المريض مطلوب</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label fw-semibold">العمر</label>
+          <input type="number" class="form-control" formControlName="patientAge" min="0" max="150" placeholder="بالسنوات" />
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label fw-semibold">الجنس</label>
+          <select class="form-select" formControlName="patientGender">
+            <option value="">غير محدد</option>
+            <option value="male">ذكر</option>
+            <option value="female">أنثى</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">رقم الهاتف</label>
+          <input type="tel" class="form-control" formControlName="patientPhone" dir="ltr" />
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">رقم الهوية</label>
+          <input type="text" class="form-control" formControlName="nationalId" dir="ltr" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm mb-4 em-form-card">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold"><i class="fa-solid fa-file-medical" style="color:#b45309;"></i>المعلومات الطبية</h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label fw-semibold">الشكوى الرئيسية <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="chiefComplaint"
+            [class.is-invalid]="f['chiefComplaint'].invalid && f['chiefComplaint'].touched"
+            placeholder="وصف موجز للشكوى الطبية الرئيسية" />
+          <div class="invalid-feedback">الشكوى الرئيسية مطلوبة</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-semibold">الأعراض</label>
+          <input type="text" class="form-control" formControlName="symptoms"
+            placeholder="مفصولة بفاصلة: صداع، ألم صدر، ضيق تنفس..." />
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-semibold">ملاحظات إضافية</label>
+          <textarea class="form-control" formControlName="notes" rows="2" placeholder="أي معلومات إضافية مهمة..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm mb-4 em-form-card">
+    <div class="card-header bg-white py-3 border-bottom">
+      <h6 class="mb-0 fw-bold"><i class="fa-solid fa-heart-pulse" style="color:#dc2626;"></i>العلامات الحيوية</h6>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-3">
+        <div class="col-6 col-md-3">
+          <label class="form-label small fw-semibold">الحرارة (°م)</label>
+          <input type="number" class="form-control" formControlName="temperature" step="0.1" placeholder="36.5" />
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label small fw-semibold">النبض (bpm)</label>
+          <input type="number" class="form-control" formControlName="heartRate" placeholder="80" />
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label small fw-semibold">تشبع الأكسجين (%)</label>
+          <input type="number" class="form-control" formControlName="oxygenSaturation" min="0" max="100" placeholder="98" />
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label small fw-semibold">ضغط الدم</label>
+          <div class="bp-group">
+            <input type="number" class="form-control" formControlName="bloodPressureSystolic" placeholder="120" />
+            <span class="bp-sep">/</span>
+            <input type="number" class="form-control" formControlName="bloodPressureDiastolic" placeholder="80" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-3 justify-content-end">
+    <button type="button" class="btn btn-outline-secondary px-4" (click)="onCancel()">إلغاء</button>
+    <button type="submit" class="btn btn-danger px-4" [disabled]="facade.isSaving()">
+      @if (facade.isSaving()) {
+        <span class="spinner-border spinner-border-sm me-2"></span>جاري الحفظ...
+      } @else {
+        <i class="fa-solid fa-check" style="margin-left:0.5rem;"></i>{{ isEdit ? 'حفظ التعديلات' : 'تسجيل الحالة' }}
+      }
+    </button>
+  </div>
+
+</form>

@@ -1,0 +1,32 @@
+<div class="table-responsive">
+  <table class="table table-sm align-middle mb-0">
+    <thead class="table-light">
+      <tr>
+        <th class="small fw-semibold">الوصف</th>
+        <th class="small fw-semibold">النوع</th>
+        <th class="small fw-semibold text-center">الكمية</th>
+        <th class="small fw-semibold text-end" dir="ltr">سعر الوحدة</th>
+        <th class="small fw-semibold text-center">الخصم%</th>
+        <th class="small fw-semibold text-end" dir="ltr">الإجمالي</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of items(); track item.id) {
+        <tr>
+          <td class="small fw-semibold">{{ item.description }}</td>
+          <td>
+            <span class="badge bg-light text-dark border small">{{ typeLabels[item.type] }}</span>
+          </td>
+          <td class="text-center small">{{ item.quantity }}</td>
+          <td class="text-end small" dir="ltr">{{ fmt(item.unitPrice) }}</td>
+          <td class="text-center small">
+            @if (item.discount > 0) {
+              <span class="text-danger">{{ item.discount }}%</span>
+            } @else { — }
+          </td>
+          <td class="text-end fw-semibold small" dir="ltr">{{ fmt(item.total) }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

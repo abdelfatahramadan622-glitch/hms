@@ -1,0 +1,71 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-bottom py-3">
+      <h6 class="mb-0 fw-bold">
+        <i class="bi bi-credit-card text-success me-2"></i>تسجيل دفعة
+      </h6>
+    </div>
+    <div class="card-body p-4">
+
+      @if (remainingAmount() > 0) {
+        <div class="alert alert-info d-flex align-items-center justify-content-between py-2 mb-4 small">
+          <span>
+            <i class="bi bi-info-circle me-1"></i>
+            المبلغ المتبقي: <strong dir="ltr">{{ fmt(remainingAmount()) }}</strong>
+          </span>
+          <button type="button" class="btn btn-sm btn-outline-info" (click)="setFullAmount()">
+            دفع الكامل
+          </button>
+        </div>
+      }
+
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">المبلغ (ج.م) <span class="text-danger">*</span></label>
+          <input type="number" class="form-control" formControlName="amount"
+            [class.is-invalid]="f['amount'].invalid && f['amount'].touched"
+            min="0.01" step="0.01" dir="ltr" />
+          <div class="invalid-feedback">مبلغ صحيح مطلوب</div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold">طريقة الدفع <span class="text-danger">*</span></label>
+          <select class="form-select" formControlName="method">
+            @for (m of methods; track m) {
+              <option [value]="m">{{ methodLabels[m] }}</option>
+            }
+          </select>
+        </div>
+
+        @if (form.value.method !== 'cash') {
+          <div class="col-12">
+            <label class="form-label fw-semibold">رقم المرجع / التفويض</label>
+            <input type="text" class="form-control" formControlName="reference"
+              placeholder="رقم التحويل، رقم الشيك، رقم المعاملة..." dir="ltr" />
+          </div>
+        }
+
+        <div class="col-12">
+          <label class="form-label fw-semibold">ملاحظات</label>
+          <textarea class="form-control" formControlName="notes" rows="2"
+            placeholder="أي ملاحظات على الدفعة..."></textarea>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer bg-white border-top py-3">
+      <div class="d-flex gap-3 justify-content-end">
+        <button type="button" class="btn btn-outline-secondary px-4" (click)="cancelled.emit()">إلغاء</button>
+        <button type="submit" class="btn btn-success px-4" [disabled]="isProcessing()">
+          @if (isProcessing()) {
+            <span class="spinner-border spinner-border-sm me-2"></span>جاري المعالجة...
+          } @else {
+            <i class="bi bi-check-circle me-2"></i>تأكيد الدفع
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+
+</form>

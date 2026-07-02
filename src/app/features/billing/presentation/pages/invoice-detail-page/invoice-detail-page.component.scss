@@ -1,0 +1,108 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+// Breadcrumb
+.breadcrumb-link { color: #15803d; text-decoration: none; transition: color 0.2s; &:hover { color: #0d9488; } }
+.breadcrumb-item.active { color: #6b9a7e; }
+
+// Header Card
+.card {
+  border-radius: 16px !important;
+  border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important;
+  transition: all 0.3s;
+
+  &:hover { box-shadow: 0 4px 16px rgba(22, 101, 52, 0.08) !important; }
+}
+
+// First card with top border accent
+.mb-4 > .card:first-child {
+  border-top: 3px solid #16a34a !important;
+}
+
+.card-header {
+  background: #fff !important;
+  border-bottom: 1px solid #e8f5ec !important;
+  padding: 1rem 1.5rem;
+
+  h6 {
+    color: #14532d; font-weight: 700; font-size: 0.95rem;
+    i { color: #16a34a; }
+  }
+}
+
+.card-body { padding: 1.5rem !important; }
+.card-footer {
+  background: #fff !important;
+  border-top: 1px solid #e8f5ec !important;
+  padding: 1rem 1.5rem;
+}
+
+// Header Content
+.h5 { color: #14532d; }
+
+.badge.rounded-pill {
+  padding: 0.4em 0.8em; font-size: 0.78rem; font-weight: 600;
+  border: 1px solid transparent;
+  // Override Bootstrap subtle colors with better borders
+  &.bg-success-subtle { border-color: #bbf7d0; }
+  &.bg-warning-subtle { border-color: #fde68a; }
+  &.bg-danger-subtle { border-color: #fecaca; }
+  &.bg-info-subtle { border-color: #bae6fd; }
+  &.bg-secondary-subtle { border-color: #e5e7eb; }
+}
+
+// Action Buttons
+.d-flex.gap-2 .btn {
+  border-radius: 10px; font-weight: 600; font-size: 0.82rem;
+  transition: all 0.25s; border: 1.5px solid transparent;
+}
+.btn-success {
+  background: #15803d; color: #fff;
+  &:hover { background: #166534; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(22, 101, 52, 0.25); color: #fff; }
+}
+.btn-outline-secondary { border-color: #e8f5ec !important; color: #166534; &:hover { background: #f0fdf4; } }
+.btn-outline-warning { border-color: #fde68a !important; color: #b45309; &:hover { background: #fffbeb; } }
+.btn-outline-danger { border-color: #fecaca !important; color: #dc2626; &:hover { background: #fef2f2; } }
+
+// Totals Section
+.card-footer dl {
+  dt { color: #6b9a7e; font-size: 0.85rem; }
+  dd { color: #14532d; font-weight: 600; font-size: 0.9rem; }
+  .fw-bold { color: #14532d !important; }
+  .text-success { color: #15803d !important; }
+  .text-danger { color: #dc2626 !important; }
+}
+
+// Progress Bar
+.progress {
+  height: 6px !important; background: #e8f5ec !important;
+  border-radius: 10px; overflow: hidden;
+}
+.progress-bar {
+  background: linear-gradient(90deg, #15803d, #22c55e) !important;
+  border-radius: 10px; transition: width 0.6s ease;
+}
+
+// Payments History
+.payments-empty {
+  color: #a3c4b0;
+  i { font-size: 2rem; margin-bottom: 0.5rem; }
+}
+
+.payment-item {
+  border: 1px solid #f0f7f2 !important;
+  border-radius: 12px !important;
+  padding: 0.75rem !important;
+  transition: all 0.2s;
+  animation: paymentIn 0.3s ease both;
+
+  &:hover { border-color: #d1e7da !important; background: #f7fdf9; }
+}
+@keyframes paymentIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+
+.payment-item .fw-semibold { color: #14532d; }
+.payment-item .text-muted { color: #6b9a7e; font-size: 0.78rem; }
+
+// Loading
+.text-center .spinner-border { color: #16a34a !important; width: 3rem; height: 3rem; border-width: 3px; }

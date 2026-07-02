@@ -1,0 +1,82 @@
+:host { display: block; animation: cardIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes cardIn { from { opacity: 0; transform: translateY(15px) scale(0.98); } to { opacity: 1; transform: translateY(0); } }
+
+.emergency-card {
+  border-radius: 16px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  border-left: 4px solid !important; // override bootstrap
+  transition: all 0.3s;
+  &:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important; }
+}
+
+.card-body { padding: 1rem !important; }
+
+// Triage Header
+.em-header { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.75rem; }
+
+.em-triage-badge {
+  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+  display: grid; place-items: center; font-weight: 800; font-size: 1.05rem;
+  transition: transform 0.2s;
+  &:hover { transform: scale(1.1); }
+}
+
+.em-triage-info {
+  display: flex; flex-direction: column; gap: 0.1rem; flex-grow: 1;
+  .em-triage-label { font-size: 0.82rem; font-weight: 700; color: #14532d; }
+  .em-triage-wait { font-size: 0.7rem; color: #6b9a7e; }
+}
+
+.em-status-badge {
+  padding: 0.3em 0.7em; font-size: 0.7rem; font-weight: 600;
+  border-radius: 8px !important; border: 1px solid transparent; flex-shrink: 0; align-self: flex-start;
+  &.bg-success-subtle { border-color: #bbf7d0; }
+  &.bg-warning-subtle { border-color: #fde68a; }
+  &.bg-danger-subtle { border-color: #fecaca; }
+  &.bg-info-subtle { border-color: #bae6fd; }
+}
+
+// Patient Info
+.em-patient-name { font-size: 0.9rem; font-weight: 700; color: #14532d; margin-bottom: 0.15rem; }
+.em-patient-meta { font-size: 0.74rem; color: #6b9a7e; }
+
+// Complaint
+.em-complaint {
+  font-size: 0.82rem; color: #6b9a7e; margin-bottom: 0.6rem;
+  i { margin-left: 0.3rem; color: #a3c4b0; }
+}
+
+// Doctor & Timing
+.em-meta {
+  display: flex; flex-direction: column; gap: 0.3rem;
+  font-size: 0.8rem; margin-bottom: 0.75rem;
+  div {
+    display: flex; align-items: center; gap: 0.4rem;
+    i { font-size: 0.75rem; }
+  }
+  .em-doc { color: #15803d; font-weight: 600; }
+  .em-no-doc { color: #dc2626; font-weight: 600; }
+  .em-wait { color: #6b9a7e; }
+}
+
+// Actions
+.em-actions {
+  display: flex; gap: 0.4rem; padding-top: 0.65rem;
+  border-top: 1px solid #f0f7f2;
+}
+.em-actions .btn {
+  border-radius: 10px !important; font-weight: 600; font-size: 0.8rem;
+  transition: all 0.2s;
+}
+.em-btn-main {
+  border: 1.5px solid #fecaca !important; color: #dc2626;
+  i { margin-left: 0.3rem; }
+  &:hover { background: #fef2f2; }
+}
+.em-btn-icon {
+  width: 32px; height: 32px; padding: 0; display: grid; place-items: center;
+  border: 1.5px solid #e8f5ec !important; color: #6b9a7e;
+  &:hover { transform: scale(1.1); }
+}
+.em-btn-assign:hover { background: #f0fdf4; border-color: #bbf7d0 !important; color: #15803d; }
+.em-btn-close:hover { background: #f3f4f6; border-color: #e5e7eb !important; }

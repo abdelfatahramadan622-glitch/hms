@@ -1,0 +1,24 @@
+<label class="form-label">
+  {{ label }}
+  @if (required) {
+    <span class="text-danger">*</span>
+  }
+</label>
+<input
+  class="form-control"
+  [class.is-invalid]="!!error"
+  [type]="type"
+  [value]="value"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  [attr.autocomplete]="autocomplete"
+  (input)="updateValue($any($event.target).value)"
+  (blur)="markTouched()"
+/>
+@if (hint && !error) {
+  <div class="form-text">{{ hint }}</div>
+}
+@if (error) {
+  <div class="invalid-feedback d-block">{{ error }}</div>
+}

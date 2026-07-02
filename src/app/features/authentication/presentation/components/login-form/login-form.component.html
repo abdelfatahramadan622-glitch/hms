@@ -1,0 +1,96 @@
+<!-- رسالة خطأ عامة من السيرفر -->
+@if (errorMessage()) {
+  <div class="lf-error">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span>{{ errorMessage() }}</span>
+  </div>
+}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="lf-form">
+
+  <!-- البريد الإلكتروني -->
+  <div class="lf-field">
+    <label for="login-email">البريد الإلكتروني</label>
+    <div class="lf-input-wrap">
+      <input
+        id="login-email"
+        type="email"
+        formControlName="email"
+        placeholder="name@hospital.org"
+        autocomplete="email"
+        [attr.aria-invalid]="email.invalid && email.touched"
+      />
+      <i class="fa-regular fa-envelope lf-icon"></i>
+    </div>
+    @if (email.hasError('required') && email.touched) {
+      <div class="lf-field-err">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        البريد الإلكتروني مطلوب
+      </div>
+    }
+    @if (email.hasError('email') && email.touched && !email.hasError('required')) {
+      <div class="lf-field-err">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        صيغة البريد الإلكتروني غير صحيحة
+      </div>
+    }
+  </div>
+
+  <!-- كلمة المرور -->
+  <div class="lf-field">
+    <label for="login-pass">كلمة المرور</label>
+    <div class="lf-input-wrap">
+      <input
+        id="login-pass"
+        [type]="showPassword ? 'text' : 'password'"
+        formControlName="password"
+        placeholder="أدخل كلمة المرور"
+        autocomplete="current-password"
+        [attr.aria-invalid]="password.invalid && password.touched"
+      />
+      <i class="fa-solid fa-lock lf-icon"></i>
+      <button
+        type="button"
+        class="lf-toggle-pass"
+        (click)="togglePassword()"
+        [attr.aria-label]="showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'"
+      >
+        <i [class]="showPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'"></i>
+      </button>
+    </div>
+    @if (password.hasError('required') && password.touched) {
+      <div class="lf-field-err">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        كلمة المرور مطلوبة
+      </div>
+    }
+    @if (password.hasError('minlength') && password.touched && !password.hasError('required')) {
+      <div class="lf-field-err">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        كلمة المرور يجب أن تكون 6 أحرف على الأقل
+      </div>
+    }
+  </div>
+
+  <!-- تذكرني + نسيت كلمة المرور -->
+  <div class="lf-options">
+    <label class="lf-remember cursor-pointer">
+      <input type="checkbox" formControlName="rememberMe" />
+      <span>تذكرني</span>
+    </label>
+    <a class="lf-forgot" [routerLink]="forgotPasswordPath">نسيت كلمة المرور؟</a>
+  </div>
+
+  <!-- زر تسجيل الدخول -->
+  <button
+    type="submit"
+    class="lf-submit"
+    [disabled]="form.invalid || isLoading()"
+  >
+    @if (!isLoading()) {
+      <span>تسجيل الدخول</span>
+    } @else {
+      <span class="lf-spinner"></span>
+    }
+  </button>
+</form>

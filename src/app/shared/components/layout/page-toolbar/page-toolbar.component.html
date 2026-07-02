@@ -1,0 +1,17 @@
+<div class="d-flex flex-column flex-md-row gap-2 justify-content-between align-items-md-center border rounded p-2 bg-white">
+  <div class="fw-semibold">{{ title }}</div>
+  <div class="d-flex flex-wrap gap-2 align-items-center">
+    <ng-content />
+    @for (action of actions; track action.label) {
+      <button
+        type="button"
+        class="btn btn-sm"
+        [class]="'btn-outline-' + (action.variant || 'secondary')"
+        [disabled]="action.disabled"
+        (click)="actionClick.emit(action)"
+      >
+        {{ action.label }}
+      </button>
+    }
+  </div>
+</div>

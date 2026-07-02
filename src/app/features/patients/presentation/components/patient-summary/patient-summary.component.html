@@ -1,0 +1,55 @@
+<div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border">
+
+  <!-- Avatar -->
+  @if (patient().avatar) {
+    <img [src]="patient().avatar" [alt]="patient().fullName"
+      class="rounded-circle object-fit-cover flex-shrink-0" width="64" height="64" />
+  } @else {
+    <div class="rounded-circle bg-primary text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0"
+      style="width: 64px; height: 64px; font-size: 1.3rem;">
+      {{ getInitials() }}
+    </div>
+  }
+
+  <!-- Info -->
+  <div class="flex-grow-1 min-w-0">
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+      <h5 class="fw-bold mb-0">{{ patient().fullName }}</h5>
+      <span class="badge rounded-pill small"
+        [ngClass]="statusConfig[patient().status]?.class ?? 'bg-secondary-subtle text-secondary'">
+        {{ statusConfig[patient().status]?.label ?? patient().status }}
+      </span>
+    </div>
+    <div class="text-muted small mt-1">
+      P-{{ patient().patientNumber }} &bull;
+      {{ genderLabels[patient().gender] }} &bull;
+      {{ patient().age }} سنة &bull;
+      فصيلة الدم: {{ patient().bloodType ?? 'غير محدد' }}
+    </div>
+    <div class="small mt-1 d-flex flex-wrap gap-3">
+      <span class="d-flex align-items-center gap-1 text-muted">
+        <i class="bi bi-telephone"></i>
+        <span dir="ltr">{{ patient().phone }}</span>
+      </span>
+      @if (patient().insuranceNumber) {
+        <span class="d-flex align-items-center gap-1 text-success">
+          <i class="bi bi-shield-check"></i>
+          مؤمَّن — {{ patient().insuranceProvider }}
+        </span>
+      }
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="d-flex flex-column gap-2 flex-shrink-0">
+    <a [routerLink]="['/appointments/new']" [queryParams]="{ patientId: patient().id }"
+      class="btn btn-sm btn-primary">
+      <i class="bi bi-calendar-plus me-1"></i> موعد جديد
+    </a>
+    <a [routerLink]="['/patients', patient().id, 'edit']"
+      class="btn btn-sm btn-outline-secondary">
+      <i class="bi bi-pencil me-1"></i> تعديل
+    </a>
+  </div>
+
+</div>

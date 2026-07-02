@@ -1,0 +1,88 @@
+<div class="card border-0 h-100 patient-card">
+  <div class="card-body p-3 p-md-4">
+
+    <!-- Header -->
+    <div class="d-flex align-items-start gap-3 mb-3">
+      <!-- Avatar -->
+      <div class="flex-shrink-0">
+        @if (patient().avatar) {
+          <img [src]="patient().avatar" [alt]="patient().fullName"
+            class="rounded-circle object-fit-cover" width="48" height="48" />
+        } @else {
+          <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center"
+            style="width: 48px; height: 48px; font-size: 1rem;">
+            {{ getInitials() }}
+          </div>
+        }
+      </div>
+
+      <!-- Info -->
+      <div class="flex-grow-1 min-w-0">
+        <a [routerLink]="['/patients', patient().id]"
+          class="fw-bold text-decoration-none d-block text-truncate patient-name">
+          {{ patient().fullName }}
+        </a>
+        <div class="text-muted small">P-{{ patient().patientNumber }}</div>
+      </div>
+
+      <!-- Status Badge -->
+      <span class="badge rounded-pill small flex-shrink-0"
+        [ngClass]="statusConfig[patient().status]?.class ?? 'bg-secondary-subtle text-secondary'">
+        {{ statusConfig[patient().status]?.label ?? patient().status }}
+      </span>
+    </div>
+
+    <!-- Details -->
+    <div class="row g-2 small text-muted mb-3 patient-meta">
+      <div class="col-6 d-flex align-items-center gap-1">
+        <i class="bi bi-calendar3 flex-shrink-0"></i>
+        <span>{{ patient().age }} سنة</span>
+      </div>
+      <div class="col-6 d-flex align-items-center gap-1">
+        <i class="bi bi-gender-ambiguous flex-shrink-0"></i>
+        <span>{{ genderLabels[patient().gender] }}</span>
+      </div>
+      <div class="col-6 d-flex align-items-center gap-1">
+        <i class="bi bi-telephone flex-shrink-0"></i>
+        <span class="text-truncate" dir="ltr">{{ patient().phone }}</span>
+      </div>
+      <div class="col-6 d-flex align-items-center gap-1">
+        <i class="fa-solid fa-droplet flex-shrink-0"></i>
+        <span>{{ patient().bloodType ?? 'غير محدد' }}</span>
+      </div>
+    </div>
+
+    @if (patient().allergies.length > 0) {
+      <div class="mb-3">
+        <div class="d-flex flex-wrap gap-1">
+          @for (allergy of patient().allergies.slice(0,2); track allergy) {
+            <span class="badge bg-danger-subtle text-danger rounded-pill" style="font-size: 0.7rem;">
+              {{ allergy }}
+            </span>
+          }
+          @if (patient().allergies.length > 2) {
+            <span class="badge bg-secondary-subtle text-secondary rounded-pill" style="font-size: 0.7rem;">
+              +{{ patient().allergies.length - 2 }}
+            </span>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Actions -->
+    <div class="d-flex gap-2 pt-2 border-top card-actions">
+      <a [routerLink]="['/patients', patient().id]"
+        class="btn btn-sm btn-outline-primary flex-grow-1">
+        <i class="bi bi-eye me-1"></i> عرض
+      </a>
+      <a [routerLink]="['/patients', patient().id, 'edit']"
+        class="btn btn-sm btn-outline-secondary">
+        <i class="bi bi-pencil"></i>
+      </a>
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDelete($event)">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+
+  </div>
+</div>

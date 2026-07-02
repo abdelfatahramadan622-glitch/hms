@@ -1,0 +1,53 @@
+<div class="attachments-panel">
+
+  @if (!readonly()) {
+    <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
+      <label class="btn btn-sm btn-outline-primary" [class.disabled]="isUploading()">
+        @if (isUploading()) {
+          <span class="spinner-border spinner-border-sm me-1"></span>جاري الرفع...
+        } @else {
+          <i class="bi bi-upload me-1"></i>رفع ملف
+        }
+        <input type="file" class="d-none" (change)="onFileChange($event)"
+          accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" [disabled]="isUploading()" />
+      </label>
+      <small class="text-muted">PDF، صور، Word (حد أقصى 10 ميجا)</small>
+    </div>
+  }
+
+  @if (attachments().length === 0) {
+    <div class="text-center py-4 text-muted border rounded-3 empty-state">
+      <i class="bi bi-paperclip fs-3 d-block mb-2"></i>
+      <small>لا توجد مرفقات</small>
+    </div>
+  } @else {
+    <div class="attachments-list">
+      @for (att of attachments(); track att.id) {
+        <div class="attachment-item d-flex align-items-center gap-3">
+          <i class="bi fs-5 flex-shrink-0" [ngClass]="getFileIcon(att.type)"></i>
+          <div class="flex-grow-1 min-w-0">
+            <a [href]="att.url" target="_blank"
+              class="small fw-semibold text-decoration-none text-dark text-truncate d-block">
+              {{ att.name }}
+            </a>
+            <div class="text-muted" style="font-size:0.72rem;">
+              {{ formatSize(att.size) }} • {{ att.uploadedAt | date:'dd/MM/yyyy' }}
+            </div>
+          </div>
+          <div class="d-flex gap-1 flex-shrink-0">
+            <a [href]="att.url" target="_blank" class="btn btn-sm btn-outline-primary" title="فتح">
+              <i class="bi bi-eye"></i>
+            </a>
+            @if (!readonly()) {
+              <button type="button" class="btn btn-sm btn-outline-danger" title="حذف"
+                (click)="removed.emit(att.id)">
+                <i class="bi bi-trash"></i>
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>

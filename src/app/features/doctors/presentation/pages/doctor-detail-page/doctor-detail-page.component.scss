@@ -1,0 +1,91 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+// Breadcrumb
+.breadcrumb-item a { color: #15803d; text-decoration: none; &:hover { color: #0d9488; } }
+.breadcrumb-item.active { color: #6b9a7e; }
+
+// Header Card
+.detail-header-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 4px 16px rgba(22, 101, 52, 0.06) !important;
+  border-top: 3px solid #16a34a; overflow: hidden;
+}
+.detail-header-card .card-body { padding: 1.5rem !important; }
+
+// Avatar
+.doc-detail-avatar {
+  width: 80px; height: 80px; border-radius: 18px; flex-shrink: 0;
+  background: linear-gradient(135deg, #15803d, #16a34a); color: #fff;
+  display: grid; place-items: center; font-size: 1.5rem; font-weight: 800;
+  box-shadow: 0 6px 20px rgba(22, 101, 52, 0.25);
+}
+.doc-detail-avatar-img {
+  width: 80px; height: 80px; border-radius: 18px; flex-shrink: 0;
+  object-fit: cover; border: 3px solid #e8f5ec;
+}
+
+// Info Section
+.doc-detail-info { display: flex; flex-direction: column; gap: 0.3rem; flex-grow: 1; }
+.doc-detail-name { color: #14532d; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.1rem; }
+.doc-detail-spec { color: #15803d; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.15rem; }
+.doc-detail-dept { color: #6b9a7e; font-size: 0.85rem; margin-bottom: 0.5rem; }
+
+.doc-detail-meta {
+  display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.82rem; color: #6b9a7e;
+  span {
+    display: flex; align-items: center; gap: 0.4rem;
+    i { color: #a3c4b0; font-size: 0.8rem; }
+  }
+}
+
+// Status Badge
+.doc-detail-badge {
+  padding: 0.4em 0.8em; font-size: 0.78rem; font-weight: 600;
+  border-radius: 8px !important; border: 1px solid transparent;
+  align-self: flex-start;
+  &.bg-success-subtle { border-color: #bbf7d0; }
+  &.bg-warning-subtle { border-color: #fde68a; }
+}
+
+// Actions
+.detail-actions { display: flex; gap: 0.5rem; flex-shrink: 0; flex-wrap: wrap; }
+.detail-actions .btn {
+  border-radius: 10px; font-weight: 600; font-size: 0.82rem;
+  transition: all 0.25s; border: 1.5px solid transparent;
+  i { margin-left: 0.35rem; }
+}
+.btn-outline-info { border-color: #bae6fd; color: #0e7490; &:hover { background: #ecfeff; } }
+.btn-outline-secondary { border-color: #e8f5ec; color: #166534; &:hover { background: #f0fdf4; } }
+.btn-outline-danger { border-color: #fecaca; color: #dc2626; &:hover { background: #fef2f2; } }
+
+// Detail Cards
+.detail-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important;
+  transition: all 0.3s;
+  &:hover { box-shadow: 0 4px 16px rgba(22, 101, 52, 0.08) !important; }
+}
+.detail-card .card-header {
+  background: #fff !important; border-bottom: 1px solid #e8f5ec !important;
+  padding: 0.9rem 1.25rem;
+  h6 { color: #14532d; font-weight: 700; font-size: 0.95rem; margin: 0; i { margin-left: 0.5rem; } }
+}
+.detail-card .card-body { padding: 1.25rem !important; }
+
+dl.row { --bs-gutter-x: 1rem; }
+dl dt { color: #6b9a7e; font-size: 0.85rem; padding-bottom: 0.5rem; }
+dl dd { color: #14532d; font-size: 0.9rem; font-weight: 600; padding-bottom: 0.5rem; }
+
+// Day Badges
+.day-badge {
+  font-weight: 600; font-size: 0.78rem; padding: 0.35em 0.75em;
+  background: #ecfeff !important; color: #0e7490 !important;
+  border: 1px solid #bae6fd; border-radius: 8px !important;
+}
+
+.doc-shift { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; color: #14532d; font-weight: 500; }
+.doc-shift i { color: #a3c4b0; }
+
+// Loading
+.text-center .spinner-border { color: #16a34a !important; width: 3rem; height: 3rem; border-width: 3px; }

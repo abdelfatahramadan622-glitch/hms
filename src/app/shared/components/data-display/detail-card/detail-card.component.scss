@@ -1,0 +1,22 @@
+.hms-detail-card {
+  border-radius: 14px;
+  border: 1px solid #dcfce7;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.hms-detail-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.hms-detail-card .card-header {
+  border-bottom-color: #dcfce7;
+}
+
+.hms-detail-card .card-header h2 {
+  color: #1f2937;
+}
+
+.hms-detail-card .fw-semibold {
+  color: #1f2937;
+}

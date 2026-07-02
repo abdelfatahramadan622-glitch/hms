@@ -1,0 +1,46 @@
+<div class="card border-0 shadow-sm h-100">
+  <div class="card-header bg-white border-bottom d-flex align-items-center justify-content-between py-3">
+    <h6 class="mb-0 fw-bold">
+      <i class="fa-solid fa-triangle-exclamation"></i>الطوارئ النشطة
+    </h6>
+    <a routerLink="/emergency-cases" class="btn btn-sm btn-outline-danger">عرض الكل</a>
+  </div>
+  <div class="card-body p-0">
+    @if (isLoading()) {
+      @for (i of [1,2,3]; track i) {
+        <div class="d-flex align-items-center gap-3 px-3 py-3 border-bottom">
+          <div class="placeholder-glow" style="width: 40px;"><span class="placeholder col-12 rounded d-block" style="height: 40px;"></span></div>
+          <div class="placeholder-glow flex-grow-1"><span class="placeholder col-7 d-block mb-1 rounded"></span><span class="placeholder col-4 rounded"></span></div>
+        </div>
+      }
+    } @else if (emergencies().length === 0) {
+      <div class="text-center py-5 text-muted">
+        <i class="fa-regular fa-circle-check d-block mb-2"></i>
+        <small>لا توجد حالات طوارئ نشطة</small>
+      </div>
+    } @else {
+      @for (em of emergencies(); track em.id) {
+        <a [routerLink]="['/emergency-cases', em.id]"
+          class="d-flex align-items-center gap-3 px-3 py-3 border-bottom text-decoration-none text-dark widget-row">
+          <div class="triage-badge rounded d-flex align-items-center justify-content-center fw-bold flex-shrink-0"
+            [ngClass]="triageConfig[em.triageLevel]?.class ?? 'bg-secondary-subtle text-secondary'"
+            style="width: 42px; height: 42px; font-size: 1.1rem;">
+            {{ em.triageLevel }}
+          </div>
+          <div class="flex-grow-1 min-w-0 em-info">
+            <div class="fw-semibold small text-truncate em-name">{{ em.patientName }}</div>
+            <div class="text-muted text-truncate em-complaint">{{ em.complaint }}</div>
+          </div>
+          <div class="text-end flex-shrink-0 em-meta">
+            <div class="em-time">{{ getElapsedTime(em.arrivedAt) }}</div>
+            @if (em.assignedDoctor) {
+              <div class="em-doc">{{ em.assignedDoctor }}</div>
+            } @else {
+              <div class="em-unassigned">غير معين</div>
+            }
+          </div>
+        </a>
+      }
+    }
+  </div>
+</div>

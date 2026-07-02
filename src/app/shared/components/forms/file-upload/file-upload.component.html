@@ -1,0 +1,31 @@
+<label class="form-label">{{ label }}</label>
+<input
+  #fileInput
+  type="file"
+  class="form-control"
+  [class.is-invalid]="!!error"
+  [attr.accept]="accept || null"
+  [multiple]="multiple"
+  [disabled]="disabled"
+  (change)="updateFiles($any($event.target).files)"
+  (blur)="touch()"
+/>
+@if (helperText && !error) {
+  <div class="form-text">{{ helperText }}</div>
+}
+@if (files.length) {
+  <ul class="list-group list-group-flush mt-2">
+    @for (file of files; track file.name + file.size) {
+      <li class="list-group-item px-0 py-1 small d-flex justify-content-between">
+        <span>{{ file.name }}</span>
+        <span class="text-muted">{{ file.size }} bytes</span>
+      </li>
+    }
+  </ul>
+  <button type="button" class="btn btn-outline-secondary btn-sm mt-2" [disabled]="disabled" (click)="clear(fileInput)">
+    Remove files
+  </button>
+}
+@if (error) {
+  <div class="invalid-feedback d-block">{{ error }}</div>
+}

@@ -1,0 +1,24 @@
+.hms-empty-state__icon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #86efac;
+  background: #f0fdf4;
+  font-weight: 700;
+}
+
+.hms-empty-state .btn-primary {
+  background: linear-gradient(135deg, #15803d, #22c55e);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.hms-empty-state .btn-primary:hover {
+  background: linear-gradient(135deg, #166534, #16a34a);
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+  transform: translateY(-1px);
+}

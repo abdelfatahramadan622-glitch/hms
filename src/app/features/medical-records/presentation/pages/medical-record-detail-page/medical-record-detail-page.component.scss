@@ -1,0 +1,248 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.97) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+:host {
+  display: block;
+  animation: fadeUp 0.5s ease-out;
+}
+
+// ── Breadcrumb ──
+.breadcrumb {
+  .breadcrumb-item {
+    a {
+      color: #15803d;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #22c55e;
+      }
+    }
+
+    &.active {
+      color: #6b7280;
+    }
+  }
+}
+
+// ── Spinner ──
+.spinner-border.text-primary {
+  color: #22c55e !important;
+}
+
+// ── Header Card ──
+.card {
+  border-radius: 14px;
+  animation: cardIn 0.45s ease-out both;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  & + .card {
+    animation-delay: 0.08s;
+  }
+
+  .card-header {
+    border-radius: 14px 14px 0 0;
+    border-bottom-color: #dcfce7;
+
+    h6 {
+      color: #1f2937;
+
+      i {
+        font-size: 0.95rem;
+      }
+
+      .fa-clipboard-list {
+        color: #dc2626;
+      }
+
+      .fa-notes-medical {
+        color: #22c55e;
+      }
+
+      .fa-stethoscope {
+        color: #f59e0b;
+      }
+
+      .bi-clipboard {
+        color: #15803d;
+      }
+
+      .bi-file-text {
+        color: #3b82f6;
+      }
+
+      .bi-paperclip {
+        color: #6b7280;
+      }
+    }
+  }
+}
+
+// ── Badges ──
+.badge {
+  &.rounded-pill {
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  &.bg-primary-subtle {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+  }
+
+  &.bg-success-subtle {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+  }
+}
+
+// ── Patient Link ──
+.text-decoration-none.fw-semibold {
+  color: #15803d;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #22c55e;
+  }
+}
+
+// ── Action Buttons ──
+.btn-outline-secondary {
+  border-radius: 8px;
+  border-color: #dcfce7;
+  color: #15803d;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #f0fdf4;
+    border-color: #22c55e;
+    color: #166534;
+  }
+}
+
+.btn-outline-warning {
+  border-radius: 8px;
+  border-color: #fde68a;
+  color: #d97706;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #fffbeb;
+    border-color: #f59e0b;
+    color: #b45309;
+  }
+}
+
+.btn-outline-danger {
+  border-radius: 8px;
+  border-color: #fecaca;
+  color: #dc2626;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #fef2f2;
+    border-color: #f87171;
+    color: #b91c1c;
+  }
+}
+
+// ── Tabs ──
+.nav-tabs {
+  border-bottom: 2px solid #dcfce7;
+  gap: 4px;
+
+  .nav-link {
+    border: none;
+    border-radius: 10px 10px 0 0;
+    color: #6b7280;
+    font-weight: 500;
+    padding: 10px 18px;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover:not(.active) {
+      color: #15803d;
+      background-color: #f0fdf4;
+    }
+
+    &.active {
+      color: #15803d;
+      background-color: #fff;
+      border-bottom: 3px solid #22c55e;
+      font-weight: 600;
+
+      i {
+        color: #16a34a;
+      }
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      padding: 2px 8px;
+    }
+
+    .badge.bg-primary {
+      background: linear-gradient(135deg, #15803d, #22c55e) !important;
+    }
+
+    .badge.bg-secondary {
+      background-color: #e5e7eb !important;
+      color: #6b7280 !important;
+    }
+  }
+}
+
+// ── Definition Lists (Overview Tab) ──
+dl {
+  dt {
+    padding-bottom: 8px;
+    color: #6b7280;
+  }
+
+  dd {
+    padding-bottom: 8px;
+    color: #1f2937;
+    font-weight: 500;
+    line-height: 1.7;
+  }
+
+  .text-success {
+    color: #15803d !important;
+    font-weight: 600;
+  }
+}
+
+// ── Card Body Text ──
+.card-body {
+  p {
+    line-height: 1.8;
+    color: #374151;
+  }
+}
+
+// ── Row Animation for Overview Cards ──
+.row {
+  > [class*="col-"] {
+    > .card {
+      animation: cardIn 0.4s ease-out both;
+
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.08}s;
+        }
+      }
+    }
+  }
+}

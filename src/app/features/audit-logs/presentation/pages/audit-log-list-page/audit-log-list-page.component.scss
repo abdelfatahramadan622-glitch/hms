@@ -1,0 +1,59 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.page-title { color: #14532d; i { color: #16a34a; } }
+
+.export-btn {
+  border-radius: 10px; font-weight: 600; font-size: 0.85rem;
+  border: 1.5px solid #e8f5ec; color: #166534; transition: all 0.2s;
+  &:hover { background: #f0fdf4; border-color: #bbf7d0; transform: translateY(-2px); }
+}
+
+.filter-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 1px 3px rgba(22, 101, 52, 0.04) !important;
+}
+
+.form-control, .form-select {
+  border-radius: 10px; border: 1.5px solid #d1e7da; transition: all 0.25s;
+  &:focus { border-color: #16a34a; box-shadow: 0 0 0 3.5px rgba(22, 163, 74, 0.1); }
+  &:hover { border-color: #a7d7b8; }
+}
+.input-group-text { border-radius: 10px 0 0 10px; border: 1.5px solid #d1e7da; border-right: none; }
+
+// Logs Card
+.logs-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important; overflow: hidden;
+}
+
+.log-entry {
+  padding: 1rem 1.25rem !important;
+  border-bottom: 1px solid #f0f7f2 !important;
+  transition: background 0.2s;
+  animation: logSlide 0.3s ease both;
+  &:hover { background: #f7fdf9; }
+  &:last-child { border-bottom: none !important; }
+}
+@keyframes logSlide { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+
+// Action Badges
+.log-badge {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.35em 0.75em; font-size: 0.75rem; font-weight: 600;
+  border-radius: 8px !important; transition: transform 0.2s;
+  &:hover { transform: scale(1.05); }
+  i { font-size: 0.65rem; }
+
+  &.log-create { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+  &.log-edit   { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+  &.log-delete { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+  &.log-login  { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+}
+
+.log-desc { color: #14532d; }
+.log-meta {
+  color: #6b9a7e; font-size: 0.75rem; margin-top: 0.25rem;
+  i { opacity: 0.6; }
+}
+.log-sep { margin: 0 0.5rem; opacity: 0.3; }

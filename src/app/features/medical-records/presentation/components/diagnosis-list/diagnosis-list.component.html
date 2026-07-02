@@ -1,0 +1,27 @@
+@if (diagnoses().length === 0) {
+  <p class="text-muted small mb-0">لا توجد تشخيصات مسجلة</p>
+} @else {
+  <div class="diagnosis-list">
+    @for (d of diagnoses(); track d.id) {
+      <div class="diagnosis-item d-flex align-items-start gap-3">
+        <span class="badge rounded-pill flex-shrink-0 mt-1"
+          [ngClass]="typeConfig[d.type]?.class ?? 'bg-secondary-subtle text-secondary'">
+          {{ typeConfig[d.type]?.label ?? d.type }}
+        </span>
+        <div class="flex-grow-1 min-w-0">
+          <div class="fw-semibold small">{{ d.name }}</div>
+          <div class="text-muted" style="font-size:0.72rem;" dir="ltr">{{ d.code }}</div>
+          @if (d.notes) {
+            <div class="text-muted small mt-1">{{ d.notes }}</div>
+          }
+        </div>
+        @if (!readonly()) {
+          <button type="button" class="btn btn-sm btn-outline-danger flex-shrink-0"
+            (click)="removed.emit(d.id)">
+            <i class="bi bi-x"></i>
+          </button>
+        }
+      </div>
+    }
+  </div>
+}

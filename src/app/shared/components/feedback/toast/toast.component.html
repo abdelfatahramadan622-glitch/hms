@@ -1,0 +1,11 @@
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  @for (toast of toasts(); track toast.id) {
+    <div class="toast show border-0 shadow-sm mb-2" role="status" aria-live="polite">
+      <div class="toast-header" [class]="'text-bg-' + toast.type">
+        <strong class="me-auto">{{ toast.title || 'Notification' }}</strong>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="dismiss(toast.id)"></button>
+      </div>
+      <div class="toast-body">{{ toast.message }}</div>
+    </div>
+  }
+</div>

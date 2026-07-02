@@ -1,0 +1,240 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.97) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+:host {
+  display: block;
+  animation: fadeUp 0.5s ease-out;
+}
+
+// ── Form Cards ──
+form {
+  > .card {
+    border-radius: 14px;
+    animation: cardIn 0.45s ease-out both;
+    transition: box-shadow 0.3s ease;
+
+    @for $i from 1 through 2 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.08}s;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+    }
+
+    .card-header {
+      border-radius: 14px 14px 0 0;
+      border-bottom-color: #dcfce7;
+
+      h6 {
+        color: #1f2937;
+
+        .bi-info-circle {
+          color: #15803d;
+        }
+
+        .fa-capsules {
+          color: #22c55e;
+        }
+      }
+    }
+  }
+}
+
+// ── Form Labels ──
+.form-label {
+  color: #374151;
+  font-size: 0.875rem;
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+
+  .text-danger {
+    font-size: 0.8rem;
+    margin-right: 2px;
+  }
+
+  &.small {
+    font-size: 0.82rem;
+    margin-bottom: 4px;
+  }
+}
+
+// ── Form Controls ──
+.form-control,
+.form-select {
+  border-radius: 10px;
+  border: 1.5px solid #e5e7eb;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+    font-size: 0.85rem;
+  }
+
+  &.is-invalid {
+    border-color: #f87171;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+
+  &.form-control-sm,
+  &.form-select-sm {
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 60px;
+  line-height: 1.7;
+}
+
+.invalid-feedback {
+  font-size: 0.78rem;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+// ── Medication Block ──
+.border.rounded-3 {
+  border-color: #dcfce7;
+  border-radius: 12px !important;
+  background-color: #fafffe;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #bbf7d0;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.06);
+  }
+}
+
+// ── Med Header ──
+h6.text-primary {
+  color: #15803d !important;
+  font-size: 0.95rem;
+
+  .fa-capsules {
+    color: #22c55e;
+  }
+}
+
+// ── Add Med Button ──
+.btn-outline-success {
+  border-radius: 8px;
+  border-color: #bbf7d0;
+  color: #15803d;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, #15803d, #22c55e);
+    border-color: #16a34a;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+  }
+}
+
+// ── Remove Med Button ──
+.btn-outline-danger {
+  border-radius: 8px;
+  border-color: #fecaca;
+  color: #dc2626;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #fef2f2;
+    border-color: #f87171;
+    color: #b91c1c;
+  }
+}
+
+// ── Checkboxes ──
+.form-check-input {
+  border-color: #bbf7d0;
+
+  &:checked {
+    background-color: #22c55e;
+    border-color: #16a34a;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+    border-color: #22c55e;
+  }
+}
+
+.form-check-label {
+  color: #4b5563;
+  font-size: 0.85rem;
+}
+
+// ── Submit Buttons ──
+.d-flex {
+  &[class*="justify-content-end"] {
+    margin-top: 8px;
+
+    .btn {
+      border-radius: 10px;
+      font-weight: 600;
+      padding: 10px 28px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      min-width: 140px;
+    }
+  }
+}
+
+.btn-outline-secondary {
+  border-color: #dcfce7;
+  color: #15803d;
+
+  &:hover {
+    background-color: #f0fdf4;
+    border-color: #22c55e;
+    color: #166534;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #15803d, #22c55e);
+  border: none;
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #166534, #16a34a);
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+  }
+
+  .spinner-border {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-right-color: #fff;
+  }
+}

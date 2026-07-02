@@ -1,0 +1,50 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+  border-radius: 16px !important;
+  border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important;
+}
+
+.card-body { padding: 1.5rem !important; }
+
+.occ-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 1.2rem; gap: 1rem;
+}
+
+.occ-label { font-size: 0.82rem; color: #6b9a7e; margin-bottom: 0.3rem; }
+.occ-value { color: #14532d; font-weight: 800; font-size: 1.8rem; letter-spacing: -0.03em; }
+.occ-value small { font-size: 1rem; font-weight: 600; color: #6b9a7e; margin-right: 0.2rem; }
+
+.badge.rounded-pill {
+  font-size: 0.8rem; font-weight: 700; padding: 0.5em 1em;
+  border: 1px solid transparent;
+  &.bg-danger-subtle { border-color: #fecaca; color: #b91c1c !important; }
+  &.bg-warning-subtle { border-color: #fde68a; color: #b45309 !important; }
+  &.bg-success-subtle { border-color: #bbf7d0; color: #15803d !important; }
+}
+
+.progress {
+  height: 12px !important; background: #e8f5ec !important;
+  border-radius: 10px !important; overflow: hidden; margin-bottom: 1rem;
+}
+.progress-bar {
+  border-radius: 10px !important; transition: width 0.6s ease;
+  &.bg-success { background: linear-gradient(90deg, #15803d, #22c55e) !important; }
+  &.bg-warning { background: linear-gradient(90deg, #b45309, #f59e0b) !important; }
+  &.bg-danger { background: linear-gradient(90deg, #b91c1c, #ef4444) !important; }
+}
+
+.occ-beds {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.85rem; color: #6b9a7e; font-weight: 500;
+  i { color: #16a34a; }
+}
+
+.placeholder-glow .placeholder {
+  background: linear-gradient(90deg, #e8f5ec 25%, #f0fdf4 50%, #e8f5ec 75%);
+  background-size: 200% 100%; animation: cms-shimmer 1.5s infinite;
+}
+@keyframes cms-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }

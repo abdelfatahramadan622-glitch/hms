@@ -1,0 +1,55 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.page-title { color: #14532d; i { color: #16a34a; margin-left: 0.5rem; } }
+.total-count { color: #6b9a7e; font-size: 0.85rem; }
+
+.add-btn {
+  border-radius: 12px; font-weight: 600; border: none;
+  background: linear-gradient(135deg, #15803d, #16a34a, #22c55e);
+  background-size: 200% 100%; color: #fff;
+  box-shadow: 0 4px 14px rgba(22, 101, 52, 0.25);
+  transition: all 0.3s; padding: 0.6rem 1.5rem;
+  i { margin-left: 0.5rem; }
+  &:hover { background-position: 100% 50%; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(22, 101, 52, 0.3); color: #fff; }
+}
+
+// Error
+.alert-danger {
+  border-radius: 12px; border: none; background: #fef2f2; color: #b91c1c;
+  animation: shake 0.4s ease;
+  .btn { border-radius: 8px; font-weight: 600; font-size: 0.8rem; }
+}
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+// Skeleton
+.skeleton-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  background: #f7fdf9;
+}
+.skeleton-card .placeholder {
+  background: linear-gradient(90deg, #e8f5ec 25%, #f0fdf4 50%, #e8f5ec 75%);
+  background-size: 200% 100%; animation: cms-shimmer 1.5s infinite;
+}
+@keyframes cms-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+// Empty State
+.empty-icon {
+  width: 80px; height: 80px; border-radius: 50%; margin: 0 auto;
+  background: #f0fdf4; color: #a3c4b0; display: grid; place-items: center;
+  font-size: 2rem; border: 2px dashed #bbf7d0;
+}
+
+// Pagination
+.pagination { gap: 0.4rem; margin-top: 1.5rem; }
+.page-link {
+  border-radius: 10px !important; border: 1px solid #e8f5ec;
+  color: #166534; font-weight: 600; margin: 0 2px;
+  transition: all 0.2s; padding: 0.45rem 0.8rem;
+  &:hover { background: #f0fdf4; border-color: #bbf7d0; transform: translateY(-1px); }
+}
+.page-item.active .page-link {
+  background: linear-gradient(135deg, #15803d, #16a34a); border-color: transparent;
+  color: #fff; box-shadow: 0 2px 8px rgba(22, 101, 52, 0.2);
+}
+.page-item.disabled .page-link { background: #f9fafb; color: #9ca3af; border-color: #f3f4f6; }

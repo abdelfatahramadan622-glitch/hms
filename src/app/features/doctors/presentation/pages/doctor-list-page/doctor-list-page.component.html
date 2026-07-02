@@ -1,0 +1,81 @@
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+  <div>
+    <h1 class="h4 fw-bold mb-0">الأطباء</h1>
+    @if (!facade.isLoading()) {
+      <p class="text-muted small mb-0">إجمالي: {{ facade.totalDoctors() | number }} طبيب</p>
+    }
+  </div>
+  <a routerLink="/doctors/new" class="btn add-btn">
+    <i class="fa-solid fa-user-plus"></i>إضافة طبيب جديد
+  </a>
+</div>
+
+<hms-doctor-filter (filterChanged)="onFilterChanged($event)" (filterReset)="onFilterReset()" />
+
+@if (facade.hasError()) {
+  <div class="alert alert-danger d-flex align-items-center gap-2 mb-4">
+    <i class="bi bi-exclamation-circle-fill"></i>{{ facade.error() }}
+    <button class="btn btn-sm btn-danger ms-auto" (click)="facade.loadAll()">إعادة المحاولة</button>
+  </div>
+}
+
+@if (facade.isLoading()) {
+  <div class="row g-3">
+    @for (i of [1,2,3,4,6,8,9,12]; track i) {
+      <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
+        <div class="card border-0 shadow-sm p-3">
+          <div class="d-flex gap-3 mb-3">
+            <span class="placeholder rounded-circle flex-shrink-0" style="width:56px;height:56px;"></span>
+            <div class="placeholder-glow flex-grow-1">
+              <span class="placeholder col-7 d-block mb-1 rounded"></span>
+              <span class="placeholder col-5 d-block mb-1 rounded"></span>
+              <span class="placeholder col-4 rounded"></span>
+            </div>
+          </div>
+          <div class="placeholder-glow">
+            <span class="placeholder col-12 rounded mb-2" style="height:48px;"></span>
+            <span class="placeholder col-12 rounded" style="height:32px;"></span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+} @else if (!facade.hasDoctors()) {
+  <div class="text-center py-5">
+    <div class="empty-icon"><i class="fa-solid fa-user-doctor"></i></div>
+    <h5 class="fw-bold text-muted">لا يوجد أطباء</h5>
+    <p class="text-muted small mb-4">لم يتم العثور على أطباء مطابقين للبحث</p>
+    <a routerLink="/doctors/new" class="btn btn-primary">
+      <i class="bi bi-person-plus me-2"></i>إضافة أول طبيب
+    </a>
+  </div>
+} @else {
+  <div class="row g-3 mb-4">
+    @for (doctor of facade.doctors().items; track doctor.id) {
+      <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
+        <hms-doctor-card [doctor]="doctor" (deleted)="onDelete($event)" />
+      </div>
+    }
+  </div>
+  @if (facade.totalPages() > 1) {
+    <nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="facade.currentPage() === 1">
+          <button class="page-link" (click)="onPageChange(facade.currentPage() - 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </li>
+        @for (p of pages; track p) {
+          <li class="page-item" [class.active]="p === facade.currentPage()">
+            <button class="page-link" (click)="onPageChange(p)">{{ p }}</button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="facade.currentPage() === facade.totalPages()">
+          <button class="page-link" (click)="onPageChange(facade.currentPage() + 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
+}

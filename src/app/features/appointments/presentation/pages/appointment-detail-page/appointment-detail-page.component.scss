@@ -1,0 +1,42 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.detail-breadcrumb { animation: fadeDown 0.3s ease both; }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.breadcrumb-link { color: #15803d; transition: color 0.2s; &:hover { color: #0d9488; } }
+
+.detail-loading .spinner-border { color: #16a34a !important; width: 3rem; height: 3rem; border-width: 3px; }
+
+.detail-header-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 4px 16px rgba(22, 101, 52, 0.06) !important;
+  border-top: 3px solid #16a34a;
+}
+.detail-title { color: #14532d; }
+.detail-type-badge { font-weight: 600; background: #f0fdf4 !important; color: #15803d !important; border-color: #bbf7d0 !important; }
+.detail-meta-text { color: #6b9a7e; i { color: #16a34a; } }
+
+.detail-actions .btn {
+  border-radius: 10px; font-weight: 600; font-size: 0.82rem; transition: all 0.25s;
+  border: 1.5px solid transparent;
+}
+.action-success { background: #15803d; color: #fff; &:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(22, 101, 52, 0.25); color: #fff; } }
+.action-info { background: #0e7490; &:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(14, 116, 144, 0.25); color: #fff; } }
+.action-cancel { border-color: #fecaca; color: #dc2626; &:hover { background: #fef2f2; } }
+.action-edit { border: 1.5px solid #e8f5ec; color: #166534; &:hover { background: #f0fdf4; } }
+.action-delete { border-color: #fecaca; color: #dc2626; &:hover { background: #fef2f2; transform: scale(1.02); } }
+
+.detail-info-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important;
+  transition: all 0.3s;
+  &:hover { box-shadow: 0 4px 16px rgba(22, 101, 52, 0.08) !important; }
+}
+.detail-card-title { color: #14532d; font-size: 0.95rem; i { color: #16a34a; } }
+.detail-link { color: #15803d; transition: color 0.2s; &:hover { color: #0d9488; } }
+
+.pay-btn {
+  border-radius: 12px; font-weight: 600; background: #15803d; border: none;
+  transition: all 0.25s; box-shadow: 0 2px 8px rgba(22, 101, 52, 0.2);
+  &:hover { background: #166534; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(22, 101, 52, 0.3); color: #fff; }
+}

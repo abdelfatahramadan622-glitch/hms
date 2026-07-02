@@ -1,0 +1,83 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+:host {
+  display: block;
+  animation: fadeUp 0.4s ease-out;
+}
+
+// ── Card ──
+.card {
+  border-radius: 14px;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  }
+}
+
+// ── Form Labels ──
+.form-label {
+  color: #374151;
+  font-size: 0.82rem;
+}
+
+// ── Input Group ──
+.input-group {
+  .input-group-text {
+    border-radius: 8px 0 0 8px;
+    border-color: #dcfce7;
+    color: #15803d;
+    background-color: #f0fdf4;
+  }
+
+  .form-control {
+    border-radius: 0 8px 8px 0;
+    border-color: #dcfce7;
+    transition: all 0.3s ease;
+
+    &:focus {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+    }
+
+    &::placeholder {
+      color: #9ca3af;
+      font-size: 0.82rem;
+    }
+  }
+}
+
+// ── Form Selects ──
+.form-select {
+  border-radius: 8px;
+  border-color: #dcfce7;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+  }
+}
+
+// ── Reset Button ──
+.btn-outline-secondary {
+  border-radius: 8px;
+  border-color: #fecaca;
+  color: #dc2626;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #fef2f2;
+    border-color: #f87171;
+    color: #b91c1c;
+  }
+
+  .bi-x-circle {
+    font-size: 0.85rem;
+  }
+}

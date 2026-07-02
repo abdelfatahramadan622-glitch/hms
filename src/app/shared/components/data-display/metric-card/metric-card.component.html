@@ -1,0 +1,21 @@
+<section class="card h-100 hms-metric-card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between gap-3">
+      <div>
+        <p class="small text-muted mb-1">{{ title }}</p>
+        <div class="h3 mb-1">{{ valueDisplay() }}</div>
+        @if (subtitle) {
+          <p class="small text-muted mb-0">{{ subtitle }}</p>
+        }
+      </div>
+      @if (icon) {
+        <div class="hms-metric-card__icon" [class]="'text-bg-' + variant" aria-hidden="true">{{ icon }}</div>
+      }
+    </div>
+    @if (trend !== undefined) {
+      <div class="small mt-3" [class]="trendClass()">
+        {{ trend >= 0 ? '+' : '' }}{{ trend | number: '1.0-2' }}%
+      </div>
+    }
+  </div>
+</section>

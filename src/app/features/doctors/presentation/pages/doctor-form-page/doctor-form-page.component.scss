@@ -1,0 +1,88 @@
+:host { display: block; animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+// Breadcrumb
+.breadcrumb-item a { color: #15803d; text-decoration: none; &:hover { color: #0d9488; } }
+.breadcrumb-item.active { color: #6b9a7e; }
+
+// Page Title
+.h4 { color: #14532d; i { color: #16a34a; margin-left: 0.5rem; } }
+
+// Error Alert
+.alert-danger {
+  border-radius: 12px; border: none; background: #fef2f2; color: #b91c1c;
+  animation: shake 0.4s ease;
+  .btn-close { filter: invert(20%) sepia(80%) saturate(5000%) hue-rotate(350deg); }
+}
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+// Cards
+.form-card {
+  border-radius: 16px !important; border: 1px solid #e8f5ec !important;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.05) !important; overflow: hidden;
+}
+.form-card .card-header {
+  background: #fff !important; border-bottom: 1px solid #e8f5ec !important;
+  padding: 1rem 1.5rem;
+  h6 { color: #14532d; font-weight: 700; font-size: 0.95rem; margin: 0; i { margin-left: 0.5rem; } }
+}
+.form-card .card-body { padding: 1.5rem !important; }
+
+// Form Controls
+.form-label {
+  color: #166534; font-weight: 700; font-size: 0.85rem;
+  margin-bottom: 0.45rem;
+}
+
+.form-control, .form-select {
+  border-radius: 12px; border: 1.5px solid #d1e7da;
+  padding: 0.65rem 1rem; transition: all 0.25s; font-size: 0.9rem;
+  &::placeholder { color: #a3c4b0; }
+  &:focus { border-color: #16a34a; box-shadow: 0 0 0 3.5px rgba(22, 163, 74, 0.1); }
+  &:hover { border-color: #a7d7b8; }
+  &.is-invalid { border-color: #ef4444; box-shadow: 0 0 0 3.5px rgba(239, 68, 68, 0.08); }
+}
+.invalid-feedback { font-size: 0.8rem; font-weight: 500; }
+textarea.form-control { resize: vertical; min-height: 80px; }
+
+// Day Selector Buttons
+.day-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.day-btn {
+  border-radius: 10px !important; font-weight: 600; font-size: 0.85rem;
+  padding: 0.45rem 1rem; transition: all 0.2s;
+  border: 1.5px solid #e8f5ec !important; color: #166534; background: #fff;
+  &:hover { border-color: #bbf7d0; background: #f0fdf4; }
+  &.btn-primary {
+    background: linear-gradient(135deg, #15803d, #16a34a) !important;
+    color: #fff !important; border-color: transparent !important;
+    box-shadow: 0 2px 8px rgba(22, 101, 52, 0.2);
+  }
+}
+
+.day-error { color: #dc2626; font-size: 0.82rem; font-weight: 500; margin-top: 0.4rem; }
+
+// Bottom Buttons
+.form-actions {
+  display: flex; gap: 0.85rem; justify-content: flex-end;
+}
+.form-actions .btn {
+  padding: 0.7rem 2rem; border-radius: 12px; font-weight: 600;
+  font-size: 0.9rem; transition: all 0.3s ease; border: none;
+}
+.btn-outline-secondary {
+  background: #f3f4f6; color: #374151;
+  border: 1.5px solid #e5e7eb !important;
+  &:hover { background: #e5e7eb; transform: translateY(-2px); }
+}
+.btn-primary {
+  background: linear-gradient(135deg, #15803d, #16a34a, #22c55e);
+  background-size: 200% 100%; color: #fff;
+  box-shadow: 0 4px 14px rgba(22, 101, 52, 0.25);
+  &:hover:not(:disabled) {
+    background-position: 100% 50%; transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(22, 101, 52, 0.3); color: #fff;
+  }
+  &:disabled { opacity: 0.6; }
+}
+
+.spinner-border { width: 1.1rem; height: 1.1rem; border-width: 2px; }
